@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:mfb/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'on_boarding_screen.dart';
+
+void main() async {
+  final prefs = await SharedPreferences.getInstance();
+  final showHome = prefs.getBool('showHome') ?? false;
+
+  runApp(MyApp(
+    showHome: showHome,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool showHome;
+
+  const MyApp({Key? key, required this.showHome}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        HomeScreen.routeName : (_) => HomeScreen(),
+        HomeScreen.routeName: (_) => HomeScreen(),
+        OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
       },
-      initialRoute: HomeScreen.routeName,
+      home: showHome ? HomeScreen() : OnBoardingScreen(),
     );
   }
 }
