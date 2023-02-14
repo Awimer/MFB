@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/on_boarding_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
@@ -10,7 +8,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('MFB'),
-        actions: [
+        /*actions: [
           IconButton(
               onPressed: () async {
                 // navigate directly to onboarding screen
@@ -22,7 +20,7 @@ class HomeScreen extends StatelessWidget {
               },
               icon: Icon(Icons.logout)),
         ],
-      ),
+      */),
     );
   }
 }

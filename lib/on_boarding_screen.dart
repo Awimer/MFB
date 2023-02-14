@@ -4,6 +4,7 @@ import 'package:mfb/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'activity_screen.dart';
 import 'build_page.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -99,7 +100,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         prefs.setBool('showHome', true);
 
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                            builder: (context) => AciviyScreen()));
                       },
                       child: Text(
                         'Lets go',
