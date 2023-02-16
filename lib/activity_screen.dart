@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/login_screen.dart';
 
 class AciviyScreen extends StatelessWidget {
   static const String routeName ='activity';
@@ -45,7 +46,10 @@ class AciviyScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ElevatedButton(onPressed: (){}, child: Text('Player',
+                  ElevatedButton(onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LoginScreen()));
+                  }, child: Text('Player',
                     style: TextStyle(fontSize: 16,color: Colors.red),),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,

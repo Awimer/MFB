@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login';
@@ -16,13 +17,19 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: BackButton(
+          color: Colors.black,
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
             key: formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/logo.png'),
                 Text('Login',
@@ -98,7 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   children: [
                     Text('Dont have an account?'),
-                    TextButton(onPressed: (){},
+                    TextButton(onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Regester()));
+                    },
                         child: Text('Sign Up',
                           style: TextStyle(
                             color: Colors.red,
