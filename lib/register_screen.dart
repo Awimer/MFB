@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/dialoge_utils.dart';
 import 'package:mfb/validation_utils.dart';
 
 class Regester extends StatefulWidget {
@@ -10,6 +12,8 @@ class Regester extends StatefulWidget {
 class _RegesterState extends State<Regester> {
   bool securePassword = true;
   var formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,7 @@ class _RegesterState extends State<Regester> {
                   ),
                   SizedBox(height: 20.0,),
                   TextFormField(
+                    controller: emailController,
                     validator:(text){
                       if (text == null || text.trim().isEmpty){
                         return 'please enter Email';
@@ -71,6 +76,7 @@ class _RegesterState extends State<Regester> {
                   ),
                   SizedBox(height: 20.0,),
                   TextFormField(
+                    controller: passwordController,
                     validator:(text){
                       if (text == null || text.trim().isEmpty){
                         return 'please enter Password';
@@ -164,6 +170,7 @@ class _RegesterState extends State<Regester> {
                   ),
                   SizedBox(height: 20,),
                   MaterialButton(onPressed: (){
+                    createAccountClicked();
                   },
                     minWidth: double.infinity,
                     child: Text('Sign up',
@@ -186,9 +193,22 @@ class _RegesterState extends State<Regester> {
       ),
     );
   }
+  var authService = FirebaseAuth.instance;
   void createAccountClicked(){
     if(formKey.currentState?.validate()== false){
       return;
     }
+    showLoading(context, 'Loading...');
+    authService.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text)
+    .then((userCredential) {
+      hideLoading(context);
+      showMessage(context,userCredential.user?.uid ?? '');
+    })
+    .onError((error, stackTrace) {
+      hideLoading(context);
+      showMessage(context, error.toString());
+    });
   }
 }

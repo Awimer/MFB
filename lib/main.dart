@@ -5,12 +5,11 @@ import 'package:mfb/login_screen.dart';
 import 'package:mfb/register_screen.dart';
 
 import 'activity_screen.dart';
-import 'firebase_options.dart';
 import 'on_boarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
