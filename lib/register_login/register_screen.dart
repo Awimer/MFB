@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/dialoge_utils.dart';
-import 'package:mfb/validation_utils.dart';
+import 'package:mfb/register_login/validation_utils.dart';
 
 class Regester extends StatefulWidget {
   static const String routeName = 'register';
@@ -131,13 +131,14 @@ class _RegesterState extends State<Regester> {
                   ),
                   SizedBox(height: 20.0,),
                   TextFormField(
+
                     decoration: InputDecoration(
                       hintText: 'Country',
                       border: OutlineInputBorder(),
                     ),
                   ),
                   SizedBox(height: 20.0,),
-                  Row(
+                  /*Row(
                     children: [
                       Expanded(
                         child: TextFormField(
@@ -168,7 +169,7 @@ class _RegesterState extends State<Regester> {
 
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20,),*/
                   MaterialButton(onPressed: (){
                     createAccountClicked();
                   },

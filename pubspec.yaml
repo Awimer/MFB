@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.5.0
+  country_picker: ^2.0.19
+
 
 
   smooth_page_indicator: ^1.0.1

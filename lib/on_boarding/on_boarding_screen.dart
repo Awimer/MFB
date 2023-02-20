@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/home_screen.dart';
+import 'package:mfb/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'activity_screen.dart';
+import '../register_login/activity_screen.dart';
 import 'build_page.dart';
 
 class OnBoardingScreen extends StatefulWidget {

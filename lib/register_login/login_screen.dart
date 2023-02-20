@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/register_screen.dart';
-import 'package:mfb/validation_utils.dart';
+import 'package:mfb/register_login/register_screen.dart';
+import 'package:mfb/register_login/validation_utils.dart';
 
-import 'dialoge_utils.dart';
+import '../dialoge_utils.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login';
