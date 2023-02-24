@@ -15,6 +15,10 @@ class MyTheme {
     cardColor: colorGrey,
     cursorColor: colorOpacity,
     errorColor: Colors.black,
+    inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorRed)
+      ),),
     iconTheme: IconThemeData(color: Colors.black),
     scaffoldBackgroundColor: Colors.white,
     bottomSheetTheme: BottomSheetThemeData(
@@ -66,6 +70,9 @@ class MyTheme {
     errorColor: Colors.white,
    scaffoldBackgroundColor: Colors.transparent,
 inputDecorationTheme: InputDecorationTheme(
+  focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: colorRed)
+  ),
   enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
           color: Colors.grey
