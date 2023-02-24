@@ -54,30 +54,39 @@ class _HomeLayoutState extends State<HomeLayout> {
                 currentIndex =index;
               });
             },
-            selectedItemColor: Colors.red,
-            unselectedItemColor: Colors.black,
-            selectedIconTheme: IconThemeData(color: Colors.red),
-            unselectedIconTheme: IconThemeData(color: Colors.black),
-            selectedLabelStyle: TextStyle(color: Colors.red),
-            unselectedLabelStyle: TextStyle(color: Colors.black),
+            selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+            selectedIconTheme: Theme.of(context).bottomNavigationBarTheme.selectedIconTheme,
+            unselectedIconTheme: Theme.of(context).bottomNavigationBarTheme.unselectedIconTheme,
+            selectedLabelStyle: Theme.of(context).bottomNavigationBarTheme.selectedLabelStyle,
+            unselectedLabelStyle: Theme.of(context).bottomNavigationBarTheme.unselectedLabelStyle,
             items: [
               BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                   icon: Icon(Icons.home_filled,),
                   label: 'Home'
               ),
               BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+
                   icon: Icon(Icons.favorite_border_outlined),
                   label: 'Favourites'
               ),
               BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+
                   icon: Icon(Icons.wechat_sharp),
                   label: 'Chats'
               ),
               BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+
                   icon: Icon(Icons.settings),
                   label: 'Settings'
               ),
               BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+
                   icon: Icon(Icons.person_outline_outlined),
                   label: 'Profile'
               ),

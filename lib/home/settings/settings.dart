@@ -1,9 +1,18 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:mfb/home/settings/setting_widget.dart';
 
-class SettingScreen extends StatelessWidget {
+import '../../theme_bottom_sheet.dart';
+
+class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +69,9 @@ class SettingScreen extends StatelessWidget {
                       pinkColor: Colors.pinkAccent,
                       changePrefixIcon:Icon( Icons.person_outline_outlined,),
                       title:"Account",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,)),
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                      color: Theme.of(context).canvasColor,
+                      )),
                   new Container(
                     //margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Divider(
@@ -68,11 +79,18 @@ class SettingScreen extends StatelessWidget {
                         color: Color.fromRGBO(213, 213, 213, 1),
                         height: 36,
                       )),
-                  SettingsWidget(
-                      pinkColor: Colors.pinkAccent,
-                      changePrefixIcon:Icon( Icons.language_outlined,),
-                      title:"Language",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,)),
+                  InkWell(
+                    onTap: (){
+                      showThemeBottomSheet();
+                    },
+                    child: SettingsWidget(
+                        pinkColor: Colors.pinkAccent,
+                        changePrefixIcon:Icon( Icons.language_outlined,),
+                        title:"Theme",
+                        changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                            color: Theme.of(context).canvasColor
+                        )),
+                  ),
                   new Container(
                     //margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Divider(
@@ -84,7 +102,9 @@ class SettingScreen extends StatelessWidget {
                       pinkColor: Colors.pinkAccent,
                       changePrefixIcon:Icon( Icons.notifications_none_outlined,),
                       title:"Notifications",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,)),
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor
+                      )),
                   new Container(
                     //margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Divider(
@@ -96,7 +116,9 @@ class SettingScreen extends StatelessWidget {
                       pinkColor: Colors.pinkAccent,
                       changePrefixIcon:Icon( Icons.security_outlined,),
                       title:"Security",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,)),
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor
+                      )),
                   new Container(
                     //margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Divider(
@@ -108,7 +130,9 @@ class SettingScreen extends StatelessWidget {
                       pinkColor: Colors.pinkAccent,
                       changePrefixIcon:Icon( Icons.report_gmailerrorred_outlined ,),
                       title:"Help",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,)),
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor
+                      )),
                   new Container(
                     //margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Divider(
@@ -120,13 +144,8 @@ class SettingScreen extends StatelessWidget {
                       pinkColor: Colors.pinkAccent,
                       changePrefixIcon:Icon( Icons.login_outlined,),
                       title:"Log Out",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,)),
-                  new Container(
-                    //margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      child: Divider(
-                        thickness: 1,
-                        color: Color.fromRGBO(213, 213, 213, 1),
-                        height: 36,
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor
                       )),
                 ],
               ),
@@ -135,5 +154,11 @@ class SettingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void showThemeBottomSheet(){
+    showModalBottomSheet(context: context, builder: (buildContext){
+      return ThemeBottomSheet();
+    });
   }
 }

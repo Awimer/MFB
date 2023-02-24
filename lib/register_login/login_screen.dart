@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/register_login/register_screen.dart';
 import 'package:mfb/register_login/validation_utils.dart';
 
@@ -27,8 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: BackButton(
-          color: Colors.black,
+          color: Theme.of(context).errorColor,
         ),
+
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -101,6 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   MaterialButton(onPressed: (){
                     createAccountClicked();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => HomeLayout()));
                   },
                     minWidth: double.infinity,
                     child: Text('Login',

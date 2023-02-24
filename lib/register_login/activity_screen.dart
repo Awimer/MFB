@@ -7,7 +7,7 @@ class AciviyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+     color: Theme.of(context).canvasColor,
       child: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height*0.1,),
@@ -52,7 +52,7 @@ class AciviyScreen extends StatelessWidget {
                   }, child: Text('Player',
                     style: TextStyle(fontSize: 16,color: Colors.red),),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                      primary: Theme.of(context).canvasColor,
                       side: BorderSide(color: Colors.red),
                       minimumSize: Size(10,50),
                     ),
@@ -61,7 +61,7 @@ class AciviyScreen extends StatelessWidget {
                   ElevatedButton(onPressed: (){}, child: Text('Coach',
                     style: TextStyle(fontSize: 16,color: Colors.red),),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                      primary: Theme.of(context).canvasColor,
                       side: BorderSide(color: Colors.red),
                       minimumSize: Size(10,50),
                     ),
@@ -70,7 +70,7 @@ class AciviyScreen extends StatelessWidget {
                   ElevatedButton(onPressed: (){}, child: Text('Fan',
                     style: TextStyle(fontSize: 16,color: Colors.red),),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                      primary: Theme.of(context).canvasColor,
                       side: BorderSide(color: Colors.red),
                       minimumSize: Size(10,50),
                     ),

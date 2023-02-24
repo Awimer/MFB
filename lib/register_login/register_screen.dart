@@ -22,7 +22,7 @@ class _RegesterState extends State<Regester> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: BackButton(
-          color: Colors.black,
+          color: Theme.of(context).errorColor,
         ),
       ),
       body: Form(
@@ -87,6 +87,7 @@ class _RegesterState extends State<Regester> {
                       return null;
                     },
                     decoration: InputDecoration(
+
                       hintText: 'Password',
                       border: OutlineInputBorder(),
                       suffixIcon: InkWell(
@@ -131,7 +132,6 @@ class _RegesterState extends State<Regester> {
                   ),
                   SizedBox(height: 20.0,),
                   TextFormField(
-
                     decoration: InputDecoration(
                       hintText: 'Country',
                       border: OutlineInputBorder(),

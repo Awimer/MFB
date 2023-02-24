@@ -10,8 +10,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         titleSpacing: 20,
         title: Row(
@@ -25,14 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Text(
               'Hi, Shadi',
-              style: TextStyle(
-                color: Colors.black,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.notifications_none_outlined),color: Colors.black,),
+          IconButton(onPressed: (){},
+            icon: Icon(Icons.notifications_none_outlined),
+           /* color: Theme.of(context).canvasColor,*/),
         ],
       ),
       body: Padding(
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -147,11 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 30,
               width: 100.0,
-              color: Colors.white.withOpacity(.7),
+              color: Theme.of(context).cursorColor,
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Center(
                   child: Text(
                 'Goal Keeper',
+                    style: Theme.of(context).textTheme.bodyText2,
               )),
             ),
           ],
@@ -160,7 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget buildPopularPlayerItem() => Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0), color: Colors.grey[200]),
+            borderRadius: BorderRadius.circular(10.0),
+            color:Theme.of(context).cardColor),
         child: Row(
           children: [
             Image.asset('assets/images/player.png'),

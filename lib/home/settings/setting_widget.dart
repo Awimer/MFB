@@ -28,10 +28,7 @@ class SettingsWidget extends StatelessWidget {
         SizedBox(width: 20.0,),
         Expanded(
           child: Text(title,
-            style: TextStyle(
-              fontSize: 15.0,
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ),
         changeSuffixIcon
