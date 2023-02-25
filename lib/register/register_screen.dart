@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/register/register_view_model.dart';
 import 'package:mfb/register/validation_utils.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ implements RegisterNavigator {
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var userNameController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   RegisterViewModel initViewModel() {
@@ -53,6 +56,7 @@ implements RegisterNavigator {
                     ),
                     SizedBox(height: 20.0,),
                     TextFormField(
+                      controller: userNameController,
                       validator:(text){
                         if (text == null || text.trim().isEmpty){
                           return 'please enter User Name';
@@ -118,6 +122,7 @@ implements RegisterNavigator {
                     ),
                     SizedBox(height: 20.0,),
                     TextFormField(
+                      controller: phoneController,
                       validator:(text){
                         if (text == null || text.trim().isEmpty){
                           return 'please enter phone number';
@@ -211,7 +216,13 @@ implements RegisterNavigator {
     if(formKey.currentState?.validate()== false){
       return;
     }
-    viewModel.register(emailController.text, passwordController.text);
+    viewModel.register(emailController.text, passwordController.text,userNameController.text,phoneController.text);
+  }
+
+  @override
+  void gotoHome() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomeLayout()));
   }
 
 }

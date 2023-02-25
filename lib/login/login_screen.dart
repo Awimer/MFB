@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/dialoge_utils.dart';
 import 'package:mfb/forget_password/forget_password.dart';
-import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/register/register_screen.dart';
 import 'package:mfb/register/validation_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../base.dart';
+import '../home/home_layout.dart';
 import 'login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -166,5 +165,10 @@ implements LoginNavigator {
       return;
     }
     viewModel.login(emailController.text, passwordController.text);
+  }
+  @override
+  void gotoHome() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomeLayout()));
   }
 }
