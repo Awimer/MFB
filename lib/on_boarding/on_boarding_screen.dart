@@ -99,7 +99,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         prefs.setBool('showHome', true);
 
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => AciviyScreen()));
+                            builder: (context) => ActivityScreen()));
                       },
                       child: Text(
                         'Lets go',

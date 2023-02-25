@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mfb/home/profile.dart';
 import 'package:mfb/home/settings/settings.dart';
 
-import 'chat.dart';
+import 'chat/chat_screen.dart';
 import 'favorite.dart';
-import 'home_screen.dart';
+import 'home_screen/home_screen.dart';
 
 
 class HomeLayout extends StatefulWidget {
@@ -20,7 +20,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   List<Widget>screens=[
     HomeScreen(),
     FavouriteScreen(),
-    ChatsScreen(),
+    ChatScreen(),
     SettingScreen(),
     ProfileScreen(),
   ];

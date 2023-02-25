@@ -1,16 +1,19 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/activity/activity_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'on_boarding/on_boarding_screen.dart';
 
 class Tagroba extends StatelessWidget {
-  const Tagroba({Key? key}) : super(key: key);
-
+  static const String routeName= 'tagroba';
+  
+  ActivityScreen? activityScreen;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         title: Text('MFB'),
         actions: [
@@ -73,6 +76,7 @@ class Tagroba extends StatelessWidget {
           ),
         ),
       ),
+    
     );
   }
 }

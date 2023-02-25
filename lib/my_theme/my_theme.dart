@@ -13,7 +13,7 @@ class MyTheme {
     primaryColor: colorRed,
     canvasColor: Colors.white,
     cardColor: colorGrey,
-    cursorColor: colorOpacity,
+    buttonColor: colorOpacity,
     errorColor: Colors.black,
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
@@ -66,7 +66,7 @@ class MyTheme {
     primaryColor: colorRed,
    cardColor: colorBlack,
     canvasColor: Colors.black,
-    cursorColor: colorOpacityBlack,
+    buttonColor: colorOpacityBlack,
     errorColor: Colors.white,
    scaffoldBackgroundColor: Colors.transparent,
 inputDecorationTheme: InputDecorationTheme(

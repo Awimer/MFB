@@ -1,19 +1,46 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:mfb/base.dart';
-import 'package:mfb/dialoge_utils.dart';
+import 'package:mfb/data_base/my_database.dart';
+import 'package:mfb/model/my_user.dart';
+import 'package:mfb/model/shared_data.dart';
 
 abstract class RegisterNavigator extends BaseNavigator{
-
+  void gotoHome();
 }
 class RegisterViewModel extends BaseViewModel<RegisterNavigator>{
 
   var auth = FirebaseAuth.instance;
-  void register(String email , String password)async{
+
+  void register(
+      String email ,
+      String password,
+      String userName,
+      String phone,
+      )async{
+    navigator?.showLoadingDialog();
     try {
-      navigator?.showLoadingDialog();
       var credential= await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      MyUser newUser=MyUser(
+        id: credential.user?.uid,
+        phone: phone,
+        userName: userName,
+        email: email,
+      );
+
+      //auth.currentUser?.updateProfile(displayName: userName);
+      //credential.user?.updateProfile(displayName: userName);
+      credential.user!.updateDisplayName('userName');
+
+      var insertedUser = await MyDataBase.insertUser(newUser);
+      if(insertedUser != null){
+        // user inserted successfully
+        SharedData.user = insertedUser;
+        navigator?.gotoHome();
+      }else {
+        // error with database, show error
+        navigator?.showMessageDialog('something went wrong, error with data base');
+      }
       navigator?.hideLoadingDialog();
       navigator?.showMessageDialog(credential.user?.uid ??'');
     } on FirebaseAuthException catch (e) {

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/login/login_screen.dart';
+import 'package:mfb/tagrobaa.dart';
 
-class AciviyScreen extends StatelessWidget {
+class ActivityScreen extends StatelessWidget {
   static const String routeName ='activity';
+  var selectedButton = null;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,8 +49,9 @@ class AciviyScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ElevatedButton(onPressed: (){
+                    playerCallback();
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => LoginScreen()));
+                        builder: (context) => Tagrobaa()));
                   }, child: Text('Player',
                     style: TextStyle(fontSize: 16,color: Colors.red),),
                     style: ElevatedButton.styleFrom(
@@ -58,7 +61,12 @@ class AciviyScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16,),
-                  ElevatedButton(onPressed: (){}, child: Text('Coach',
+                  ElevatedButton(onPressed: (){
+                    coachCallback();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Tagrobaa()));
+                  },
+                    child: Text('Coach',
                     style: TextStyle(fontSize: 16,color: Colors.red),),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).canvasColor,
@@ -83,5 +91,11 @@ class AciviyScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+  void playerCallback(){
+    selectedButton = 1;
+  }
+  void coachCallback(){
+    selectedButton = 2;
   }
 }

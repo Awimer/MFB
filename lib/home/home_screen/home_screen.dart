@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mfb/home/home_screen/searchScreen.dart';
 
 class HomeScreen extends StatefulWidget {
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,42 +34,51 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
-          IconButton(onPressed: (){},
-            icon: Icon(Icons.notifications_none_outlined),
-           /* color: Theme.of(context).canvasColor,*/),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons
+                .notifications_none_outlined), /* color: Theme.of(context).canvasColor,*/
+          ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child:
+            Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              height: 60,
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Search',
-                      style: TextStyle(color: Colors.grey),
+              child: InkWell(onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SearchScreen()));
+              },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: Colors.grey,
                     ),
-                  ),
-                  Icon(
-                    Icons.tune_outlined,
-                    color: Colors.grey,
-                  )
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Search',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                    Icon(
+                      Icons.tune_outlined,
+                      color: Colors.grey,
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -148,12 +160,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 30,
               width: 100.0,
-              color: Theme.of(context).cursorColor,
+              color: Theme.of(context).buttonColor,
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Center(
                   child: Text(
                 'Goal Keeper',
-                    style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyText2,
               )),
             ),
           ],
@@ -163,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildPopularPlayerItem() => Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color:Theme.of(context).cardColor),
+            color: Theme.of(context).cardColor),
         child: Row(
           children: [
             Image.asset('assets/images/player.png'),
@@ -224,4 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       );
+
+
+
 }

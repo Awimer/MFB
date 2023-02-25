@@ -5,6 +5,8 @@ import 'package:mfb/activity/activity_screen.dart';
 import 'package:mfb/login/login_screen.dart';
 import 'package:mfb/register/register_screen.dart';
 import 'package:mfb/home/settings/setting_provider.dart';
+import 'package:mfb/tagroba.dart';
+import 'package:mfb/tagrobaa.dart';
 import 'package:provider/provider.dart';
 
 import 'forget_password/create_new_password.dart';
@@ -40,15 +42,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
-        AciviyScreen.routeName: (_) => AciviyScreen(),
+        ActivityScreen.routeName: (_) => ActivityScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),
         Regester.routeName: (_) => Regester(),
         ForgetScreen.routeName: (_) => ForgetScreen(),
         VerifictionCode.routeName: (_) => VerifictionCode(),
         CreatePassword.routeName: (_) => CreatePassword(),
         HomeLayout.routeName: (_) => HomeLayout(),
+        Tagrobaa.routeName: (_) => Tagrobaa(),
       },
-      initialRoute: OnBoardingScreen.routeName,
+      initialRoute: LoginScreen.routeName,
     );
   }
 }
