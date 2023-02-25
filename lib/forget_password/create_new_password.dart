@@ -24,7 +24,7 @@ class CreatePassword extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset('assets/image/close.png'),
+              Image.asset('assets/images/password.png'),
               Text('Create New Password',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -37,6 +37,7 @@ class CreatePassword extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 21,
+                  color: Colors.grey
                 ),
               ),
               SizedBox(height: 30.0,),

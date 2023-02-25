@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mfb/home/settings/setting_widget.dart';
 
-import '../../theme_bottom_sheet.dart';
+import '../../my_theme/theme_bottom_sheet.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);

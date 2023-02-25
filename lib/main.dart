@@ -1,16 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/home_layout.dart';
-import 'package:mfb/register_login/login_screen.dart';
-import 'package:mfb/register_login/register_screen.dart';
-import 'package:mfb/setting_provider.dart';
+import 'package:mfb/activity/activity_screen.dart';
+import 'package:mfb/login/login_screen.dart';
+import 'package:mfb/register/register_screen.dart';
+import 'package:mfb/home/settings/setting_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'forget_password/create_new_password.dart';
 import 'forget_password/forget_password.dart';
 import 'forget_password/verification_code.dart';
-import 'my_theme.dart';
-import 'register_login/activity_screen.dart';
+import 'my_theme/my_theme.dart';
+import 'activity/activity_screen.dart';
 import 'on_boarding/on_boarding_screen.dart';
 
 void main() async{
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         CreatePassword.routeName: (_) => CreatePassword(),
         HomeLayout.routeName: (_) => HomeLayout(),
       },
-      initialRoute: CreatePassword.routeName,
+      initialRoute: OnBoardingScreen.routeName,
     );
   }
 }

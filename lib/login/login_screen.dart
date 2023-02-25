@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/dialoge_utils.dart';
 import 'package:mfb/forget_password/forget_password.dart';
 import 'package:mfb/home/home_layout.dart';
-import 'package:mfb/register_login/register_screen.dart';
-import 'package:mfb/register_login/validation_utils.dart';
+import 'package:mfb/register/register_screen.dart';
+import 'package:mfb/register/validation_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../base.dart';
 import 'login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,23 +18,23 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
+class _LoginScreenState extends BaseState<LoginScreen,LoginViewModel>
 implements LoginNavigator {
   bool securedPassword = true;
 
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  late LoginViewModel viewModel;
+
+  @override
+  LoginViewModel initViewModel() {
+    return LoginViewModel();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_){
-        viewModel = LoginViewModel();
-        viewModel.navigator = this;
-        return viewModel;
-      },
+      create: (_)=>viewModel,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -115,8 +117,8 @@ implements LoginNavigator {
                     ),
                     MaterialButton(onPressed: (){
                       signIN();
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => HomeLayout()));
+                      //Navigator.of(context).push(MaterialPageRoute(
+                          //builder: (context) => HomeLayout()));
                     },
                       minWidth: double.infinity,
                       child: Text('Login',
@@ -164,9 +166,5 @@ implements LoginNavigator {
       return;
     }
     viewModel.login(emailController.text, passwordController.text);
-  }
-  @override
-  void showLoading() {
-    print('show loading... called');
   }
 }

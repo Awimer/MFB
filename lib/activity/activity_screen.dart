@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/register_login/login_screen.dart';
+import 'package:mfb/login/login_screen.dart';
 
 class AciviyScreen extends StatelessWidget {
   static const String routeName ='activity';
