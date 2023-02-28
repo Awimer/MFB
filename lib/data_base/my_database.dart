@@ -23,11 +23,4 @@ class MyDataBase{
     var res = await docRef.get();
     return res.data();
   }
-  /*static Future<MyUser?> getUserByUserName(MyUser userName) async{
-    var collection = getUsersCollection();
-    var docRef = collection.doc(user.userName);
-    var res = await docRef.get();
-    return res.data();
-  }*/
-
 }

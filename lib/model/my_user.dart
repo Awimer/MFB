@@ -23,5 +23,4 @@ class MyUser {
       'email' :email,
     };
   }
-
 }
