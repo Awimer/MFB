@@ -30,7 +30,7 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator>{
 
       //auth.currentUser?.updateProfile(displayName: userName);
       //credential.user?.updateProfile(displayName: userName);
-      credential.user!.updateDisplayName('userName');
+      //credential.user!.updateDisplayName('userName');
 
       var insertedUser = await MyDataBase.insertUser(newUser);
       if(insertedUser != null){

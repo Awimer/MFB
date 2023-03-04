@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/chat/chat_room.dart';
 
+import '../../model/my_user.dart';
+
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -29,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
       return "$user2$user1";
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,6 @@ import 'forget_password/create_new_password.dart';
 import 'forget_password/forget_password.dart';
 import 'forget_password/verification_code.dart';
 import 'my_theme/my_theme.dart';
-import 'activity/activity_screen.dart';
 import 'on_boarding/on_boarding_screen.dart';
 
 void main() async{
@@ -44,12 +43,12 @@ class MyApp extends StatelessWidget {
         OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
         ActivityScreen.routeName: (_) => ActivityScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),
-        Regester.routeName: (_) => Regester(),
+        Register.routeName: (_) => Register(),
         ForgetScreen.routeName: (_) => ForgetScreen(),
         VerifictionCode.routeName: (_) => VerifictionCode(),
         CreatePassword.routeName: (_) => CreatePassword(),
         HomeLayout.routeName: (_) => HomeLayout(),
-        Tagrobaa.routeName: (_) => Tagrobaa(),
+        Tagroba.routeName: (_) => Tagroba(),
       },
       initialRoute: LoginScreen.routeName,
     );

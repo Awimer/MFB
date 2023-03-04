@@ -1,3 +1,4 @@
+
 class MyUser {
   static const String collectionName = 'users';
   String? id;
@@ -23,4 +24,5 @@ class MyUser {
       'email' :email,
     };
   }
+
 }

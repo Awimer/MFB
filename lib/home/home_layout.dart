@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mfb/home/profile.dart';
+import 'package:mfb/home/profile/profile.dart';
 import 'package:mfb/home/settings/settings.dart';
 
 import 'chat/chat_screen.dart';

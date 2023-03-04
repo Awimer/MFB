@@ -17,10 +17,25 @@ class MyDataBase{
     var res = await docRef.set(user);
     return user;
   }
+
   static Future<MyUser?> getUserById(String uid) async{
     var collection = getUsersCollection();
     var docRef = collection.doc(uid);
     var res = await docRef.get();
     return res.data();
   }
+
+  static Future<QuerySnapshot<MyUser>> getAllUsers()async{
+    // read data once
+    return await getUsersCollection()
+        .get();
+  }
+
+  static Stream<QuerySnapshot<MyUser>>
+  listenForMyUsersRealTimeUpdates(){
+    // listen for real time updates
+    return getUsersCollection()
+        .snapshots();
+  }
+
 }

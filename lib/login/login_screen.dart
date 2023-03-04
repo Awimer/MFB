@@ -79,6 +79,7 @@ implements LoginNavigator {
                     SizedBox(height: 20.0,),
 
                     TextFormField(
+                      obscureText: securedPassword,
                       controller: passwordController,
                       validator:(text){
                         if (text == null || text.trim().isEmpty){
@@ -137,7 +138,7 @@ implements LoginNavigator {
                         Text('Dont have an account?'),
                         TextButton(onPressed: (){
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Regester()));
+                              builder: (context) => Register()));
                         },
                             child: Text('Sign Up',
                               style: TextStyle(

@@ -33,6 +33,10 @@ dependencies:
   country_picker: ^2.0.19
   provider: ^6.0.5
   modal_progress_hud_nsn: ^0.3.0
+  firebase_storage: ^11.0.14
+  image_picker: ^0.8.6+4
+  carousel_slider: ^4.2.1
+
 
 
 

@@ -7,15 +7,15 @@ import 'package:provider/provider.dart';
 
 import '../base.dart';
 
-class Regester extends StatefulWidget {
+class Register extends StatefulWidget {
   static const String routeName = 'register';
   @override
-  State<Regester> createState() => _RegesterState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _RegesterState extends BaseState<Regester,RegisterViewModel>
+class _RegisterState extends BaseState<Register,RegisterViewModel>
 implements RegisterNavigator {
-  bool securePassword = true;
+  bool securedPassword = true;
 
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
@@ -92,6 +92,7 @@ implements RegisterNavigator {
                     ),
                     SizedBox(height: 20.0,),
                     TextFormField(
+                      obscureText: securedPassword,
                       controller: passwordController,
                       validator:(text){
                         if (text == null || text.trim().isEmpty){
@@ -108,13 +109,13 @@ implements RegisterNavigator {
                         border: OutlineInputBorder(),
                         suffixIcon: InkWell(
                           onTap: (){
-                            securePassword =!securePassword;
+                            securedPassword =!securedPassword;
                             setState(() {
 
                             });
                           },
                           child: Icon(
-                            securePassword ?
+                            securedPassword ?
                             Icons.visibility : Icons.visibility_off,
                           ),
                         ),

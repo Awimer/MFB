@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/data_base/my_database.dart';
+import 'package:mfb/model/my_user.dart';
 
 class ChatRoom extends StatelessWidget {
   final Map<String, dynamic> userMap;
@@ -14,8 +16,6 @@ class ChatRoom extends StatelessWidget {
   final TextEditingController message = TextEditingController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-
 
 
   void onSendMessage() async {
@@ -56,12 +56,15 @@ class ChatRoom extends StatelessWidget {
                   .collection('chatroom')
                   .doc(chatRoomId)
                   .collection('chats')
-                  .orderBy("time", descending: false)
+                 // .orderBy("time", descending: false)// السطر ده ليه؟
+
                   .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.data != null) {
+              builder: (BuildContext context,snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container();
+                } else {
                   return ListView.builder(
+                    shrinkWrap: true,
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       Map<String, dynamic> map = snapshot.data!.docs[index]
@@ -69,8 +72,6 @@ class ChatRoom extends StatelessWidget {
                       return messages(size, map);
                     },
                   );
-                } else {
-                  return Container();
                 }
               },
             ),
