@@ -39,20 +39,18 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: BackButton(
+        leading: const BackButton(
           color: Colors.black,
         ),
-        title: Text('Search Screen'),
+        title: const Text('Search Screen'),
         centerTitle: true,
       ),
       body:
       isLoading
-          ? Center(
-              child: Container(
-                child: Text('Not Found',style: (TextStyle(
-                  fontSize: 32
-                )),),
-              ),
+          ? const Center(
+              child:  Text('Not Found',style: (TextStyle(
+                fontSize: 32
+              )),),
             )
           : Column(
               children: [
@@ -81,7 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           hintText: 'user name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                             ),
                           ),
@@ -99,7 +97,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     onSearch();
 
                   },
-                  child: Text('Search'),
+                  child: const Text('Search'),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height/30,),
                 userMap != null
@@ -112,12 +110,12 @@ class _SearchScreenState extends State<SearchScreen> {
                               ChatRoom(chatRoomId: roomId, userMap: userMap!)
                           ));
                         },
-                        leading: Icon(
+                        leading: const Icon(
                           Icons.account_box,
                           color: Colors.black,
                         ),
                         title: Text(userMap!['userName']),
-                        trailing: Icon(
+                        trailing: const Icon(
                           Icons.chat,
                           color: Colors.black,
                         ),

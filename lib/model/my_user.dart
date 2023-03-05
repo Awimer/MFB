@@ -1,28 +1,32 @@
-
 class MyUser {
   static const String collectionName = 'users';
-  String? id;
-  String? userName;
-  String? phone;
-  String? email;
+  String id;
+  String userName;
+  String phone;
+  String email;
 
-  MyUser({this.id,this.userName,this.phone,this.email});
+  MyUser({
+    required this.id,
+    required this.userName,
+    required this.phone,
+    required this.email,
+  });
 
-  MyUser.fromFireStore(Map<String,dynamic>data)
-  :this (
-    id: data ['id'],
-    userName: data ['userName'],
-    phone: data ['phone'],
-    email: data ['email'],
-  );
-
-  Map<String,dynamic> toFireStore(){
-    return {
-      'id' :id,
-      'userName' :userName,
-      'phone' :phone,
-      'email' :email,
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'userName': userName,
+      'phone': phone,
+      'email': email,
     };
   }
 
+  factory MyUser.fromMap(Map<String, dynamic> map) {
+    return MyUser(
+      id: map['id'] as String,
+      userName: map['userName'] as String,
+      phone: map['phone'] as String,
+      email: map['email'] as String,
+    );
+  }
 }

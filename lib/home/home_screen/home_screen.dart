@@ -15,9 +15,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final collectionStream = FirebaseFirestore.instance
-      .collection(MyUser.collectionName)
-      .snapshots();
+  final collectionStream =
+      FirebaseFirestore.instance.collection(MyUser.collectionName).snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         future: usersCollection.doc(userId).get(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return SizedBox(child: Text('There is an error'));
+            return const SizedBox(child: Text('There is an error'));
           }
           if (snapshot.hasData) {
             final data = snapshot.data!.data() as Map<String, dynamic>;
@@ -40,19 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage:
                           AssetImage('assets/images/image_profile.png'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    //firestore.collection('users').doc('userName'),
-                    //display = auth.currentUser.displayName;
-                    //snapshot.data!.docs[index]['userName'].toString();
                     Text(
                       data['userName'],
-                      //'hi ${auth.currentUser!.email!}',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
@@ -60,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons
+                    icon: const Icon(Icons
                         .notifications_none_outlined), /* color: Theme.of(context).canvasColor,*/
                   ),
                 ],
@@ -72,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Container(
                       height: 60,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(10),
@@ -83,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context) => SearchScreen()));
                         },
                         child: Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.search,
                               color: Colors.grey,
@@ -105,99 +100,53 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Text(
+                    const Text(
                       'Category',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Container(
+                    SizedBox(
                       height: 100.0,
                       child: ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) => buildCategoryItem(),
-                        separatorBuilder: (context, index) => SizedBox(
+                        separatorBuilder: (context, index) => const SizedBox(
                           width: 20.0,
                         ),
                         itemCount: 5,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                             child: Text(
                           'Popular Players',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )),
                         TextButton(
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               'See All',
                               style: TextStyle(color: Colors.red),
                             )),
                       ],
                     ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child:
-                            ListView.separated(
-                                //shrinkWrap: true,
-                                //physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  Map<String, dynamic> data = snapshot.data!
-                                      .data() as Map<String, dynamic>;
-                                  return PopularPlayerItem();
-                                  },
-                                separatorBuilder: (context, index) => const SizedBox(
-                                      height: 15,
-                                    ),
-                                itemCount: data.length),
-                            /*StreamBuilder<QuerySnapshot>(
-                              stream: firestore
-                                  .collection('users')
-                                  .snapshots(),
-                              builder: (BuildContext context, snapshot) {
-                                if (snapshot.data != null) {
-
-                                  return ListView.separated(
-                                    itemCount: snapshot.data!.docs.length,
-                                    itemBuilder: (context, index) {
-                                      Map<String, dynamic> data = snapshot.data!
-                                          .docs[index]
-                                          .data() as Map<String, dynamic>;
-                                      return PopularPlayerItem();
-                                    },
-                                    separatorBuilder: (context, index) =>
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                  );
-                                }
-                                    else {
-                                  return Container();
-                                }
-                              },
-                            ),*/
-                          ),
-                        ],
-                      ),
-                    ),
+                    SizedBox(height: 600,child: PopularPlayerItem()),
                   ],
                 ),
               ),
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         });
   }
 
@@ -207,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Material(elevation: 10.0, color: Colors.grey),
+            const Material(elevation: 10.0, color: Colors.grey),
             Image.asset(
               'assets/images/striker_category.png',
               width: 100.0,
@@ -218,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 30,
               width: 100.0,
               color: Theme.of(context).buttonColor,
-              padding: EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Center(
                   child: Text(
                 'Goal Keeper',
