@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +14,7 @@ class PopularPlayerItem extends StatelessWidget {
           if (snapshot.hasError) {
             return const SizedBox(child: Text('There is an error'));
           } else if (snapshot.hasData) {
-            return SizedBox(
-              height: 300,
+            return Expanded(
               child: ListView(
                 children: snapshot.data!.docs.map((doc) {
                   final user =
