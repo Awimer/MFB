@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         HomeLayout.routeName: (_) => HomeLayout(),
         Tagroba.routeName: (_) => Tagroba(),
       },
-      initialRoute: LoginScreen.routeName,
+      initialRoute: Tagroba.routeName,
     );
   }
 }

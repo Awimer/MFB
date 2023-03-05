@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               body: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -126,12 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 15,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Expanded(
-                            child: Text(
+                        const Text(
                           'Popular Players',
                           style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
+                        ),
                         TextButton(
                             onPressed: () {},
                             child: const Text(
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                       ],
                     ),
-                    SizedBox(height: 600,child: PopularPlayerItem()),
+                    PopularPlayerItem(),
                   ],
                 ),
               ),
