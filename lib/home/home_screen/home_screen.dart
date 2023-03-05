@@ -8,6 +8,8 @@ import 'package:mfb/model/my_user.dart';
 import '../../data_base/my_database.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -140,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                       ],
                     ),
-                    SizedBox(height: 600,child: PopularPlayerItem()),
+                    const PopularPlayerItem(),
                   ],
                 ),
               ),
