@@ -31,6 +31,7 @@ class ChatRoom extends StatelessWidget {
           .collection('chatroom')
           .doc(chatRoomId)
           .collection('chats')
+
           .add(messages.toMap());
     } else {
       print("Enter Some Text");
@@ -56,7 +57,7 @@ class ChatRoom extends StatelessWidget {
                     .doc(chatRoomId)
                     .collection('chats')
                     .snapshots(),
-                builder: (BuildContext context, snapshot) {
+                builder: ( context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else {

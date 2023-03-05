@@ -109,36 +109,10 @@ class _TagrobaState extends State<Tagroba> {
 
   final picker = ImagePicker();
 
-  List<ImageConfig> imgList = [ /*ImageConfig(
-        source: "http",
-        path:
-        'https://cdn.pixabay.com/photo/2016/04/15/08/04/strawberries-1330459_960_720.jpg'),
-    ImageConfig(
-        source: "http",
-        path:
-        'https://cdn.pixabay.com/photo/2019/12/01/16/56/cookies-4665910_960_720.jpg'),
-    ImageConfig(
-        source: "http",
-        path:
-        'https://cdn.pixabay.com/photo/2017/05/23/22/36/vegetables-2338824_960_720.jpg')
-  */];
+  List<ImageConfig> imgList = [];
 
   List<Widget>? imageSliders;
 
-  /*void pickUploadProfilePic() async {
-  //void pickUploadProfilePic() async {
-
-    Reference ref =
-    FirebaseStorage.instance.ref().child(${imgList.path});
-
-    await ref.putFile(File(imgList!.path));
-
-    ref.getDownloadURL().then((value) async {
-      setState(() {
-        imgList = value;
-      });
-    });
-  }*/
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 

@@ -141,53 +141,7 @@ implements RegisterNavigator {
 
                     ),
                     SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Player Position',
-                        border: OutlineInputBorder(),
-                      ),
 
-                    ),
-                    SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Country',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 20.0,),
-                    /*Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Nationality',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10,),
-                        Expanded(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Nationality',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10,),
-                        Expanded(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Nationality',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-                    SizedBox(height: 20,),*/
                     MaterialButton(onPressed: (){
                       createAccountClicked();
                     },
