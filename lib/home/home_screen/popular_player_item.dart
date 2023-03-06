@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/player%20details/player_details.dart';
 
 import '../../model/my_user.dart';
 
@@ -22,63 +23,75 @@ class PopularPlayerItem extends StatelessWidget {
                   final user =
                       MyUser.fromMap(doc.data() as Map<String, dynamic>);
                   if (user.id != FirebaseAuth.instance.currentUser!.uid) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 7),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).cardColor),
-                      child: Row(
-                        children: [
-                          Image.asset('assets/images/player.png'),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              space,
-                              Text(user.userName),
-                              space,
-                              const Text(
-                                '22 Years old',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              space,
-                              const Text(
-                                'Striker',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(
-                                    Icons.location_on_outlined,
-                                    color: Colors.grey,
-                                    size: 21,
+                    return InkWell(
+                      onTap: () => Navigator.pushNamed(
+                          context, PlayerDetails.routeName,
+                          arguments: user.id),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 7),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Theme.of(context).cardColor),
+                        child: Row(
+                          children: [
+                            user.imageUrl == ''
+                                ? Image.asset('assets/images/player.png')
+                                : Image.network(
+                                    user.imageUrl!,
+                                    width: 100,
+                                    height: 100,
                                   ),
-                                  const Text(
-                                    'Cairo,Egypt',
-                                    style: TextStyle(
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                space,
+                                Text(user.userName),
+                                space,
+                                Text(
+                                  user.age.toString(),
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                                space,
+                                const Text(
+                                  'Striker',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on_outlined,
                                       color: Colors.grey,
+                                      size: 21,
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.favorite_outline_sharp,
-                                        color: Colors.red,
+                                    Text(
+                                      user.location!,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.favorite_outline_sharp,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     );
                   }

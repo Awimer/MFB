@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/home_layout.dart';
@@ -56,7 +57,9 @@ class MyApp extends StatelessWidget {
         ProfileModify.routeName: (_) => const ProfileModify(),
         //DecisionsTree.routeName: (_) => const DecisionsTree()
       },
-      initialRoute: LoginScreen.routeName,
+      initialRoute: FirebaseAuth.instance.currentUser != null
+          ? HomeLayout.routeName
+          : LoginScreen.routeName,
     );
   }
 }

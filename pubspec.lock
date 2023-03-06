@@ -81,14 +81,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
-  counter_button:
-    dependency: "direct main"
-    description:
-      name: counter_button
-      sha256: "36992a764f513c9780195ec4613676d5d3dbe1685ccdb702bd1de7eb2cfe72d9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   country_picker:
     dependency: "direct main"
     description:
@@ -424,6 +416,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  searchbar_animation:
+    dependency: "direct main"
+    description:
+      name: searchbar_animation
+      sha256: "8c9b82e666dae343f8ec34137da18f0de3f019da42691ec8b2c492ee434cc0ba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   shared_preferences:
     dependency: "direct main"
     description:

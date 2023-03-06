@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:counter_button/counter_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +24,7 @@ class _ProfileModifyState extends State<ProfileModify> {
   final locationController = TextEditingController();
   final weightController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final aboutController = TextEditingController();
 
   final List<String> positionList = [
     'Gk',
@@ -58,6 +58,7 @@ class _ProfileModifyState extends State<ProfileModify> {
           if (snapshot.hasData) {
             final userData =
                 MyUser.fromMap(snapshot.data!.data() as Map<String, dynamic>);
+            downloadUrl = userData.imageUrl!;
             return SingleChildScrollView(
               child: Form(
                 key: _key,
@@ -137,6 +138,14 @@ class _ProfileModifyState extends State<ProfileModify> {
                     ),
                     space,
                     _customTextField(
+                      'About',
+                      TextInputType.text,
+                      userData.about,
+                      aboutController,
+                      const Icon(Icons.info),
+                    ),
+                    space,
+                    _customTextField(
                       'Player Position',
                       TextInputType.text,
                       selectedPlayerPosition,
@@ -174,9 +183,10 @@ class _ProfileModifyState extends State<ProfileModify> {
                 ),
               ),
             );
-          } else {
-            return Container();
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
           }
+          return Container();
         },
       ),
     );
@@ -206,6 +216,8 @@ class _ProfileModifyState extends State<ProfileModify> {
           }
           return null;
         },
+        minLines: title == 'About' ? 4 : 1,
+        maxLines: title == 'About' ? 4 : 1,
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -235,11 +247,15 @@ class _ProfileModifyState extends State<ProfileModify> {
     }
   }
 
+  String downloadUrl = '';
   void _updateProfile() async {
-    if (!_key.currentState!.validate() || imagePath.isEmpty) {
+    if (!_key.currentState!.validate()) {
       return;
     }
-    final downloadUrl = await _uploadImage();
+
+    if (imagePath.isNotEmpty) {
+      downloadUrl = await _uploadImage();
+    }
     Map<String, dynamic> userData = {
       'age': ageController.text,
       'playerHeight': playerHeightController.text,
@@ -248,6 +264,7 @@ class _ProfileModifyState extends State<ProfileModify> {
       'location': locationController.text,
       'userName': userNameController.text,
       'imageUrl': downloadUrl,
+      'about': aboutController.text
     };
     FirebaseFirestore.instance
         .collection('users')

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/profile/profile_modify.dart';
-import 'package:mfb/player%20details/player_details.dart';
+import 'package:mfb/login/login_screen.dart';
 
 import '../../model/my_user.dart';
 
@@ -21,12 +21,20 @@ class ProfileScreen extends StatelessWidget {
             fontSize: 17.0,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
-      body: FutureBuilder<DocumentSnapshot>(
-          future: FirebaseFirestore.instance
+      body: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
               .collection('users')
               .doc(FirebaseAuth.instance.currentUser!.uid)
-              .get(),
+              .snapshots(),
           builder: (_, snapshot) {
             if (snapshot.hasData) {
               final userData =
@@ -351,9 +359,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               );
-            } else {
-              return Container();
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
             }
+            return Container();
           }),
     );
   }

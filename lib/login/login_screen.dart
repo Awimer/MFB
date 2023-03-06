@@ -39,9 +39,6 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: const BackButton(
-            color: Colors.black,
-          ),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -52,13 +49,13 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                 child: Column(
                   children: [
                     Image.asset('assets/images/logo.png'),
-                    Text(
+                    const Text(
                       'Login',
                       style: TextStyle(
                         fontSize: 50.0,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                     TextFormField(
@@ -72,12 +69,12 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'E-mail',
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                     TextFormField(
@@ -91,7 +88,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                       },
                       decoration: InputDecoration(
                         hintText: 'Password',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         suffixIcon: InkWell(
                           onTap: () {
                             securedPassword = !securedPassword;
@@ -113,7 +110,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ForgetScreen()));
                             },
-                            child: Text(
+                            child: const Text(
                               'Forget Password',
                               style: TextStyle(
                                 color: Colors.red,
@@ -126,7 +123,9 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                         signIN();
                       },
                       minWidth: double.infinity,
-                      child: Text(
+                      color: Colors.red,
+                      height: 50,
+                      child: const Text(
                         'Login',
                         style: TextStyle(
                           color: Colors.white,
@@ -134,18 +133,16 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      color: Colors.red,
-                      height: 50,
                     ),
                     Row(
                       children: [
-                        Text('Dont have an account?'),
+                        const Text('Dont have an account?'),
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Register()));
                             },
-                            child: Text(
+                            child: const Text(
                               'Sign Up',
                               style: TextStyle(
                                 color: Colors.red,
