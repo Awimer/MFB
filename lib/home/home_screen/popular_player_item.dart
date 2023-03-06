@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/player%20details/player_details.dart';
@@ -76,16 +77,9 @@ class PopularPlayerItem extends StatelessWidget {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 8.0),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.favorite_outline_sharp,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    ),
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: likeButton(user)),
                                   ],
                                 ),
                               ],
@@ -103,5 +97,43 @@ class PopularPlayerItem extends StatelessWidget {
 
           return const Center(child: CircularProgressIndicator());
         });
+  }
+
+  Widget likeButton(user) {
+    return FavoriteButton(
+      iconSize: 40,
+      isFavorite: user.isLiked,
+      valueChanged: (isLiked) {
+        if (isLiked) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.id)
+              .update(<String, dynamic>{
+            'liked': isLiked,
+            'likeCounter': ++user.likeCounter
+          });
+          FirebaseFirestore.instance
+              .collection('favorites')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('Favorite')
+              .doc(user.id)
+              .set(user.toMap());
+        } else {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.id)
+              .update(<String, dynamic>{
+            'liked': isLiked,
+            'likeCounter': --user.likeCounter
+          });
+          FirebaseFirestore.instance
+              .collection('favorites')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('Favorite')
+              .doc(user.id)
+              .delete();
+        }
+      },
+    );
   }
 }

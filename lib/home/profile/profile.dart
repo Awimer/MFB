@@ -183,6 +183,10 @@ class ProfileScreen extends StatelessWidget {
                                       style: const TextStyle(
                                         color: Color.fromRGBO(253, 76, 114, 1),
                                       )),
+                                  Text('${userData.likeCounter} (Likes)',
+                                      style: const TextStyle(
+                                        color: Color.fromRGBO(253, 76, 114, 1),
+                                      )),
                                 ],
                               ),
                             ),

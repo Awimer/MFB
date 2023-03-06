@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/home_screen/popular_player_item.dart';
 import 'package:mfb/model/my_user.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
-import '../../data_base/my_database.dart';
 import '../../player details/player_details.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressButton: (value) {
                         setState(() {
                           isSearch = value;
+                          searchValue = '';
                         });
                       },
                       onChanged: (value) {
@@ -233,13 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.favorite_outline_sharp,
-                                          color: Colors.red,
-                                        ),
-                                      ),
+                                      child: likeButton(user),
                                     ),
                                   ],
                                 ),
@@ -259,6 +254,44 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           return const Center(child: Text('User Not found'));
         });
+  }
+
+  Widget likeButton(user) {
+    return FavoriteButton(
+      iconSize: 40,
+      isFavorite: user.isLiked,
+      valueChanged: (isLiked) {
+        if (isLiked == true) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.id)
+              .update(<String, dynamic>{
+            'liked': isLiked,
+            'likeCounter': ++user.likeCounter
+          });
+          FirebaseFirestore.instance
+              .collection('favorites')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('Favorite')
+              .doc(user.id)
+              .set(user.toMap());
+        } else if (isLiked == false) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.id)
+              .update(<String, dynamic>{
+            'liked': isLiked,
+            'likeCounter': --user.likeCounter
+          });
+          FirebaseFirestore.instance
+              .collection('favorites')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('Favorite')
+              .doc(user.id)
+              .delete();
+        }
+      },
+    );
   }
 
   Widget buildCategoryItem() => Container(

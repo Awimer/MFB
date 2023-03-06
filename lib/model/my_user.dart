@@ -1,4 +1,3 @@
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class MyUser {
   static const String collectionName = 'users';
@@ -13,19 +12,22 @@ class MyUser {
   String? playerPosition = '';
   String? location = '';
   String? about = '';
-  MyUser({
-    this.imageUrl = '',
-    required this.id,
-    required this.userName,
-    required this.phone,
-    required this.email,
-    this.age,
-    this.playerPosition,
-    this.playerHeight,
-    this.location,
-    this.weight,
-    this.about,
-  });
+  bool? isLiked = false;
+  int? likeCounter = 0;
+  MyUser(
+      {this.imageUrl = '',
+      required this.id,
+      required this.userName,
+      required this.phone,
+      required this.email,
+      this.age,
+      this.playerPosition,
+      this.playerHeight,
+      this.location,
+      this.weight,
+      this.about,
+      this.isLiked,
+      this.likeCounter});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -40,22 +42,25 @@ class MyUser {
       'location': location,
       'weight': weight,
       'about': about,
+      'liked': isLiked,
+      'likeCounter': likeCounter,
     };
   }
 
   factory MyUser.fromMap(Map<String, dynamic> map) {
     return MyUser(
-      imageUrl: map['imageUrl'].toString(),
-      id: map['id'].toString(),
-      userName: map['userName'].toString(),
-      phone: map['phone'].toString(),
-      email: map['email'].toString(),
-      age: int.parse(map['age'].toString()),
-      playerPosition: map['playerPosition'] as String,
-      playerHeight: int.parse(map['playerHeight'].toString()),
-      location: map['location'].toString(),
-      weight: int.parse(map['weight'].toString()),
-      about: map['about'].toString(),
-    );
+        imageUrl: map['imageUrl'].toString(),
+        id: map['id'].toString(),
+        userName: map['userName'].toString(),
+        phone: map['phone'].toString(),
+        email: map['email'].toString(),
+        age: int.parse(map['age'].toString()),
+        playerPosition: map['playerPosition'] as String,
+        playerHeight: int.parse(map['playerHeight'].toString()),
+        location: map['location'].toString(),
+        weight: int.parse(map['weight'].toString()),
+        about: map['about'].toString(),
+        isLiked: map['liked'] as bool ?? false,
+        likeCounter: int.parse(map['likeCounter'].toString()));
   }
 }
