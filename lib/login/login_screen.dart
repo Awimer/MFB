@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/activity/activity_screen.dart';
 import 'package:mfb/forget_password/forget_password.dart';
 import 'package:mfb/register/register_screen.dart';
 import 'package:mfb/register/validation_utils.dart';
@@ -14,14 +12,15 @@ import 'login_view_model.dart';
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login';
 
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends BaseState<LoginScreen,LoginViewModel>
-implements LoginNavigator {
+class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
+    implements LoginNavigator {
   bool securedPassword = true;
-
 
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
@@ -35,12 +34,12 @@ implements LoginNavigator {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_)=>viewModel,
+      create: (_) => viewModel,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: BackButton(
+          leading: const BackButton(
             color: Colors.black,
           ),
         ),
@@ -53,19 +52,22 @@ implements LoginNavigator {
                 child: Column(
                   children: [
                     Image.asset('assets/images/logo.png'),
-                    Text('Login',
+                    Text(
+                      'Login',
                       style: TextStyle(
                         fontSize: 50.0,
                       ),
                     ),
-                    SizedBox(height: 20.0,),
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     TextFormField(
                       controller: emailController,
-                      validator:(text){
-                        if (text == null || text.trim().isEmpty){
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
                           return 'please enter Email';
                         }
-                        if(!ValidationUtils.isValidEmail(text)){
+                        if (!ValidationUtils.isValidEmail(text)) {
                           return 'please enter a valid Email';
                         }
                         return null;
@@ -74,15 +76,15 @@ implements LoginNavigator {
                         hintText: 'E-mail',
                         border: OutlineInputBorder(),
                       ),
-
                     ),
-                    SizedBox(height: 20.0,),
-
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     TextFormField(
                       obscureText: securedPassword,
                       controller: passwordController,
-                      validator:(text){
-                        if (text == null || text.trim().isEmpty){
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
                           return 'please enter password';
                         }
                         return null;
@@ -91,15 +93,14 @@ implements LoginNavigator {
                         hintText: 'Password',
                         border: OutlineInputBorder(),
                         suffixIcon: InkWell(
-                          onTap: (){
-                            securedPassword =!securedPassword;
-                            setState(() {
-
-                            });
+                          onTap: () {
+                            securedPassword = !securedPassword;
+                            setState(() {});
                           },
                           child: Icon(
-                            securedPassword ?
-                            Icons.visibility : Icons.visibility_off,
+                            securedPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                         ),
                       ),
@@ -107,22 +108,26 @@ implements LoginNavigator {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(onPressed: (){
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ForgetScreen()));
-                        }, child: Text('Forget Password',
-                          style: TextStyle(
-                            color: Colors.red,
-                          ),
-                        )),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ForgetScreen()));
+                            },
+                            child: Text(
+                              'Forget Password',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            )),
                       ],
                     ),
-                    MaterialButton(onPressed: (){
-                      signIN();
-
-                    },
+                    MaterialButton(
+                      onPressed: () {
+                        signIN();
+                      },
                       minWidth: double.infinity,
-                      child: Text('Login',
+                      child: Text(
+                        'Login',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18.0,
@@ -131,26 +136,24 @@ implements LoginNavigator {
                       ),
                       color: Colors.red,
                       height: 50,
-
                     ),
                     Row(
                       children: [
                         Text('Dont have an account?'),
-                        TextButton(onPressed: (){
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Register()));
-                        },
-                            child: Text('Sign Up',
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Register()));
+                            },
+                            child: Text(
+                              'Sign Up',
                               style: TextStyle(
                                 color: Colors.red,
                                 fontSize: 16.0,
                               ),
-                            )
-
-                        )
+                            ))
                       ],
                     ),
-
                   ],
                 ),
               ),
@@ -162,15 +165,19 @@ implements LoginNavigator {
   }
 
   var authService = FirebaseAuth.instance;
-  void signIN(){
-    if(formKey.currentState?.validate()== false){
+  void signIN() {
+    if (formKey.currentState?.validate() == false) {
       return;
     }
-    viewModel.login(emailController.text, passwordController.text);
+    viewModel.login(
+      emailController.text,
+      passwordController.text,
+    );
   }
+
   @override
   void gotoHome() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => HomeLayout()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomeLayout()));
   }
 }

@@ -57,8 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: [
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons
-                        .notifications_none_outlined), /* color: Theme.of(context).canvasColor,*/
+                    icon: const Icon(Icons.notifications_none_outlined),
                   ),
                 ],
               ),
@@ -76,8 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SearchScreen()));
+                          /*  Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SearchScreen())); */
+                          FirebaseAuth.instance.signOut();
                         },
                         child: Row(
                           children: const [
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                       ],
                     ),
-                    const PopularPlayerItem(),
+                    //  const PopularPlayerItem(),
                   ],
                 ),
               ),
@@ -179,5 +179,4 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       );
-
 }

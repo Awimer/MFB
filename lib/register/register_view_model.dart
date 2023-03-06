@@ -4,43 +4,42 @@ import 'package:mfb/data_base/my_database.dart';
 import 'package:mfb/model/my_user.dart';
 import 'package:mfb/model/shared_data.dart';
 
-abstract class RegisterNavigator extends BaseNavigator{
+abstract class RegisterNavigator extends BaseNavigator {
   void gotoHome();
 }
-class RegisterViewModel extends BaseViewModel<RegisterNavigator>{
 
+class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
   var auth = FirebaseAuth.instance;
 
   void register(
-      String email ,
-      String password,
-      String userName,
-      String phone,
-      )async{
+    String email,
+    String password,
+    String userName,
+    String phone,
+  ) async {
     navigator?.showLoadingDialog();
     try {
-      var credential= await auth.createUserWithEmailAndPassword(
+      var credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      MyUser newUser=MyUser(
+      MyUser newUser = MyUser(
         id: credential.user!.uid,
         phone: phone,
         userName: userName,
         email: email,
       );
 
-    
-
       var insertedUser = await MyDataBase.insertUser(newUser);
-      if(insertedUser != null){
+      if (insertedUser != null) {
         // user inserted successfully
         SharedData.user = insertedUser;
         navigator?.gotoHome();
-      }else {
+      } else {
         // error with database, show error
-        navigator?.showMessageDialog('something went wrong, error with data base');
+        navigator
+            ?.showMessageDialog('something went wrong, error with data base');
       }
       navigator?.hideLoadingDialog();
-      navigator?.showMessageDialog(credential.user?.uid ??'');
+      navigator?.showMessageDialog(credential.user?.uid ?? '');
     } on FirebaseAuthException catch (e) {
       navigator?.hideLoadingDialog();
       if (e.code == 'weak-password') {
@@ -50,8 +49,8 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator>{
       }
     } catch (e) {
       navigator?.hideLoadingDialog();
-      navigator?.showMessageDialog('something went wrong ,please try again later');
-
+      navigator
+          ?.showMessageDialog('something went wrong ,please try again later');
     }
   }
 }
