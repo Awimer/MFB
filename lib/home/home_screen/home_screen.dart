@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                       ],
                     ),
-                    //  const PopularPlayerItem(),
+                      const PopularPlayerItem(),
                   ],
                 ),
               ),
