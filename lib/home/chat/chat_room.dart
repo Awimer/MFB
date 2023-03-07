@@ -31,7 +31,7 @@ class _ChatRoomState extends State<ChatRoom> {
         receiver: chatRoomId,
         type: 'text',
         sort: ++messageModel.sort,
-        time: DateTime.now().toString(),
+        time: FieldValue.serverTimestamp(),
       );
 
       message.clear();
@@ -95,7 +95,8 @@ class _ChatRoomState extends State<ChatRoom> {
                             children: snapshot.data!.docs.map((doc) {
                               messageModel = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);
-                              if (messageModel.sender == auth.currentUser!.uid ||
+                              if (messageModel.sender ==
+                                      auth.currentUser!.uid ||
                                   messageModel.receiver == receiverId &&
                                       messageModel.receiver ==
                                           auth.currentUser!.uid ||
@@ -165,19 +166,6 @@ class _ChatRoomState extends State<ChatRoom> {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              DateFormat('hh:mm a')
-                  .format(DateTime.parse(messageModel.time))
-                  .toString(),
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey,
               ),
             ),
           ),

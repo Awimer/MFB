@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MessageModel {
   final String message;
   final String sender;
   final String receiver;
-  final String time;
+  final FieldValue time;
   final String type;
   int sort;
   MessageModel({
@@ -30,7 +32,7 @@ class MessageModel {
       message: map['message'] as String,
       sender: map['sender'] as String,
       receiver: map['receiver'] as String,
-      time: map['time'] as String,
+      time: map['time'] as FieldValue,
       type: map['type'] as String,
       sort: int.parse(map['sort'].toString()),
     );
