@@ -110,23 +110,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget likeButton(user) {
     return FavoriteButton(
       iconSize: 40,
-      isFavorite: !user.isLiked,
+      isFavorite: user.isLiked,
       valueChanged: (isLiked) {
-        if (isLiked) {
-          FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.id)
-              .update(<String, dynamic>{
-            'liked': isLiked,
-            'likeCounter': ++user.likeCounter
-          });
-          FirebaseFirestore.instance
-              .collection('favorites')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('Favorite')
-              .doc(user.id)
-              .set(user.toMap());
-        } else {
+        if (!isLiked) {
           FirebaseFirestore.instance
               .collection('users')
               .doc(user.id)
@@ -134,6 +120,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             'liked': isLiked,
             'likeCounter': --user.likeCounter
           });
+          user.isLiked = isLiked;
           FirebaseFirestore.instance
               .collection('favorites')
               .doc(FirebaseAuth.instance.currentUser!.uid)

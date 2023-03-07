@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressButton: (value) {
                         setState(() {
                           isSearch = value;
-                          searchValue = '';
+                          // searchValue = '';
                         });
                       },
                       onChanged: (value) {
@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
       iconSize: 40,
       isFavorite: user.isLiked,
       valueChanged: (isLiked) {
-        if (isLiked == true) {
+        if (isLiked) {
           FirebaseFirestore.instance
               .collection('users')
               .doc(user.id)
@@ -269,13 +269,14 @@ class _HomeScreenState extends State<HomeScreen> {
             'liked': isLiked,
             'likeCounter': ++user.likeCounter
           });
+          user.isLiked = isLiked;
           FirebaseFirestore.instance
               .collection('favorites')
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection('Favorite')
               .doc(user.id)
               .set(user.toMap());
-        } else if (isLiked == false) {
+        } else if (!isLiked) {
           FirebaseFirestore.instance
               .collection('users')
               .doc(user.id)

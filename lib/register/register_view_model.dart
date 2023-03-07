@@ -26,6 +26,13 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
         phone: phone,
         userName: userName,
         email: email,
+        about: '',
+        age: 0,
+        playerHeight: 0,
+        playerPosition: '',
+        weight: 0,
+        likeCounter: 0,
+        isLiked: false,
       );
 
       var insertedUser = await MyDataBase.insertUser(newUser);

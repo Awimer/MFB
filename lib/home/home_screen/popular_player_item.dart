@@ -112,6 +112,7 @@ class PopularPlayerItem extends StatelessWidget {
             'liked': isLiked,
             'likeCounter': ++user.likeCounter
           });
+          user.isLiked = isLiked;
           FirebaseFirestore.instance
               .collection('favorites')
               .doc(FirebaseAuth.instance.currentUser!.uid)

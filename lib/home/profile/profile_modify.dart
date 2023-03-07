@@ -199,7 +199,7 @@ class _ProfileModifyState extends State<ProfileModify> {
     controller,
     widget,
   ]) {
-    controller.text = '$initValue';
+    //controller.text = '$initValue';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
