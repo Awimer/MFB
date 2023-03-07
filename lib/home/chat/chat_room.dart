@@ -30,7 +30,6 @@ class _ChatRoomState extends State<ChatRoom> {
         sender: auth.currentUser!.uid,
         receiver: chatRoomId,
         type: 'text',
-        sort: 0,
         time: FieldValue.serverTimestamp(),
       );
 

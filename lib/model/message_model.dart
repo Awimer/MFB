@@ -1,19 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageModel {
   final String message;
   final String sender;
   final String receiver;
-  final FieldValue time;
+  FieldValue? time;
   final String type;
-  int sort;
   MessageModel({
     required this.message,
     required this.sender,
     required this.receiver,
-    required this.time,
+    this.time,
     required this.type,
-    required this.sort,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,7 +24,6 @@ class MessageModel {
       'receiver': receiver,
       'time': time,
       'type': type,
-      'sort': sort
     };
   }
 
@@ -32,9 +32,7 @@ class MessageModel {
       message: map['message'] as String,
       sender: map['sender'] as String,
       receiver: map['receiver'] as String,
-      time: map['time'] as FieldValue,
       type: map['type'] as String,
-      sort: int.parse(map['sort'].toString()),
     );
   }
 }
