@@ -91,7 +91,8 @@ class _ChatRoomState extends State<ChatRoom> {
                       } else {
                         return Expanded(
                           child: ListView(
-                            children: snapshot.data!.docs.map((doc) {
+                            reverse: true,
+                            children: snapshot.data!.docs.reversed.map((doc) {
                               final messageModel = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);
                               if (messageModel.sender ==
