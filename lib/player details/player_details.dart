@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mfb/model/my_user.dart';
 
 class PlayerDetails extends StatefulWidget {
@@ -143,6 +145,80 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                 userData.about.toString(),
                                 style: const TextStyle(color: Colors.grey),
                               ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                      ),
+                                      Text('Rate: ${userData.totalRating}'),
+                                    ],
+                                  ),
+                                  !userData.fanRating!.contains(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      ? RatingBar.builder(
+                                          initialRating: 1,
+                                          direction: Axis.horizontal,
+                                          itemCount: 5,
+                                          itemPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 4.0),
+                                          itemBuilder: (context, index) {
+                                            switch (index) {
+                                              case 0:
+                                                return const Icon(
+                                                  Icons
+                                                      .sentiment_very_dissatisfied,
+                                                  color: Colors.red,
+                                                );
+                                              case 1:
+                                                return const Icon(
+                                                  Icons.sentiment_dissatisfied,
+                                                  color: Colors.redAccent,
+                                                );
+                                              case 2:
+                                                return const Icon(
+                                                  Icons.sentiment_neutral,
+                                                  color: Colors.amber,
+                                                );
+                                              case 3:
+                                                return const Icon(
+                                                  Icons.sentiment_satisfied,
+                                                  color: Colors.lightGreen,
+                                                );
+                                              case 4:
+                                                return const Icon(
+                                                  Icons
+                                                      .sentiment_very_satisfied,
+                                                  color: Colors.green,
+                                                );
+                                              default:
+                                                return Container();
+                                            }
+                                          },
+                                          onRatingUpdate: (rating) {
+                                            userData.totalRating =
+                                                userData.totalRating! + rating;
+                                            userData.fanRating!.add(FirebaseAuth
+                                                .instance.currentUser!.uid);
+                                            FirebaseFirestore.instance
+                                                .collection('users')
+                                                .doc(userId)
+                                                .update(userData.toMap());
+                                          },
+                                          updateOnDrag: true,
+                                        )
+                                      : const Text('You Rated this Player'),
+                                ],
+                              )
                             ],
                           ),
                         ),

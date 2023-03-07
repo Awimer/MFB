@@ -14,6 +14,8 @@ class MyUser {
   String? about = '';
   bool? isLiked = false;
   int? likeCounter = 0;
+  double? totalRating = 0;
+  List<String>? fanRating = [];
   MyUser(
       {this.imageUrl = '',
       required this.id,
@@ -27,7 +29,9 @@ class MyUser {
       this.weight,
       this.about,
       this.isLiked,
-      this.likeCounter});
+      this.likeCounter,
+      this.totalRating,
+      this.fanRating});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -44,23 +48,28 @@ class MyUser {
       'about': about,
       'liked': isLiked,
       'likeCounter': likeCounter,
+      'totalRating': totalRating,
+      'fanRating': fanRating,
     };
   }
 
   factory MyUser.fromMap(Map<String, dynamic> map) {
     return MyUser(
-        imageUrl: map['imageUrl'].toString(),
-        id: map['id'].toString(),
-        userName: map['userName'].toString(),
-        phone: map['phone'].toString(),
-        email: map['email'].toString(),
-        age: int.parse(map['age'].toString()),
-        playerPosition: map['playerPosition'] as String,
-        playerHeight: int.parse(map['playerHeight'].toString()),
-        location: map['location'].toString(),
-        weight: int.parse(map['weight'].toString()),
-        about: map['about'].toString(),
-        isLiked: map['liked'] as bool ?? false,
-        likeCounter: int.parse(map['likeCounter'].toString()));
+      imageUrl: map['imageUrl'].toString(),
+      id: map['id'].toString(),
+      userName: map['userName'].toString(),
+      phone: map['phone'].toString(),
+      email: map['email'].toString(),
+      age: int.parse(map['age'].toString()),
+      playerPosition: map['playerPosition'] as String,
+      playerHeight: int.parse(map['playerHeight'].toString()),
+      location: map['location'].toString(),
+      weight: int.parse(map['weight'].toString()),
+      about: map['about'].toString(),
+      isLiked: map['liked'] as bool ?? false,
+      likeCounter: int.parse(map['likeCounter'].toString()),
+      totalRating: double.parse(map['totalRating'].toString()),
+      fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
+    );
   }
 }
