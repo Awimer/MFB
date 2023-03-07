@@ -57,9 +57,7 @@ class ProfileScreen extends StatelessWidget {
                           final imageProvider =
                               Image.network(userData.imageUrl!).image;
                           showImageViewer(context, imageProvider,
-                              onViewerDismissed: () {
-                            
-                          });
+                              onViewerDismissed: () {});
                         },
                         child: Stack(
                           alignment: Alignment.center,
@@ -197,6 +195,22 @@ class ProfileScreen extends StatelessWidget {
                               Text(
                                 userData.about.toString(),
                                 style: const TextStyle(color: Colors.grey),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                  ),
+                                  Text('Rate: ${userData.averageRating}'),
+                                  const SizedBox(width: 100),
+                                  const Icon(
+                                    Icons.favorite,
+                                    color: Colors.redAccent,
+                                  ),
+                                  Text('Likes: ${userData.likeCounter}'),
+                                ],
                               ),
                             ],
                           ),
