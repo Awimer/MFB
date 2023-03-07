@@ -32,9 +32,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-         
-          Navigator.pushNamed(context, ChatRoom.routeName,
-              arguments: '${FirebaseAuth.instance.currentUser!.uid}&$userId');
+          Navigator.pushNamed(context, ChatRoom.routeName, arguments: userId);
         },
         backgroundColor: const Color.fromRGBO(226, 0, 48, 1),
         child: const Icon(Icons.chat_bubble_outline),

@@ -1,12 +1,14 @@
 class MessageModel {
   final String message;
-  final String sendby;
+  final String sender;
+  final String receiver;
   final String time;
   final String type;
 
   MessageModel({
     required this.message,
-    required this.sendby,
+    required this.sender,
+    required this.receiver,
     required this.time,
     required this.type,
   });
@@ -14,16 +16,18 @@ class MessageModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'message': message,
-      'sendby': sendby,
+      'sender': sender,
+      'receiver': receiver,
       'time': time,
       'type': type,
     };
   }
 
-   factory MessageModel.fromMap(Map<String, dynamic> map) {
+  factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
       message: map['message'] as String,
-      sendby: map['sendby'] as String,
+      sender: map['sender'] as String,
+      receiver: map['receiver'] as String,
       time: map['time'] as String,
       type: map['type'] as String,
     );

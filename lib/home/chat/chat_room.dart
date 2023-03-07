@@ -26,18 +26,15 @@ class _ChatRoomState extends State<ChatRoom> {
     if (message.text.trim().isNotEmpty) {
       final messages = MessageModel(
         message: message.text,
-        sendby: auth.currentUser!.uid,
+        sender: auth.currentUser!.uid,
+        receiver: chatRoomId,
         type: 'text',
         time: DateTime.now().toString(),
       );
 
       message.clear();
 
-      await firestore
-          .collection('chatroom')
-          .doc(chatRoomId)
-          .collection('chats')
-          .add(messages.toMap());
+      await firestore.collection('chatroom').doc().set(messages.toMap());
     } else {
       print("Enter Some Text");
     }
@@ -46,13 +43,12 @@ class _ChatRoomState extends State<ChatRoom> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final chatRoomId = ModalRoute.of(context)!.settings.arguments as String;
+    final receiverId = ModalRoute.of(context)!.settings.arguments as String;
 
-    print(chatRoomId.split('&').last);
     return FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
             .collection('users')
-            .doc(chatRoomId.split('&').last)
+            .doc(receiverId)
             .get(),
         builder: (_, snapshot) {
           if (snapshot.hasData) {
@@ -86,8 +82,6 @@ class _ChatRoomState extends State<ChatRoom> {
                   StreamBuilder<QuerySnapshot>(
                     stream: firestore
                         .collection('chatroom')
-                        .doc(chatRoomId)
-                        .collection('chats')
                         .orderBy('time', descending: true)
                         .snapshots(),
                     builder: (context, snapshot) {
@@ -100,7 +94,14 @@ class _ChatRoomState extends State<ChatRoom> {
                             children: snapshot.data!.docs.map((doc) {
                               final message = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);
-                              return messageWidgetUi(size, message);
+                              if (message.sender == auth.currentUser!.uid ||
+                                  message.receiver == receiverId &&
+                                      message.receiver ==
+                                          auth.currentUser!.uid ||
+                                  message.sender == receiverId) {
+                                return messageWidgetUi(size, message);
+                              }
+                              return Container();
                             }).toList(),
                           ),
                         );
@@ -127,7 +128,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       ),
                       IconButton(
                           icon: const Icon(Icons.send),
-                          onPressed: () => onSendMessage(chatRoomId)),
+                          onPressed: () => onSendMessage(receiverId)),
                     ],
                   )
                 ],
@@ -141,11 +142,11 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget messageWidgetUi(Size size, MessageModel messageModel) {
     return Container(
       width: size.width,
-      alignment: messageModel.sendby == auth.currentUser!.uid
+      alignment: messageModel.sender == auth.currentUser!.uid
           ? Alignment.centerRight
           : Alignment.centerLeft,
       child: Column(
-        crossAxisAlignment: messageModel.sendby == auth.currentUser!.uid
+        crossAxisAlignment: messageModel.sender == auth.currentUser!.uid
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
@@ -154,7 +155,7 @@ class _ChatRoomState extends State<ChatRoom> {
             margin: const EdgeInsets.only(top: 15, right: 10, left: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: messageModel.sendby == auth.currentUser!.uid
+                color: messageModel.sender == auth.currentUser!.uid
                     ? Colors.blue
                     : Colors.red),
             child: Text(
