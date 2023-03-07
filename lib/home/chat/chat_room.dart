@@ -1,23 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/data_base/my_database.dart';
-import 'package:mfb/model/my_user.dart';
 
 import '../../model/message_model.dart';
 
 class ChatRoom extends StatelessWidget {
-  final Map<String, dynamic> userMap;
-  final String chatRoomId;
+  static const String routeName = 'chatRoom';
 
-  ChatRoom({required this.chatRoomId, required this.userMap});
+  ChatRoom({super.key});
 
   final TextEditingController message = TextEditingController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  void onSendMessage() async {
+  void onSendMessage(chatRoomId) async {
     if (message.text.trim().isNotEmpty) {
       final messages = MessageModel(
         message: message.text,
@@ -31,7 +27,6 @@ class ChatRoom extends StatelessWidget {
           .collection('chatroom')
           .doc(chatRoomId)
           .collection('chats')
-
           .add(messages.toMap());
     } else {
       print("Enter Some Text");
@@ -41,11 +36,27 @@ class ChatRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final chatRoomId = ModalRoute.of(context)!.settings.arguments as String;
+    Map<String, dynamic> userData = {};
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(chatRoomId.split('&').last)
+        .get()
+        .then((value) {
+      userData = value.data()!;
+    });
     return Scaffold(
-        appBar: (AppBar(
-          title: Text(userMap['userName']),
-        )),
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              userData['imageUrl'].toString().isEmpty
+                  ? Image.asset('aseets/images/player.png')
+                  : Image.network(userData['imageUrl'].toString()),
+              Text(userData['userName'])
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(children: [
             SizedBox(
@@ -57,7 +68,7 @@ class ChatRoom extends StatelessWidget {
                     .doc(chatRoomId)
                     .collection('chats')
                     .snapshots(),
-                builder: ( context, snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else {
@@ -76,13 +87,13 @@ class ChatRoom extends StatelessWidget {
               height: size.height / 17,
               width: size.width,
               alignment: Alignment.center,
-              child: Container(
+              child: SizedBox(
                 height: size.height / 12,
                 width: size.width / 1.1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: size.height / 17,
                       width: size.width / 1.3,
                       child: TextField(
@@ -90,7 +101,7 @@ class ChatRoom extends StatelessWidget {
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.photo),
+                              icon: const Icon(Icons.photo),
                             ),
                             hintText: "Send Message",
                             border: OutlineInputBorder(
@@ -99,7 +110,8 @@ class ChatRoom extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                        icon: Icon(Icons.send), onPressed: onSendMessage),
+                        icon: const Icon(Icons.send),
+                        onPressed: () => onSendMessage(chatRoomId)),
                   ],
                 ),
               ),

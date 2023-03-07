@@ -49,7 +49,7 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
             ?.showMessageDialog('something went wrong, error with data base');
       }
       navigator?.hideLoadingDialog();
-      navigator?.showMessageDialog(credential.user?.uid ?? '');
+      navigator?.showMessageDialog('Account Created Successfully :)');
     } on FirebaseAuthException catch (e) {
       navigator?.hideLoadingDialog();
       if (e.code == 'weak-password') {

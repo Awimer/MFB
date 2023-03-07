@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mfb/home/chat/chat_room.dart';
 import 'package:mfb/model/my_user.dart';
 
 class PlayerDetails extends StatefulWidget {
@@ -30,7 +31,13 @@ class _PlayerDetailsState extends State<PlayerDetails> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          FirebaseFirestore.instance
+              .collection('chats')
+              .doc('${FirebaseAuth.instance.currentUser!.uid}&$userId');
+          Navigator.pushNamed(context, ChatRoom.routeName,
+              arguments: '${FirebaseAuth.instance.currentUser!.uid}&$userId');
+        },
         backgroundColor: const Color.fromRGBO(226, 0, 48, 1),
         child: const Icon(Icons.chat_bubble_outline),
       ),
@@ -155,7 +162,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.star,
                                         color: Colors.yellow,
                                       ),
