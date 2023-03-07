@@ -82,7 +82,10 @@ class _ChatRoomState extends State<ChatRoom> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: firestore.collection('chatroom').snapshots(),
+                    stream: firestore
+                        .collection('chatroom')
+                        .orderBy('sort', descending: true)
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
