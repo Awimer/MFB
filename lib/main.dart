@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/home/chat/chat_room.dart';
 import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/activity/activity_screen.dart';
 import 'package:mfb/home/profile/profile_modify.dart';
@@ -12,7 +15,6 @@ import 'package:mfb/tagroba.dart';
 
 import 'package:provider/provider.dart';
 
-import 'core/helper/decisions_tree.dart';
 import 'forget_password/create_new_password.dart';
 import 'forget_password/forget_password.dart';
 import 'forget_password/verification_code.dart';
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
         Tagroba.routeName: (_) => Tagroba(),
         PlayerDetails.routeName: (_) => const PlayerDetails(),
         ProfileModify.routeName: (_) => const ProfileModify(),
+        ChatRoom.routeName: (_) => ChatRoom(),
         //DecisionsTree.routeName: (_) => const DecisionsTree()
       },
       initialRoute: FirebaseAuth.instance.currentUser != null

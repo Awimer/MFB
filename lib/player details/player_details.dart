@@ -32,9 +32,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          FirebaseFirestore.instance
-              .collection('chats')
-              .doc('${FirebaseAuth.instance.currentUser!.uid}&$userId');
+         
           Navigator.pushNamed(context, ChatRoom.routeName,
               arguments: '${FirebaseAuth.instance.currentUser!.uid}&$userId');
         },
