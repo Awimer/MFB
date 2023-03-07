@@ -15,23 +15,26 @@ class MyUser {
   bool? isLiked = false;
   int? likeCounter = 0;
   double? totalRating = 0;
+  double? averageRating = 0;
   List<String>? fanRating = [];
-  MyUser(
-      {this.imageUrl = '',
-      required this.id,
-      required this.userName,
-      required this.phone,
-      required this.email,
-      this.age,
-      this.playerPosition,
-      this.playerHeight,
-      this.location,
-      this.weight,
-      this.about,
-      this.isLiked,
-      this.likeCounter,
-      this.totalRating,
-      this.fanRating});
+  MyUser({
+    this.imageUrl = '',
+    required this.id,
+    required this.userName,
+    required this.phone,
+    required this.email,
+    this.age,
+    this.playerPosition,
+    this.playerHeight,
+    this.location,
+    this.weight,
+    this.about,
+    this.isLiked,
+    this.likeCounter,
+    this.totalRating,
+    this.fanRating,
+    this.averageRating,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -50,6 +53,7 @@ class MyUser {
       'likeCounter': likeCounter,
       'totalRating': totalRating,
       'fanRating': fanRating,
+      'averageRating':averageRating
     };
   }
 
@@ -70,6 +74,7 @@ class MyUser {
       likeCounter: int.parse(map['likeCounter'].toString()),
       totalRating: double.parse(map['totalRating'].toString()),
       fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
+      averageRating: double.parse(map['averageRating'].toString())
     );
   }
 }

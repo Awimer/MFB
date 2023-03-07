@@ -159,12 +159,13 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                         Icons.star,
                                         color: Colors.yellow,
                                       ),
-                                      Text('Rate: ${userData.totalRating}'),
+                                      Text('Rate: ${userData.averageRating}'),
                                     ],
                                   ),
                                   !userData.fanRating!.contains(FirebaseAuth
                                           .instance.currentUser!.uid)
                                       ? RatingBar.builder(
+                                          itemSize: 30,
                                           initialRating: 1,
                                           direction: Axis.horizontal,
                                           itemCount: 5,
@@ -205,10 +206,14 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                             }
                                           },
                                           onRatingUpdate: (rating) {
-                                            userData.totalRating =
-                                                userData.totalRating! + rating;
                                             userData.fanRating!.add(FirebaseAuth
                                                 .instance.currentUser!.uid);
+                                            userData.totalRating =
+                                                userData.totalRating! + rating;
+
+                                            userData.averageRating =
+                                                userData.totalRating! /
+                                                    userData.fanRating!.length;
                                             FirebaseFirestore.instance
                                                 .collection('users')
                                                 .doc(userId)

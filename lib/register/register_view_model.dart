@@ -35,7 +35,8 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
           isLiked: false,
           location: '',
           totalRating: 0,
-          fanRating: []);
+          fanRating: [],
+          averageRating: 0);
 
       var insertedUser = await MyDataBase.insertUser(newUser);
       if (insertedUser != null) {
