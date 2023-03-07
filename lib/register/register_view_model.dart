@@ -22,18 +22,19 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
       var credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       MyUser newUser = MyUser(
-          id: credential.user!.uid,
-          phone: phone,
-          userName: userName,
-          email: email,
-          about: '',
-          age: 0,
-          playerHeight: 0,
-          playerPosition: '',
-          weight: 0,
-          likeCounter: 0,
-          isLiked: false,
-          location: '');
+        id: credential.user!.uid,
+        phone: phone,
+        userName: userName,
+        email: email,
+        about: '',
+        age: 0,
+        playerHeight: 0,
+        playerPosition: '',
+        weight: 0,
+        likeCounter: 0,
+        isLiked: false,
+        location: '',
+      );
 
       var insertedUser = await MyDataBase.insertUser(newUser);
       if (insertedUser != null) {
