@@ -21,16 +21,16 @@ class _ChatRoomState extends State<ChatRoom> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-
+  int number = 0;
+  late MessageModel messageModel;
   void onSendMessage(chatRoomId) async {
-    int number = 0;
     if (message.text.trim().isNotEmpty) {
       final messages = MessageModel(
         message: message.text,
         sender: auth.currentUser!.uid,
         receiver: chatRoomId,
         type: 'text',
-        sort: ++number,
+        sort: ++messageModel.sort,
         time: DateTime.now().toString(),
       );
 
@@ -92,16 +92,15 @@ class _ChatRoomState extends State<ChatRoom> {
                       } else {
                         return Expanded(
                           child: ListView(
-                            reverse: true,
                             children: snapshot.data!.docs.map((doc) {
-                              final message = MessageModel.fromMap(
+                              messageModel = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);
-                              if (message.sender == auth.currentUser!.uid ||
-                                  message.receiver == receiverId &&
-                                      message.receiver ==
+                              if (messageModel.sender == auth.currentUser!.uid ||
+                                  messageModel.receiver == receiverId &&
+                                      messageModel.receiver ==
                                           auth.currentUser!.uid ||
-                                  message.sender == receiverId) {
-                                return messageWidgetUi(size, message);
+                                  messageModel.sender == receiverId) {
+                                return messageWidgetUi(size, messageModel);
                               }
                               return Container();
                             }).toList(),

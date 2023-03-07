@@ -4,7 +4,7 @@ class MessageModel {
   final String receiver;
   final String time;
   final String type;
-  final int sort;
+  int sort;
   MessageModel({
     required this.message,
     required this.sender,
