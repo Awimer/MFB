@@ -22,7 +22,7 @@ class _ChatRoomState extends State<ChatRoom> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   int number = 0;
-  late MessageModel messageModel;
+
   void onSendMessage(chatRoomId) async {
     if (message.text.trim().isNotEmpty) {
       final messages = MessageModel(
@@ -30,7 +30,7 @@ class _ChatRoomState extends State<ChatRoom> {
         sender: auth.currentUser!.uid,
         receiver: chatRoomId,
         type: 'text',
-        sort: ++messageModel.sort,
+        sort: 0,
         time: FieldValue.serverTimestamp(),
       );
 
@@ -93,7 +93,7 @@ class _ChatRoomState extends State<ChatRoom> {
                         return Expanded(
                           child: ListView(
                             children: snapshot.data!.docs.map((doc) {
-                              messageModel = MessageModel.fromMap(
+                              final messageModel = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);
                               if (messageModel.sender ==
                                       auth.currentUser!.uid ||
