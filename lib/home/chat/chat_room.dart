@@ -84,7 +84,7 @@ class _ChatRoomState extends State<ChatRoom> {
                   StreamBuilder<QuerySnapshot>(
                     stream: firestore
                         .collection('chatroom')
-                        .orderBy('sort', descending: true)
+                        .orderBy('time')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
