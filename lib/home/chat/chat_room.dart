@@ -23,12 +23,14 @@ class _ChatRoomState extends State<ChatRoom> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   void onSendMessage(chatRoomId) async {
+    int number = 0;
     if (message.text.trim().isNotEmpty) {
       final messages = MessageModel(
         message: message.text,
         sender: auth.currentUser!.uid,
         receiver: chatRoomId,
         type: 'text',
+        sort: ++number,
         time: DateTime.now().toString(),
       );
 
@@ -80,17 +82,13 @@ class _ChatRoomState extends State<ChatRoom> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: firestore
-                        .collection('chatroom')
-                        .orderBy('time', descending: true)
-                        .snapshots(),
+                    stream: firestore.collection('chatroom').snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else {
                         return Expanded(
                           child: ListView(
-                            reverse: true,
                             children: snapshot.data!.docs.map((doc) {
                               final message = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);

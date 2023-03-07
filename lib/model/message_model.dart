@@ -4,13 +4,14 @@ class MessageModel {
   final String receiver;
   final String time;
   final String type;
-
+  final int sort;
   MessageModel({
     required this.message,
     required this.sender,
     required this.receiver,
     required this.time,
     required this.type,
+    required this.sort,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +21,7 @@ class MessageModel {
       'receiver': receiver,
       'time': time,
       'type': type,
+      'sort': sort
     };
   }
 
@@ -30,6 +32,7 @@ class MessageModel {
       receiver: map['receiver'] as String,
       time: map['time'] as String,
       type: map['type'] as String,
+      sort: int.parse(map['sort'].toString()),
     );
   }
 }
