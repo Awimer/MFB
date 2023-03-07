@@ -166,7 +166,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                           .instance.currentUser!.uid)
                                       ? RatingBar.builder(
                                           itemSize: 30,
-                                          initialRating: 1,
+                                          initialRating: 0,
                                           direction: Axis.horizontal,
                                           itemCount: 5,
                                           itemPadding:
