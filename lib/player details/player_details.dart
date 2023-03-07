@@ -46,7 +46,9 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Image.network(userData.imageUrl!),
+                      userData.imageUrl == ''
+                          ? Image.asset('assets/images/player.png')
+                          : Image.network(userData.imageUrl!),
                       const SizedBox(
                         height: 20,
                       ),

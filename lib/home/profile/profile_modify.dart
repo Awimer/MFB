@@ -39,7 +39,7 @@ class _ProfileModifyState extends State<ProfileModify> {
     'ST',
   ];
 
-  String selectedPlayerPosition = 'CB';
+  String selectedPlayerPosition = '';
 
   final space = const SizedBox(height: 10);
   final GlobalKey<FormState> _key = GlobalKey();
@@ -224,6 +224,7 @@ class _ProfileModifyState extends State<ProfileModify> {
             child: widget,
           ),
           hintText: title == 'Player Position' ? selectedPlayerPosition : title,
+          labelText: title,
           border: const OutlineInputBorder(),
         ),
       ),
