@@ -21,30 +21,103 @@ class _ChatRoomState extends State<ChatRoom> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  int number = 0;
 
-  void onSendMessage(chatRoomId) async {
+  String currentChatRoomId = '';
+
+  String createChatRoomId(receiverId, sender) {
+    if (receiverId.toLowerCase().codeUnits[0] <
+        sender.toLowerCase().codeUnits[0]) {
+      return '$receiverId$sender';
+    } else {
+      return '$sender$receiverId';
+    }
+  }
+
+  void onSendMessage(userData) async {
     if (message.text.trim().isNotEmpty) {
-      final messages = MessageModel(
+      final messageId = firestore
+          .collection('chatroom')
+          .doc(currentChatRoomId)
+          .collection('messages')
+          .doc()
+          .id;
+
+      final messageModel = MessageModel(
+        id: messageId,
         message: message.text,
         sender: auth.currentUser!.uid,
-        receiver: chatRoomId,
+        receiver: userData.id,
         type: 'text',
         time: FieldValue.serverTimestamp(),
       );
 
-      message.clear();
+      final chatRoom = ChatRoomModel(
+        chatRoomId: currentChatRoomId,
+        users: [userData, auth.currentUser!.uid],
+      );
 
-      await firestore.collection('chatroom').doc().set(messages.toMap());
+      firestore
+          .collection('chatroom')
+          .doc(currentChatRoomId)
+          .set(chatRoom.toMap());
+
+      firestore
+          .collection('chatroom')
+          .doc(currentChatRoomId)
+          .collection('messages')
+          .doc(messageId)
+          .set(messageModel.toMap());
+
+      firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .get()
+          .then((value) {
+        firestore
+            .collection('users')
+            .doc(auth.currentUser!.uid)
+            .collection('conversetions')
+            .doc(currentChatRoomId)
+            .set(ChatModel(
+                    chatRoomId: currentChatRoomId,
+                    message: messageModel.message,
+                    lastMessageId: messageId,
+                    senderId: auth.currentUser!.uid,
+                    imageUrl: userData.imageUrl,
+                    userName: userData.userName)
+                .toMap());
+
+        firestore
+            .collection('users')
+            .doc(userData.id)
+            .collection('conversetions')
+            .doc(currentChatRoomId)
+            .set(ChatModel(
+                    chatRoomId: currentChatRoomId,
+                    message: messageModel.message,
+                    lastMessageId: messageId,
+                    senderId: auth.currentUser!.uid,
+                    imageUrl: value.data()!['imageUrl'],
+                    userName: value.data()!['userName'])
+                .toMap());
+      });
+
+      message.clear();
     } else {
       print("Enter Some Text");
     }
   }
 
+  bool chatRoomExists(ChatRoomModel chatModel, userData) =>
+      chatModel.users.contains(userData.id) &&
+      chatModel.users.contains(auth.currentUser!.uid);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final receiverId = ModalRoute.of(context)!.settings.arguments as String;
+    currentChatRoomId =
+        createChatRoomId(receiverId, FirebaseAuth.instance.currentUser!.uid);
 
     return FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
@@ -83,6 +156,8 @@ class _ChatRoomState extends State<ChatRoom> {
                   StreamBuilder<QuerySnapshot>(
                     stream: firestore
                         .collection('chatroom')
+                        .doc(currentChatRoomId)
+                        .collection('messages')
                         .orderBy('time')
                         .snapshots(),
                     builder: (context, snapshot) {
@@ -93,17 +168,18 @@ class _ChatRoomState extends State<ChatRoom> {
                           child: ListView(
                             reverse: true,
                             children: snapshot.data!.docs.reversed.map((doc) {
-                              final messageModel = MessageModel.fromMap(
+                              final chatRoomMessage = MessageModel.fromMap(
                                   doc.data() as Map<String, dynamic>);
-                              if (messageModel.sender ==
-                                      auth.currentUser!.uid ||
-                                  messageModel.receiver == receiverId &&
-                                      messageModel.receiver ==
+
+                              if (chatRoomMessage.sender == userData.id ||
+                                  chatRoomMessage.receiver == userData.id &&
+                                      chatRoomMessage.sender ==
                                           auth.currentUser!.uid ||
-                                  messageModel.sender == receiverId) {
-                                return messageWidgetUi(size, messageModel);
+                                  chatRoomMessage.receiver ==
+                                      auth.currentUser!.uid) {
+                                return messageWidgetUi(size, chatRoomMessage);
                               }
-                              return Container();
+                              return const SizedBox();
                             }).toList(),
                           ),
                         );
@@ -130,7 +206,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       ),
                       IconButton(
                           icon: const Icon(Icons.send),
-                          onPressed: () => onSendMessage(receiverId)),
+                          onPressed: () => onSendMessage(userData)),
                     ],
                   )
                 ],

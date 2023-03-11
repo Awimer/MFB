@@ -53,28 +53,27 @@ class MyUser {
       'likeCounter': likeCounter,
       'totalRating': totalRating,
       'fanRating': fanRating,
-      'averageRating':averageRating
+      'averageRating': averageRating
     };
   }
 
   factory MyUser.fromMap(Map<String, dynamic> map) {
     return MyUser(
-      imageUrl: map['imageUrl'].toString(),
-      id: map['id'].toString(),
-      userName: map['userName'].toString(),
-      phone: map['phone'].toString(),
-      email: map['email'].toString(),
-      age: int.parse(map['age'].toString()),
-      playerPosition: map['playerPosition'] as String,
-      playerHeight: int.parse(map['playerHeight'].toString()),
-      location: map['location'].toString(),
-      weight: int.parse(map['weight'].toString()),
-      about: map['about'].toString(),
-      isLiked: map['liked'] as bool ?? false,
-      likeCounter: int.parse(map['likeCounter'].toString()),
-      totalRating: double.parse(map['totalRating'].toString()),
-      fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
-      averageRating: double.parse(map['averageRating'].toString())
-    );
+        imageUrl: map['imageUrl'].toString(),
+        id: map['id'].toString(),
+        userName: map['userName'].toString(),
+        phone: map['phone'].toString(),
+        email: map['email'].toString(),
+        age: int.parse(map['age'].toString()),
+        playerPosition: map['playerPosition'] as String,
+        playerHeight: int.parse(map['playerHeight'].toString()),
+        location: map['location'].toString(),
+        weight: int.parse(map['weight'].toString()),
+        about: map['about'].toString(),
+        isLiked: map['liked'] as bool ?? false,
+        likeCounter: int.parse(map['likeCounter'].toString()),
+        totalRating: double.parse(map['totalRating'].toString()),
+        fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
+        averageRating: double.parse(map['averageRating'].toString()));
   }
 }
