@@ -67,12 +67,10 @@ class _ProfileModifyState extends State<ProfileModify> {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 1.5,
-                            color: const Color.fromRGBO(253, 76, 114, 1)
-                                .withOpacity(.3),
-                          ),
+                        Divider(
+                          thickness: 1.5,
+                          color: const Color.fromRGBO(253, 76, 114, 1)
+                              .withOpacity(.3),
                         ),
                         Image.asset(
                           'assets/images/circle_avater.png',

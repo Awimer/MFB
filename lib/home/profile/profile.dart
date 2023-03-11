@@ -1,7 +1,10 @@
+import 'package:animated_floating_buttons/widgets/animated_floating_action_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/core/components/action_button.dart';
+import 'package:mfb/home/profile/post_media.dart';
 import 'package:mfb/home/profile/profile_modify.dart';
 import 'package:mfb/login/login_screen.dart';
 
@@ -31,13 +34,25 @@ class ProfileScreen extends StatelessWidget {
               icon: const Icon(Icons.logout))
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, ProfileModify.routeName);
-        },
-        backgroundColor: const Color.fromRGBO(226, 0, 48, 1),
-        child: const Icon(Icons.edit),
-      ),
+      floatingActionButton: AnimatedFloatingActionButton(
+          //Fab list
+          fabButtons: <Widget>[
+            ActionButton(
+              icon: const Icon(Icons.insert_photo),
+              onPressed: () {
+                Navigator.pushNamed(context, PostMedia.routeName);
+              },
+            ),
+            ActionButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () {},
+            )
+          ],
+          key: key,
+          colorStartAnimation: Colors.blue,
+          colorEndAnimation: Colors.red,
+          animatedIconData: AnimatedIcons.menu_close //To principal button
+          ),
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection('users')
@@ -62,12 +77,10 @@ class ProfileScreen extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Expanded(
-                              child: Divider(
-                                thickness: 1.5,
-                                color: const Color.fromRGBO(253, 76, 114, 1)
-                                    .withOpacity(.3),
-                              ),
+                            Divider(
+                              thickness: 1.5,
+                              color: const Color.fromRGBO(253, 76, 114, 1)
+                                  .withOpacity(.3),
                             ),
                             Image.asset(
                               'assets/images/circle_avater.png',

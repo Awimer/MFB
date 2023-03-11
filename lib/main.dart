@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mfb/home/chat/chat_room.dart';
 import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/activity/activity_screen.dart';
+import 'package:mfb/home/profile/post_media.dart';
 import 'package:mfb/home/profile/profile_modify.dart';
 import 'package:mfb/login/login_screen.dart';
 import 'package:mfb/player%20details/player_details.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         PlayerDetails.routeName: (_) => const PlayerDetails(),
         ProfileModify.routeName: (_) => const ProfileModify(),
         ChatRoom.routeName: (_) => ChatRoom(),
+        PostMedia.routeName: (_) => const PostMedia(),
         //DecisionsTree.routeName: (_) => const DecisionsTree()
       },
       initialRoute: FirebaseAuth.instance.currentUser != null

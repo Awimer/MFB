@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/home/chat/chat_room.dart';
 
 import '../../model/message_model.dart';
 import '../../model/my_user.dart';
@@ -21,11 +22,15 @@ class ChatScreen extends StatelessWidget {
         if (snapshot.hasData) {
           return ListView(
             children: snapshot.data!.docs.map((doc) {
-              final chatRoom = ChatModel.fromMap(
-                  doc.data() as Map<String, dynamic>);
+              final chatRoom =
+                  ChatModel.fromMap(doc.data() as Map<String, dynamic>);
               return Column(
                 children: [
                   ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, ChatRoom.routeName,
+                          arguments: chatRoom.senderId);
+                    },
                     leading: chatRoom.imageUrl.isEmpty
                         ? const CircleAvatar(
                             radius: 40,
