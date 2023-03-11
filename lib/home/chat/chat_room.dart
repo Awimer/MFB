@@ -53,7 +53,7 @@ class _ChatRoomState extends State<ChatRoom> {
 
       final chatRoom = ChatRoomModel(
         chatRoomId: currentChatRoomId,
-        users: [userData, auth.currentUser!.uid],
+        users: [userData.id, auth.currentUser!.uid],
       );
 
       firestore
@@ -206,7 +206,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       ),
                       IconButton(
                           icon: const Icon(Icons.send),
-                          onPressed: () => onSendMessage(receiverId)),
+                          onPressed: () => onSendMessage(userData)),
                     ],
                   )
                 ],
