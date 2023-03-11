@@ -206,7 +206,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       ),
                       IconButton(
                           icon: const Icon(Icons.send),
-                          onPressed: () => onSendMessage(userData)),
+                          onPressed: () => onSendMessage(receiverId)),
                     ],
                   )
                 ],
