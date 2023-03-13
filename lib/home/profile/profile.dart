@@ -22,17 +22,10 @@ class ProfileScreen extends StatelessWidget {
         title: const Text(
           'Profile',
           style: TextStyle(
-            fontSize: 17.0,
+            fontSize: 20,
+            color: Colors.white
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-              },
-              icon: const Icon(Icons.logout))
-        ],
       ),
       floatingActionButton: AnimatedFloatingActionButton(
           //Fab list

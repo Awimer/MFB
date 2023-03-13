@@ -13,7 +13,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   Widget build(BuildContext context) {
     var settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
-      padding: EdgeInsets.all(18),
+      padding: const EdgeInsets.all(18),
       child: Column(
         children: [
           InkWell(
@@ -23,7 +23,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
               child: settingsProvider.isDarkMode()
                   ? getUnSelectedItem('Light')
                   : getSelectedItem('Light')),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           InkWell(

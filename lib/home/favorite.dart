@@ -27,79 +27,85 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           if (snapshot.hasError) {
             return const SizedBox(child: Text('There is an error'));
           } else if (snapshot.hasData) {
-            return ListView(
-              children: snapshot.data!.docs.map((doc) {
-                final user = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-                if (user.id != FirebaseAuth.instance.currentUser!.uid) {
-                  return InkWell(
-                    onTap: () => Navigator.pushNamed(
-                        context, PlayerDetails.routeName,
-                        arguments: user.id),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 7),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).cardColor),
-                      child: Row(
-                        children: [
-                          user.imageUrl == ''
-                              ? Image.asset('assets/images/player.png')
-                              : Image.network(
-                                  user.imageUrl!,
-                                  width: 100,
-                                  height: 100,
+            return Scaffold(
+              appBar: AppBar(
+                toolbarHeight: MediaQuery.of(context).size.height*0.1,
+                title: const Text('Favourite Player'),
+              ),
+              body: ListView(
+                children: snapshot.data!.docs.map((doc) {
+                  final user = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+                  if (user.id != FirebaseAuth.instance.currentUser!.uid) {
+                    return InkWell(
+                      onTap: () => Navigator.pushNamed(
+                          context, PlayerDetails.routeName,
+                          arguments: user.id),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 7),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Theme.of(context).cardColor),
+                        child: Row(
+                          children: [
+                            user.imageUrl == ''
+                                ? Image.asset('assets/images/player.png')
+                                : Image.network(
+                                    user.imageUrl!,
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                space,
+                                Text(user.userName),
+                                space,
+                                Text(
+                                  user.age.toString(),
+                                  style: const TextStyle(color: Colors.grey),
                                 ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              space,
-                              Text(user.userName),
-                              space,
-                              Text(
-                                user.age.toString(),
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                              space,
-                              const Text(
-                                'Striker',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(
-                                    Icons.location_on_outlined,
-                                    color: Colors.grey,
-                                    size: 21,
-                                  ),
-                                  Text(
-                                    user.location!,
-                                    style: const TextStyle(
+                                space,
+                                const Text(
+                                  'Striker',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on_outlined,
                                       color: Colors.grey,
+                                      size: 21,
                                     ),
-                                  ),
-                                  Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 8.0),
-                                      child: likeButton(user)),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
+                                    Text(
+                                      user.location!,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: likeButton(user)),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
+                    );
+                  }
+                  return const Center(
+                    child: Text('No Favorite yet!'),
                   );
-                }
-                return const Center(
-                  child: Text('No Favorite yet!'),
-                );
-              }).toList(),
+                }).toList(),
+              ),
             );
           }
 
