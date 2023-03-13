@@ -81,7 +81,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     chatRoomId: currentChatRoomId,
                     message: messageModel.message,
                     lastMessageId: messageId,
-                    senderId: auth.currentUser!.uid,
+                    senderId: userData.id,
                     imageUrl: userData.imageUrl,
                     userName: userData.userName)
                 .toMap());
