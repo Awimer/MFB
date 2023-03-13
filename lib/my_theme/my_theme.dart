@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  static final Color colorRed = Color.fromRGBO(226, 0, 48, 1);
-  static final Color colorBlack = Color.fromRGBO(22, 22, 22, 1);
-  static final Color colorDarkBlue = Color(0xFF141A2E);
-  static final Color colorGrey = Color.fromRGBO(238, 238, 238,1);
+  static const Color colorRed = Color.fromRGBO(226, 0, 48, 1);
+  static const Color colorBlack = Color.fromRGBO(22, 22, 22, 1);
+  static const Color colorDarkBlue = Color(0xFF141A2E);
+  static const Color colorGrey = Color.fromRGBO(238, 238, 238,1);
   static final Color colorOpacity = Colors.white.withOpacity(.7);
   static final Color colorOpacityBlack = Colors.black.withOpacity(.7);
 
@@ -15,23 +15,24 @@ class MyTheme {
     cardColor: colorGrey,
     buttonColor: colorOpacity,
     errorColor: Colors.black,
-    inputDecorationTheme: InputDecorationTheme(
+
+    inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorRed)
       ),),
-    iconTheme: IconThemeData(color: Colors.black),
+    iconTheme: const IconThemeData(color: Colors.black),
     scaffoldBackgroundColor: Colors.white,
-    bottomSheetTheme: BottomSheetThemeData(
+    bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.white,
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodyText1: TextStyle(fontSize: 18, color: Colors.black),
       bodyText2: TextStyle( color: Colors.black),
       headline4: TextStyle(fontSize: 28, color: Colors.black),
       headline5: TextStyle(fontSize: 24, color: Colors.black),
       headline6: TextStyle(fontSize: 25, color: Colors.white,fontWeight: FontWeight.bold),
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(color: Colors.black),
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -41,7 +42,7 @@ class MyTheme {
         fontWeight: FontWeight.w500,
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       selectedIconTheme: IconThemeData(
         color: colorRed,
@@ -59,17 +60,17 @@ class MyTheme {
 
   static final ThemeData darkTheme = ThemeData(
 
-    bottomSheetTheme: BottomSheetThemeData(
-      backgroundColor: colorDarkBlue,
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Colors.black,
     ),
-    backgroundColor: colorDarkBlue,
+    backgroundColor: Colors.black,
     primaryColor: colorRed,
    cardColor: colorBlack,
     canvasColor: Colors.black,
     buttonColor: colorOpacityBlack,
     errorColor: Colors.white,
    scaffoldBackgroundColor: Colors.transparent,
-inputDecorationTheme: InputDecorationTheme(
+inputDecorationTheme: const InputDecorationTheme(
   focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: colorRed)
   ),
@@ -80,16 +81,16 @@ inputDecorationTheme: InputDecorationTheme(
   ),
   hintStyle: TextStyle(color: Colors.white)
 ),
-    iconTheme: IconThemeData(color: Colors.black),
+    iconTheme: const IconThemeData(color: Colors.black),
 
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodyText1: TextStyle(fontSize: 18, color: Colors.white),
       bodyText2: TextStyle(color: Colors.white),
       headline4: TextStyle(fontSize: 28, color: Colors.white),
       headline5: TextStyle(fontSize: 24, color: Colors.white),
       headline6: TextStyle(fontSize: 25, color: Colors.white,fontWeight: FontWeight.bold),
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(color: Colors.white),
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -99,8 +100,8 @@ inputDecorationTheme: InputDecorationTheme(
         fontWeight: FontWeight.w500,
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: colorDarkBlue,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.black,
       selectedIconTheme: IconThemeData(
         color: colorRed,
       ),

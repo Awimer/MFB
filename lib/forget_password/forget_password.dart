@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgetScreen extends StatefulWidget {
@@ -9,9 +10,8 @@ class ForgetScreen extends StatefulWidget {
 
 class _ForgetScreenState extends State<ForgetScreen> {
 
-  bool securedPassword = true;
+  final emailController =TextEditingController();
 
-  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,13 +20,12 @@ class _ForgetScreenState extends State<ForgetScreen> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: BackButton(
+        leading: const BackButton(
           color: Colors.black,
         ),
-        title: Text('Forget Password',
+        title: const Text('Forget Password',
           style: TextStyle(
             color: Colors.black,
-
           ),
         ),
       ),
@@ -38,49 +37,51 @@ class _ForgetScreenState extends State<ForgetScreen> {
               //mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/forget_password.png'),
-                SizedBox(height: 30,),
-                Text('Forget Password?',
+                const SizedBox(height: 30,),
+                const Text('Forget Password?',
                   style: TextStyle(
                     fontSize: 30.0,
                   ),
                 ),
                 SizedBox(height: 8,),
-                Text('Enter your email to reset the Password',
+                const Text('Enter your email to reset the Password',
                   style: TextStyle(
                       fontSize:18,
                     fontWeight: FontWeight.w400,
                     color: Colors.grey
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
                 TextFormField(
+                  controller: emailController,
                   decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red)
                     ),
                     hintText: 'E-mail',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.red,)
+                        borderSide: const BorderSide(color: Colors.red,)
                     ),
                   ),),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 MaterialButton(onPressed: (){
+                  resetPassword();
                 },
                   shape: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
+                      borderSide: const BorderSide(color: Colors.red),
                       borderRadius: BorderRadius.circular(10)),
                   minWidth: double.infinity,
-                  child: Text('Send Code',
+                  color: Colors.redAccent.shade700,
+                  height: 50,
+                  child: const Text('Send Code',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  color: Colors.redAccent.shade700,
-                  height: 50,
 
                 ),
               ],
@@ -90,4 +91,20 @@ class _ForgetScreenState extends State<ForgetScreen> {
       ),
     );
   }
+
+  Future resetPassword() async {
+    const CircleAvatar(
+      child: CircularProgressIndicator(),
+    );
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text.trim());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Password Reset Email Sent")));
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.message}")));
+      Navigator.of(context).pop();
+    }
+  }
+
 }
