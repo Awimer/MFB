@@ -15,6 +15,7 @@ import 'package:mfb/home/settings/setting_provider.dart';
 import 'package:mfb/tagroba.dart';
 
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import 'forget_password/create_new_password.dart';
 import 'forget_password/forget_password.dart';
@@ -41,30 +42,32 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     settingsProvider = Provider.of<SettingsProvider>(context);
 
-    return MaterialApp(
-      theme: MyTheme.lightTheme,
-      darkTheme: MyTheme.darkTheme,
-      themeMode: settingsProvider.currentTheme,
-      debugShowCheckedModeBanner: false,
-      routes: {
-        OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
-        ActivityScreen.routeName: (_) => ActivityScreen(),
-        LoginScreen.routeName: (_) => const LoginScreen(),
-        Register.routeName: (_) => Register(),
-        ForgetScreen.routeName: (_) => ForgetScreen(),
-        VerifictionCode.routeName: (_) => VerifictionCode(),
-        CreatePassword.routeName: (_) => CreatePassword(),
-        HomeLayout.routeName: (_) => HomeLayout(),
-        Tagroba.routeName: (_) => Tagroba(),
-        PlayerDetails.routeName: (_) => const PlayerDetails(),
-        ProfileModify.routeName: (_) => const ProfileModify(),
-        ChatRoom.routeName: (_) => ChatRoom(),
-        PostMedia.routeName: (_) => const PostMedia(),
-        //DecisionsTree.routeName: (_) => const DecisionsTree()
-      },
-      initialRoute: FirebaseAuth.instance.currentUser != null
-          ? HomeLayout.routeName
-          : LoginScreen.routeName,
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        theme: MyTheme.lightTheme,
+        darkTheme: MyTheme.darkTheme,
+        themeMode: settingsProvider.currentTheme,
+        debugShowCheckedModeBanner: false,
+        routes: {
+          OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
+          ActivityScreen.routeName: (_) => ActivityScreen(),
+          LoginScreen.routeName: (_) => const LoginScreen(),
+          Register.routeName: (_) => Register(),
+          ForgetScreen.routeName: (_) => ForgetScreen(),
+          VerifictionCode.routeName: (_) => VerifictionCode(),
+          CreatePassword.routeName: (_) => CreatePassword(),
+          HomeLayout.routeName: (_) => HomeLayout(),
+          Tagroba.routeName: (_) => Tagroba(),
+          PlayerDetails.routeName: (_) => const PlayerDetails(),
+          ProfileModify.routeName: (_) => const ProfileModify(),
+          ChatRoom.routeName: (_) => ChatRoom(),
+          PostMedia.routeName: (_) => const PostMedia(),
+          //DecisionsTree.routeName: (_) => const DecisionsTree()
+        },
+        initialRoute: FirebaseAuth.instance.currentUser != null
+            ? HomeLayout.routeName
+            : LoginScreen.routeName,
+      );
+    });
   }
 }

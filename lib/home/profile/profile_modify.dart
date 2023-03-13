@@ -275,7 +275,8 @@ class _ProfileModifyState extends State<ProfileModify> {
   Future<String> _uploadImage() async {
     try {
       final snapshot = await FirebaseStorage.instance
-          .ref('Player photo')
+          .ref(FirebaseAuth.instance.currentUser!.uid)
+          .child('Profile photo')
           .child(photo!.name)
           .putFile(File(imagePath));
       return await snapshot.ref.getDownloadURL();

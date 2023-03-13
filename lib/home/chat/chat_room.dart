@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../model/message_model.dart';
 import '../../model/my_user.dart';
@@ -9,7 +8,7 @@ import '../../model/my_user.dart';
 class ChatRoom extends StatefulWidget {
   static const String routeName = 'chatRoom';
 
-  ChatRoom({super.key});
+  const ChatRoom({super.key});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -104,7 +103,6 @@ class _ChatRoomState extends State<ChatRoom> {
 
       message.clear();
     } else {
-      print("Enter Some Text");
     }
   }
 

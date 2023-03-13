@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/core/components/action_button.dart';
 import 'package:mfb/home/profile/post_media.dart';
-import 'package:mfb/home/profile/profile_modify.dart';
 import 'package:mfb/login/login_screen.dart';
 
 import '../../model/my_user.dart';
@@ -51,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
           key: key,
           colorStartAnimation: Colors.blue,
           colorEndAnimation: Colors.red,
-          animatedIconData: AnimatedIcons.menu_close //To principal button
+          animatedIconData: AnimatedIcons.menu_close 
           ),
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
