@@ -62,9 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      userData.userName,
-                      style: Theme.of(context).textTheme.bodyText1,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hi, ${userData.userName}',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const Text(
+                          'Explore The Best Player in the world',
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        )
+                      ],
                     ),
                   ],
                 ),
@@ -136,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
               separatorBuilder: (context, index) => const SizedBox(
                 width: 20.0,
               ),
-              itemCount: 5,
+              itemCount: 4,
             ),
           ),
           const SizedBox(
@@ -212,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: const TextStyle(color: Colors.grey),
                                 ),
                                 space,
-                                const Text(
+                                 const Text(
                                   'Striker',
                                   style: TextStyle(color: Colors.grey),
                                 ),
