@@ -1,5 +1,5 @@
-import 'my_user.dart';
+import 'player_model.dart';
 
 class SharedData{
-  static MyUser? user;
+  static PlayerModel? user;
 }

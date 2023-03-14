@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/settings/setting_widget.dart';
@@ -19,22 +17,24 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(226, 0, 48, 1),
-        title: const Text('Settings',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white
-          ),
+        title: const Text(
+          'Settings',
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ),
-
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             Center(child: Image.asset('assets/images/qr_code.png')),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             Row(children: const <Widget>[
               Expanded(
                 child: Divider(
@@ -45,13 +45,13 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Text("Verify Your Account",
+                child: Text(
+                  "Verify Your Account",
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.pink,
                   ),
-
                 ),
               ),
               Expanded(
@@ -68,63 +68,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 children: [
                   SettingsWidget(
                       pinkColor: Colors.pinkAccent,
-                      changePrefixIcon:const Icon( Icons.person_outline_outlined,),
-                      title:"Account",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                      color: Theme.of(context).canvasColor,
-                      )),
-                  const Divider(
-                    thickness: 1,
-                    color: Color.fromRGBO(213, 213, 213, 1),
-                    height: 36,
-                  ),
-                  InkWell(
-                    onTap: (){
-                      showThemeBottomSheet();
-                    },
-                    child: SettingsWidget(
-                        pinkColor: Colors.pinkAccent,
-                        changePrefixIcon:const Icon( Icons.language_outlined,),
-                        title:"Theme",
-                        changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                            color: Theme.of(context).canvasColor
-                        )),
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    color: Color.fromRGBO(213, 213, 213, 1),
-                    height: 36,
-                  ),
-                  SettingsWidget(
-                      pinkColor: Colors.pinkAccent,
-                      changePrefixIcon:const Icon( Icons.notifications_none_outlined,),
-                      title:"Notifications",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                          color: Theme.of(context).canvasColor
-                      )),
-                  const Divider(
-                    thickness: 1,
-                    color: Color.fromRGBO(213, 213, 213, 1),
-                    height: 36,
-                  ),
-                  SettingsWidget(
-                      pinkColor: Colors.pinkAccent,
-                      changePrefixIcon:const Icon( Icons.security_outlined,),
-                      title:"Security",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                          color: Theme.of(context).canvasColor
-                      )),
-                  const Divider(
-                    thickness: 1,
-                    color: Color.fromRGBO(213, 213, 213, 1),
-                    height: 36,
-                  ),
-                  SettingsWidget(
-                      pinkColor: Colors.pinkAccent,
-                      changePrefixIcon:const Icon( Icons.report_gmailerrorred_outlined ,),
-                      title:"Help",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                          color: Theme.of(context).canvasColor
+                      changePrefixIcon: const Icon(
+                        Icons.person_outline_outlined,
+                      ),
+                      title: "Account",
+                      changeSuffixIcon: Icon(
+                        Icons.arrow_circle_right_outlined,
+                        color: Theme.of(context).canvasColor,
                       )),
                   const Divider(
                     thickness: 1,
@@ -133,16 +83,77 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                      showThemeBottomSheet();
                     },
                     child: SettingsWidget(
                         pinkColor: Colors.pinkAccent,
-                        changePrefixIcon:const Icon( Icons.logout_outlined,),
-                        title:"Log Out",
-                        changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                            color: Theme.of(context).canvasColor
-                        )),
+                        changePrefixIcon: const Icon(
+                          Icons.language_outlined,
+                        ),
+                        title: "Theme",
+                        changeSuffixIcon: Icon(
+                            Icons.arrow_circle_right_outlined,
+                            color: Theme.of(context).canvasColor)),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Color.fromRGBO(213, 213, 213, 1),
+                    height: 36,
+                  ),
+                  SettingsWidget(
+                      pinkColor: Colors.pinkAccent,
+                      changePrefixIcon: const Icon(
+                        Icons.notifications_none_outlined,
+                      ),
+                      title: "Notifications",
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor)),
+                  const Divider(
+                    thickness: 1,
+                    color: Color.fromRGBO(213, 213, 213, 1),
+                    height: 36,
+                  ),
+                  SettingsWidget(
+                      pinkColor: Colors.pinkAccent,
+                      changePrefixIcon: const Icon(
+                        Icons.security_outlined,
+                      ),
+                      title: "Security",
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor)),
+                  const Divider(
+                    thickness: 1,
+                    color: Color.fromRGBO(213, 213, 213, 1),
+                    height: 36,
+                  ),
+                  SettingsWidget(
+                      pinkColor: Colors.pinkAccent,
+                      changePrefixIcon: const Icon(
+                        Icons.report_gmailerrorred_outlined,
+                      ),
+                      title: "Help",
+                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
+                          color: Theme.of(context).canvasColor)),
+                  const Divider(
+                    thickness: 1,
+                    color: Color.fromRGBO(213, 213, 213, 1),
+                    height: 36,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.pushReplacementNamed(
+                          context, LoginScreen.routeName);
+                    },
+                    child: SettingsWidget(
+                        pinkColor: Colors.pinkAccent,
+                        changePrefixIcon: const Icon(
+                          Icons.logout_outlined,
+                        ),
+                        title: "Log Out",
+                        changeSuffixIcon: Icon(
+                            Icons.arrow_circle_right_outlined,
+                            color: Theme.of(context).canvasColor)),
                   ),
                 ],
               ),
@@ -153,9 +164,11 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  void showThemeBottomSheet(){
-    showModalBottomSheet(context: context, builder: (buildContext){
-      return ThemeBottomSheet();
-    });
+  void showThemeBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (buildContext) {
+          return ThemeBottomSheet();
+        });
   }
 }

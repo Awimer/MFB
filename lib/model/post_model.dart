@@ -7,12 +7,14 @@ class PostModel {
   String titlePost;
   String imageUrl;
   String shareType;
+  String postTyp;
   PostModel({
     required this.id,
     required this.ownerId,
     required this.titlePost,
     required this.imageUrl,
     required this.shareType,
+    required this.postTyp,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class PostModel {
       'titlePost': titlePost,
       'imageUrl': imageUrl,
       'shareType': shareType,
+      'postTyp': postTyp,
     };
   }
 
@@ -32,10 +35,7 @@ class PostModel {
       titlePost: map['titlePost'] as String,
       imageUrl: map['imageUrl'] as String,
       shareType: map['shareType'] as String,
+      postTyp: map['postTyp'] as String,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory PostModel.fromJson(String source) => PostModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

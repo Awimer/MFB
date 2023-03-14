@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../model/my_user.dart';
+import '../../model/player_model.dart';
 
 class ProfileModify extends StatefulWidget {
   static const String routeName = 'profileModify';
@@ -57,8 +57,8 @@ class _ProfileModifyState extends State<ProfileModify> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final userData =
-                MyUser.fromMap(snapshot.data!.data() as Map<String, dynamic>);
-            downloadUrl = userData.imageUrl!;
+                PlayerModel.fromMap(snapshot.data!.data() as Map<String, dynamic>);
+            downloadUrl = userData.imageUrl;
             return SingleChildScrollView(
               child: Form(
                 key: _key,
@@ -90,7 +90,7 @@ class _ProfileModifyState extends State<ProfileModify> {
                             : CircleAvatar(
                                 radius: 40,
                                 foregroundImage:
-                                    NetworkImage(userData.imageUrl!),
+                                    NetworkImage(userData.imageUrl),
                               ),
                         Positioned(
                           top: 50,
@@ -111,29 +111,29 @@ class _ProfileModifyState extends State<ProfileModify> {
                       const Icon(Icons.person_pin_sharp),
                     ),
                     space,
-                    _customTextField(
+                   userData.userType == 'player'? _customTextField(
                       'Age',
                       TextInputType.number,
                       userData.age,
                       ageController,
                       const Icon(Icons.person),
-                    ),
+                    ):const SizedBox(),
                     space,
-                    _customTextField(
+                    userData.userType == 'player'?_customTextField(
                       'Height',
                       TextInputType.number,
                       userData.playerHeight,
                       playerHeightController,
                       const Icon(Icons.height),
-                    ),
+                    ):const SizedBox(),
                     space,
-                    _customTextField(
+                    userData.userType == 'player'?_customTextField(
                       'Weight',
                       TextInputType.number,
                       userData.weight,
                       weightController,
                       const Icon(Icons.line_weight),
-                    ),
+                    ):const SizedBox(),
                     space,
                     _customTextField(
                       'About',
@@ -143,7 +143,7 @@ class _ProfileModifyState extends State<ProfileModify> {
                       const Icon(Icons.info),
                     ),
                     space,
-                    _customTextField(
+                    userData.userType == 'player'?_customTextField(
                       'Player Position',
                       TextInputType.text,
                       selectedPlayerPosition,
@@ -162,7 +162,7 @@ class _ProfileModifyState extends State<ProfileModify> {
                               selectedPlayerPosition = value!;
                             });
                           }),
-                    ),
+                    ):const SizedBox(),
                     space,
                     _customTextField(
                       'Location',

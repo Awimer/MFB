@@ -1,101 +1,139 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mfb/login/login_screen.dart';
-import 'package:mfb/tagrobaa.dart';
 
-class ActivityScreen extends StatelessWidget {
-  static const String routeName ='activity';
-  var selectedButton = null;
+import '../register/register_screen.dart';
+
+enum UserType { player, coach, fan }
+
+class ActivityScreen extends StatefulWidget {
+  static const String routeName = 'activity';
+
+  const ActivityScreen({super.key});
+
+  @override
+  State<ActivityScreen> createState() => _ActivityScreenState();
+}
+
+class _ActivityScreenState extends State<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-     color: Theme.of(context).canvasColor,
+      color: Theme.of(context).canvasColor,
       child: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height*0.1,),
-          Container(
-            height: MediaQuery.of(context).size.height*0.1,
-                child: Image.asset('assets/images/logo.png',
-                  fit: BoxFit.cover,
-                ),
-
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
           ),
-          SizedBox(height: 32,),
-          Container(
-            height: MediaQuery.of(context).size.height*0.4,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+            child: Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 32),
-                      child: Image.asset('assets/images/activiy.png',
-                        //fit: BoxFit.cover,
-                      ),
-                    ),
-                    Text('What is your Activity ?',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                      ),),
-                  ],
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 32),
+                  child: Image.asset(
+                    'assets/images/activiy.png',
+                    //fit: BoxFit.cover,
+                  ),
                 ),
+                const Text(
+                  'What is your Activity ?',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Container(
-              height: MediaQuery.of(context).size.height*0.3,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ElevatedButton(onPressed: (){
-                    playerCallback();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Tagrobaa()));
-                  }, child: Text('Player',
-                    style: TextStyle(fontSize: 16,color: Colors.red),),
+                  ElevatedButton(
+                    onPressed: () {
+                      createUser(UserType.player);
+                    },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).canvasColor,
-                      side: BorderSide(color: Colors.red),
-                      minimumSize: Size(10,50),
+                      backgroundColor: Theme.of(context).canvasColor,
+                      side: const BorderSide(color: Colors.red),
+                      minimumSize: const Size(10, 50),
+                    ),
+                    child: const Text(
+                      'Player',
+                      style: TextStyle(fontSize: 16, color: Colors.red),
                     ),
                   ),
-                  SizedBox(height: 16,),
-                  ElevatedButton(onPressed: (){
-                    coachCallback();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Tagrobaa()));
-                  },
-                    child: Text('Coach',
-                    style: TextStyle(fontSize: 16,color: Colors.red),),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      createUser(UserType.coach);
+                    },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).canvasColor,
-                      side: BorderSide(color: Colors.red),
-                      minimumSize: Size(10,50),
+                      backgroundColor: Theme.of(context).canvasColor,
+                      side: const BorderSide(color: Colors.red),
+                      minimumSize: const Size(10, 50),
+                    ),
+                    child: const Text(
+                      'Coach',
+                      style: TextStyle(fontSize: 16, color: Colors.red),
                     ),
                   ),
-                  SizedBox(height: 16,),
-                  ElevatedButton(onPressed: (){}, child: Text('Fan',
-                    style: TextStyle(fontSize: 16,color: Colors.red),),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      createUser(UserType.fan);
+                    },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).canvasColor,
-                      side: BorderSide(color: Colors.red),
-                      minimumSize: Size(10,50),
+                      backgroundColor: Theme.of(context).canvasColor,
+                      side: const BorderSide(color: Colors.red),
+                      minimumSize: const Size(10, 50),
+                    ),
+                    child: const Text(
+                      'Fan',
+                      style: TextStyle(fontSize: 16, color: Colors.red),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height*0.05,)
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          )
         ],
       ),
     );
   }
-  void playerCallback(){
-    selectedButton = 1;
-  }
-  void coachCallback(){
-    selectedButton = 2;
+
+  void createUser(UserType playerType) {
+    switch (playerType) {
+      case UserType.player:
+        Navigator.pushReplacementNamed(context, Register.routeName,arguments: 'player');
+        break;
+      case UserType.coach:
+        Navigator.pushReplacementNamed(context, Register.routeName,arguments: 'coach');
+        break;
+      case UserType.fan:
+        Navigator.pushReplacementNamed(context, Register.routeName,arguments: 'fan');
+        break;
+    }
   }
 }

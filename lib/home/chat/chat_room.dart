@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../model/message_model.dart';
-import '../../model/my_user.dart';
+import '../../model/player_model.dart';
 
 class ChatRoom extends StatefulWidget {
   static const String routeName = 'chatRoom';
@@ -102,8 +103,7 @@ class _ChatRoomState extends State<ChatRoom> {
       });
 
       message.clear();
-    } else {
-    }
+    } else {}
   }
 
   bool chatRoomExists(ChatRoomModel chatModel, userData) =>
@@ -124,33 +124,38 @@ class _ChatRoomState extends State<ChatRoom> {
             .get(),
         builder: (_, snapshot) {
           if (snapshot.hasData) {
-            final userData =
-                MyUser.fromMap(snapshot.data!.data() as Map<String, dynamic>);
+            final userData = PlayerModel.fromMap(
+                snapshot.data!.data() as Map<String, dynamic>);
             return Scaffold(
               //resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    userData.imageUrl!.isEmpty
+                    userData.imageUrl.isEmpty
                         ? const CircleAvatar(
+                            radius: 20,
                             backgroundImage:
                                 AssetImage('assets/images/player.png'),
                           )
-                        : Image.network(
-                            userData.imageUrl.toString(),
+                        : CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(userData.imageUrl),
                           ),
                     const SizedBox(
                       width: 12,
                     ),
-                    Text(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      userData.userName,
-                      style: const TextStyle(
-                          color: Color(0xff555555),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
+                    SizedBox(
+                      width: 35.w,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        userData.userName,
+                        style: const TextStyle(
+                            color: Color(0xff555555),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      ),
                     ),
                   ],
                 ),
@@ -200,7 +205,8 @@ class _ChatRoomState extends State<ChatRoom> {
                       child: Divider(
                         thickness: 1,
                         color: Color(0xffD5D5D5),
-                        height: 36,),
+                        height: 36,
+                      ),
                     ),
                     StreamBuilder<QuerySnapshot>(
                       stream: firestore
@@ -210,8 +216,10 @@ class _ChatRoomState extends State<ChatRoom> {
                           .orderBy('time')
                           .snapshots(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else {
                           return Expanded(
                             child: ListView(
@@ -241,23 +249,26 @@ class _ChatRoomState extends State<ChatRoom> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
-
-                            width: MediaQuery.of(context).size.width*.75,
+                            width: MediaQuery.of(context).size.width * .75,
                             child: TextField(
                               controller: message,
                               decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.photo,color: Colors.grey,),
+                                suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.photo,
+                                    color: Colors.grey,
                                   ),
-                                  hintText: "Type Message...",
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                focusedBorder:  OutlineInputBorder(
+                                ),
+                                hintText: "Type Message...",
+                                border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                 borderSide: const BorderSide(color: Colors.grey,)
-                             ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(
+                                      color: Colors.grey,
+                                    )),
                               ),
                             ),
                           ),
@@ -307,7 +318,7 @@ class _ChatRoomState extends State<ChatRoom> {
                 borderRadius: BorderRadius.circular(15),
                 color: messageModel.sender == auth.currentUser!.uid
                     ? const Color(0xffF7A2B5).withOpacity(0.5)
-                     : const Color(0xffF4F6F9)),
+                    : const Color(0xffF4F6F9)),
             child: Text(
               messageModel.message,
               style: const TextStyle(

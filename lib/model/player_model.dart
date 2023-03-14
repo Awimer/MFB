@@ -1,41 +1,39 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class MyUser {
+import 'package:mfb/model/parent_model.dart';
+
+class PlayerModel extends UserModel{
   static const String collectionName = 'users';
-  String? imageUrl;
-  String id;
-  String userName;
-  String phone;
-  String email;
-  int? age = 0;
   int? playerHeight = 0;
   int? weight = 0;
   String? playerPosition = '';
-  String? location = '';
   String? about = '';
   bool? isLiked = false;
   int? likeCounter = 0;
   double? totalRating = 0;
   double? averageRating = 0;
   List<String>? fanRating = [];
-  MyUser({
-    this.imageUrl = '',
-    required this.id,
-    required this.userName,
-    required this.phone,
-    required this.email,
-    this.age,
+  PlayerModel({
+   
     this.playerPosition,
     this.playerHeight,
-    this.location,
+   
     this.weight,
     this.about,
     this.isLiked,
     this.likeCounter,
     this.totalRating,
     this.fanRating,
-    this.averageRating,
+    this.averageRating, 
+    required super.imageUrl, 
+    required super.id,
+     required super.userName, 
+    required super.phone, 
+    required super.email,
+     required super.location, 
+     required super.age, required super.userType,
   });
 
+@override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'imageUrl': imageUrl,
@@ -53,12 +51,13 @@ class MyUser {
       'likeCounter': likeCounter,
       'totalRating': totalRating,
       'fanRating': fanRating,
-      'averageRating': averageRating
+      'averageRating': averageRating,
+      'userType': userType
     };
   }
 
-  factory MyUser.fromMap(Map<String, dynamic> map) {
-    return MyUser(
+  factory PlayerModel.fromMap(Map<String, dynamic> map) {
+    return PlayerModel(
         imageUrl: map['imageUrl'].toString(),
         id: map['id'].toString(),
         userName: map['userName'].toString(),
@@ -74,6 +73,7 @@ class MyUser {
         likeCounter: int.parse(map['likeCounter'].toString()),
         totalRating: double.parse(map['totalRating'].toString()),
         fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
-        averageRating: double.parse(map['averageRating'].toString()));
+        averageRating: double.parse(map['averageRating'].toString()),
+        userType: map['userType'] as String);
   }
 }

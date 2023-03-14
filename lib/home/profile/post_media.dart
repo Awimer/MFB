@@ -16,7 +16,7 @@ import 'package:video_player/video_player.dart';
 
 import '../../core/components/action_button.dart';
 import '../../dialoge_utils.dart';
-import '../../model/my_user.dart';
+import '../../model/player_model.dart';
 
 enum MediaType { photo, video }
 
@@ -82,7 +82,7 @@ class _PostMediaState extends State<PostMedia> {
                 .get(),
             builder: (_, snapshot) {
               if (snapshot.hasData) {
-                final user = MyUser.fromMap(
+                final user = PlayerModel.fromMap(
                     snapshot.data!.data() as Map<String, dynamic>);
                 return SafeArea(
                   child: SingleChildScrollView(
@@ -282,9 +282,10 @@ class _PostMediaState extends State<PostMedia> {
 
     FirebaseFirestore.instance.collection('posts').doc(id).set(PostModel(
             id: id,
+            postTyp: file.path.isNotEmpty?!isImage(file.path)? 'video':'image':'text',
             ownerId: FirebaseAuth.instance.currentUser!.uid,
             titlePost: titlePost.text,
-            imageUrl: file.path.isEmpty ? '' : await uploadImage(),
+            imageUrl: file.path.isEmpty ? '' : await uploadMedia(),
             shareType: shareType)
         .toMap());
   }
@@ -296,7 +297,7 @@ class _PostMediaState extends State<PostMedia> {
     });
   }
 
-  Future<String> uploadImage() async {
+  Future<String> uploadMedia() async {
     try {
       final snapshot = await FirebaseStorage.instance
           .ref(FirebaseAuth.instance.currentUser!.uid)

@@ -3,7 +3,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../model/my_user.dart';
+import '../model/player_model.dart';
 import '../player details/player_details.dart';
 
 class FavouriteScreen extends StatefulWidget {
@@ -29,12 +29,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           } else if (snapshot.hasData) {
             return Scaffold(
               appBar: AppBar(
-                toolbarHeight: MediaQuery.of(context).size.height*0.1,
+                automaticallyImplyLeading: false,
+                toolbarHeight: MediaQuery.of(context).size.height * 0.1,
                 title: const Text('Favourite Player'),
               ),
               body: ListView(
                 children: snapshot.data!.docs.map((doc) {
-                  final user = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+                  final user =
+                      PlayerModel.fromMap(doc.data() as Map<String, dynamic>);
                   if (user.id != FirebaseAuth.instance.currentUser!.uid) {
                     return InkWell(
                       onTap: () => Navigator.pushNamed(
@@ -50,7 +52,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                             user.imageUrl == ''
                                 ? Image.asset('assets/images/player.png')
                                 : Image.network(
-                                    user.imageUrl!,
+                                    user.imageUrl,
                                     width: 100,
                                     height: 100,
                                   ),

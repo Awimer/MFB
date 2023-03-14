@@ -3,7 +3,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/home_screen/popular_player_item.dart';
-import 'package:mfb/model/my_user.dart';
+import 'package:mfb/model/player_model.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
 import '../../player details/player_details.dart';
@@ -20,8 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final usersCollection = FirebaseFirestore.instance.collection('users');
   final userId = FirebaseAuth.instance.currentUser!.uid;
-  final collectionStream =
-      FirebaseFirestore.instance.collection(MyUser.collectionName).snapshots();
+  final collectionStream = FirebaseFirestore.instance
+      .collection(PlayerModel.collectionName)
+      .snapshots();
 
   final searchBar = TextEditingController();
   String searchValue = '';
@@ -38,11 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
             return const SizedBox(child: Text('There is an error'));
           }
           if (snapshot.hasData) {
-            final userData =
-                MyUser.fromMap(snapshot.data!.data() as Map<String, dynamic>);
+            final userData = PlayerModel.fromMap(
+                snapshot.data!.data() as Map<String, dynamic>);
             return Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 titleSpacing: 20,
@@ -57,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : CircleAvatar(
                             radius: 23,
-                            foregroundImage: NetworkImage(userData.imageUrl!),
+                            foregroundImage: NetworkImage(userData.imageUrl),
                           ),
                     const SizedBox(
                       width: 10,
@@ -189,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView(
                 children: snapshot.data!.docs.map((doc) {
                   final user =
-                      MyUser.fromMap(doc.data() as Map<String, dynamic>);
+                      PlayerModel.fromMap(doc.data() as Map<String, dynamic>);
                   if (user.id != FirebaseAuth.instance.currentUser!.uid) {
                     return InkWell(
                       onTap: () => Navigator.pushNamed(
@@ -224,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: const TextStyle(color: Colors.grey),
                                 ),
                                 space,
-                                 const Text(
+                                const Text(
                                   'Striker',
                                   style: TextStyle(color: Colors.grey),
                                 ),

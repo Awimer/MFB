@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/chat/chat_room.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../model/message_model.dart';
-import '../../model/my_user.dart';
+import '../../model/player_model.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
           backgroundColor: const Color(0xffE20030),
           title: const Text(
@@ -24,7 +26,8 @@ class ChatScreen extends StatelessWidget {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 13),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
@@ -40,7 +43,7 @@ class ChatScreen extends StatelessWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.only(top: 8, bottom: 8, right: 20, left: 4),
+                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 13),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
@@ -56,7 +59,7 @@ class ChatScreen extends StatelessWidget {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top:16),
+          padding: const EdgeInsets.only(top: 16),
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('users')
@@ -87,9 +90,13 @@ class ChatScreen extends StatelessWidget {
                                   foregroundImage:
                                       NetworkImage(chatRoom.imageUrl),
                                 ),
-                          title: Text(
-                            chatRoom.userName,
-                            style: Theme.of(context).textTheme.bodyText1,
+                          title: SizedBox(
+                            width: 80.w,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              chatRoom.userName,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
                           ),
                           subtitle: Text(chatRoom.message),
                         ),

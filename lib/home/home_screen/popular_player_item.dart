@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/player%20details/player_details.dart';
 
-import '../../model/my_user.dart';
+import '../../model/player_model.dart';
 
 class PopularPlayerItem extends StatelessWidget {
   const PopularPlayerItem({super.key});
@@ -13,7 +13,10 @@ class PopularPlayerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     const space = SizedBox(height: 7);
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .where('userType', isEqualTo: 'player')
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const SizedBox(child: Text('There is an error'));
@@ -22,7 +25,7 @@ class PopularPlayerItem extends StatelessWidget {
               child: ListView(
                 children: snapshot.data!.docs.map((doc) {
                   final user =
-                      MyUser.fromMap(doc.data() as Map<String, dynamic>);
+                      PlayerModel.fromMap(doc.data() as Map<String, dynamic>);
                   if (user.id != FirebaseAuth.instance.currentUser!.uid) {
                     return InkWell(
                       onTap: () => Navigator.pushNamed(
@@ -38,58 +41,64 @@ class PopularPlayerItem extends StatelessWidget {
                             user.imageUrl == ''
                                 ? Image.asset('assets/images/player.png')
                                 : Image.network(
-                                    user.imageUrl!,
+                                    user.imageUrl,
                                     width: 100,
                                     height: 100,
                                   ),
                             const SizedBox(
                               width: 15,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                space,
-                                Text(user.userName),
-                                space,
-                                Text(
-                                  user.age.toString(),
-                                  style: const TextStyle(color: Colors.grey),
-                                ),
-                                space,
-                                const Text(
-                                  'Striker',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      color: Colors.grey,
-                                      size: 21,
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  space,
+                                  Text(user.userName),
+                                  space,
+                                  Text(
+                                    user.age.toString(),
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                  space,
+                                  Text(
+                                    user.playerPosition!,
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Icon(
+                                          Icons.location_on_outlined,
+                                          color: Colors.grey,
+                                          size: 21,
+                                        ),
+                                        Text(
+                                          user.location,
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0),
+                                            child: likeButton(user)),
+                                      ],
                                     ),
-                                    Text(
-                                      user.location!,
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: likeButton(user)),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
                       ),
                     );
                   }
-                  return Container();
+                  return const SizedBox();
                 }).toList(),
               ),
             );

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mfb/base.dart';
 import 'package:mfb/data_base/my_database.dart';
-import 'package:mfb/model/my_user.dart';
+import 'package:mfb/model/player_model.dart';
 import 'package:mfb/model/shared_data.dart';
 
 abstract class RegisterNavigator extends BaseNavigator {
@@ -16,16 +16,18 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
     String password,
     String userName,
     String phone,
+    String userType
   ) async {
     navigator?.showLoadingDialog();
     try {
       var credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      MyUser newUser = MyUser(
+      PlayerModel newUser = PlayerModel(
           id: credential.user!.uid,
           phone: phone,
           userName: userName,
           email: email,
+          imageUrl: '',
           about: '',
           age: 0,
           playerHeight: 0,
@@ -36,7 +38,8 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
           location: '',
           totalRating: 0,
           fanRating: [],
-          averageRating: 0);
+          averageRating: 0,
+           userType: userType);
 
       var insertedUser = await MyDataBase.insertUser(newUser);
       if (insertedUser != null) {

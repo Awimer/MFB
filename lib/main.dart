@@ -50,9 +50,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
-          ActivityScreen.routeName: (_) => ActivityScreen(),
+          ActivityScreen.routeName: (_) => const ActivityScreen(),
           LoginScreen.routeName: (_) => const LoginScreen(),
-          Register.routeName: (_) => Register(),
+          Register.routeName: (_) => const Register(),
           ForgetScreen.routeName: (_) => ForgetScreen(),
           VerifictionCode.routeName: (_) => VerifictionCode(),
           CreatePassword.routeName: (_) => CreatePassword(),
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           Tagroba.routeName: (_) => Tagroba(),
           PlayerDetails.routeName: (_) => const PlayerDetails(),
           ProfileModify.routeName: (_) => const ProfileModify(),
-          ChatRoom.routeName: (_) => ChatRoom(),
+          ChatRoom.routeName: (_) => const ChatRoom(),
           PostMedia.routeName: (_) => const PostMedia(),
           //DecisionsTree.routeName: (_) => const DecisionsTree()
         },
@@ -71,3 +71,8 @@ class MyApp extends StatelessWidget {
     });
   }
 }
+
+/* 
+FirebaseAuth.instance.currentUser != null
+            ? HomeLayout.routeName
+            : LoginScreen.routeName */

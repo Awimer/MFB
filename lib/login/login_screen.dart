@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/activity/activity_screen.dart';
 import 'package:mfb/forget_password/forget_password.dart';
 import 'package:mfb/register/register_screen.dart';
 import 'package:mfb/register/validation_utils.dart';
@@ -139,8 +140,8 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
                         const Text('Dont have an account?'),
                         TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Register()));
+                              Navigator.pushNamed(
+                                  context, ActivityScreen.routeName);
                             },
                             child: const Text(
                               'Sign Up',
@@ -174,7 +175,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
 
   @override
   void gotoHome() {
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomeLayout()));
+    Navigator
+        .pushReplacementNamed(context, HomeLayout.routeName);
   }
 }

@@ -1,5 +1,5 @@
 {
     "[dart]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "Dart-Code.dart-code"
     }
 }
