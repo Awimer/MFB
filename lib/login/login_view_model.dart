@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:mfb/base.dart';
-import 'package:mfb/data_base/my_database.dart';
 
-import '../model/shared_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mfb/base.dart';
+
+import '../home/home_layout.dart';
+
 
 abstract class LoginNavigator extends BaseNavigator {
   void gotoHome();
@@ -19,10 +19,12 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
           email: email, password: password);
 
       navigator!.hideLoadingDialog();
+      navigator!.gotoHome();
+
     } on FirebaseAuthException catch (e) {
       navigator?.hideLoadingDialog();
       // show message with wrong email or password
-      navigator?.showMessageDialog('wrong user name or password');
+      navigator?.showMessageDialog('wrong user name or password',);
     }
   }
 }

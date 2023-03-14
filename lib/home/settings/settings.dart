@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/activity/activity_screen.dart';
 import 'package:mfb/home/settings/setting_widget.dart';
 
 import '../../login/login_screen.dart';
@@ -88,26 +89,13 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: SettingsWidget(
                         pinkColor: Colors.pinkAccent,
                         changePrefixIcon: const Icon(
-                          Icons.language_outlined,
+                          Icons.format_color_fill_outlined,
                         ),
                         title: "Theme",
                         changeSuffixIcon: Icon(
                             Icons.arrow_circle_right_outlined,
                             color: Theme.of(context).canvasColor)),
                   ),
-                  const Divider(
-                    thickness: 1,
-                    color: Color.fromRGBO(213, 213, 213, 1),
-                    height: 36,
-                  ),
-                  SettingsWidget(
-                      pinkColor: Colors.pinkAccent,
-                      changePrefixIcon: const Icon(
-                        Icons.notifications_none_outlined,
-                      ),
-                      title: "Notifications",
-                      changeSuffixIcon: Icon(Icons.arrow_circle_right_outlined,
-                          color: Theme.of(context).canvasColor)),
                   const Divider(
                     thickness: 1,
                     color: Color.fromRGBO(213, 213, 213, 1),
@@ -143,7 +131,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     onTap: () {
                       FirebaseAuth.instance.signOut();
                       Navigator.pushReplacementNamed(
-                          context, LoginScreen.routeName);
+                          context, ActivityScreen.routeName);
                     },
                     child: SettingsWidget(
                         pinkColor: Colors.pinkAccent,

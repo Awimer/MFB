@@ -16,10 +16,10 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   final Map<String, List<String>> position = {
-    'goal keepers': ['GK'],
-    'midfielders': ['CDM', 'CM', 'CAM'],
-    'defenders': ['CB', 'RB', 'LB'],
-    'attackers': ['RW', 'LW', 'ST']
+    'GoalKeepers': ['GK'],
+    'MidFielders': ['CDM', 'CM', 'CAM'],
+    'Defenders': ['CB', 'RB', 'LB'],
+    'Attackers': ['RW', 'LW', 'ST']
   };
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/dialoge_utils.dart';
 import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/register/validation_utils.dart';
 
@@ -172,6 +173,7 @@ class _RegisterState extends State<Register> {
       return;
     }
     try {
+
       var credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
@@ -209,7 +211,10 @@ class _RegisterState extends State<Register> {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-      } else if (e.code == 'email-already-in-use') {}
+
+      } else if (e.code == 'email-already-in-use') {
+        showMessage(context, 'email already exists',posActionName: 'ok');
+      }
     } catch (e) {
       print(e);
     }

@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         },
         initialRoute: FirebaseAuth.instance.currentUser != null
             ? HomeLayout.routeName
-            : LoginScreen.routeName,
+            : ActivityScreen.routeName,
       );
     });
   }

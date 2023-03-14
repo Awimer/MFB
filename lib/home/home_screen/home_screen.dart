@@ -77,6 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 5,
                         ),
                         const Text(
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                           'Explore The Best Player in the world',
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         )
@@ -84,12 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.notifications_none_outlined),
-                  ),
-                ],
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -155,12 +151,15 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: [
-                'goal keepers',
-                'midfielders',
-                'defenders',
-                'attackers'
+                'GoalKeepers',
+                'MidFielders',
+                'Defenders',
+                'Attackers'
               ].map((title) {
-                return buildCategoryItem(title);
+                return Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: buildCategoryItem(title),
+                );
               }).toList(),
             ),
           ),
@@ -345,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const Material(elevation: 10.0, color: Colors.grey),
               Image.asset(
-                title == 'goal keepers'
+                title == 'GoalKeepers'
                     ? 'assets/images/goal_keeper.png'
                     : 'assets/images/striker_category.png',
                 width: 100.0,
@@ -363,6 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   title,
                   style: Theme.of(context).textTheme.bodyMedium,
                 )),
+
               ),
             ],
           ),

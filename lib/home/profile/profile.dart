@@ -59,37 +59,29 @@ class ProfileScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          final imageProvider =
-                              Image.network(userData.imageUrl).image;
-                          showImageViewer(context, imageProvider,
-                              onViewerDismissed: () {});
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Divider(
-                              thickness: 1.5,
-                              color: const Color.fromRGBO(253, 76, 114, 1)
-                                  .withOpacity(.3),
-                            ),
-                            Image.asset(
-                              'assets/images/circle_avater.png',
-                            ),
-                            userData.imageUrl == ''
-                                ? const CircleAvatar(
-                                    radius: 40,
-                                    foregroundImage:
-                                        AssetImage('assets/images/player.png'),
-                                  )
-                                : CircleAvatar(
-                                    radius: 40,
-                                    foregroundImage:
-                                        NetworkImage(userData.imageUrl),
-                                  ),
-                          ],
-                        ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Divider(
+                            thickness: 1.5,
+                            color: const Color.fromRGBO(253, 76, 114, 1)
+                                .withOpacity(.3),
+                          ),
+                          Image.asset(
+                            'assets/images/circle_avater.png',
+                          ),
+                          userData.imageUrl == ''
+                              ? const CircleAvatar(
+                                  radius: 40,
+                                  foregroundImage:
+                                      AssetImage('assets/images/player.png'),
+                                )
+                              : CircleAvatar(
+                                  radius: 40,
+                                  foregroundImage:
+                                      NetworkImage(userData.imageUrl),
+                                ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
