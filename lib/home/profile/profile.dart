@@ -133,13 +133,15 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
-                Text(
-                  '( ${userData.playerPosition!} )',
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.red),
-                ),
+                userData.userType == 'player'
+                    ? Text(
+                        '( ${userData.playerPosition!} )',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.red),
+                      )
+                    : const SizedBox(),
               ],
             ),
             const SizedBox(
@@ -151,29 +153,44 @@ class ProfileScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    userData.userType == 'player'
+                        ? Text(
+                            '${userData.age} (year)',
+                            style: const TextStyle(color: Colors.grey),
+                          )
+                        : const SizedBox(),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Text(
-                      '${userData.age} (year)',
+                      userData.userType == 'player'
+                          ? '${userData.playerHeight} (CM)'
+                          : '${userData.favoritePlane} (favorite plane)',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    userData.userType == 'player'
+                        ? const SizedBox(
+                            height: 10,
+                          )
+                        : const SizedBox(),
+                    userData.userType == 'player'
+                        ? Text(
+                            '${userData.weight} (KG)',
+                            style: const TextStyle(color: Colors.grey),
+                          )
+                        : const SizedBox(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '${userData.currentClube} (Current Clube)',
                       style: const TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      '${userData.playerHeight} (CM)',
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '${userData.weight} (KG)',
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '${userData.location}',
+                      '${userData.location} (location)',
                       style: const TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(
@@ -201,22 +218,24 @@ class ProfileScreen extends StatelessWidget {
               userData.about.toString(),
               style: const TextStyle(color: Colors.grey),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Text('Rate: ${userData.averageRating}'),
-                const SizedBox(width: 100),
-                const Icon(
-                  Icons.favorite,
-                  color: Colors.redAccent,
-                ),
-                Text('Likes: ${userData.likeCounter}'),
-              ],
-            ),
+            userData.userType == 'player'
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                      ),
+                      Text('Rate: ${userData.averageRating}'),
+                      const SizedBox(width: 100),
+                      const Icon(
+                        Icons.favorite,
+                        color: Colors.redAccent,
+                      ),
+                      Text('Likes: ${userData.likeCounter}'),
+                    ],
+                  )
+                : const SizedBox(),
           ],
         ),
       ),

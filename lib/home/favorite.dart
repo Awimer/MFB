@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../model/player_model.dart';
 import '../player details/player_details.dart';
@@ -50,11 +51,17 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         child: Row(
                           children: [
                             user.imageUrl == ''
-                                ? Image.asset('assets/images/player.png')
+                                ? Image.asset(
+                                    'assets/images/player.png',
+                                    width: 20.w,
+                                    height: 20.h,
+                                    fit: BoxFit.cover,
+                                  )
                                 : Image.network(
                                     user.imageUrl,
-                                    width: 100,
-                                    height: 100,
+                                    width: 20.w,
+                                    height: 20.h,
+                                    fit: BoxFit.cover,
                                   ),
                             const SizedBox(
                               width: 15,
@@ -85,7 +92,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                       size: 21,
                                     ),
                                     Text(
-                                      user.location!,
+                                      user.location,
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),

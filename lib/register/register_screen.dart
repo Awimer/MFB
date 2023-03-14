@@ -2,11 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/home/home_layout.dart';
-import 'package:mfb/register/register_view_model.dart';
 import 'package:mfb/register/validation_utils.dart';
-import 'package:provider/provider.dart';
 
-import '../base.dart';
 import '../login/login_screen.dart';
 import '../model/player_model.dart';
 
@@ -27,11 +24,6 @@ class _RegisterState extends State<Register> {
   var passwordController = TextEditingController();
   var userNameController = TextEditingController();
   var phoneController = TextEditingController();
-
-  @override
-  RegisterViewModel initViewModel() {
-    return RegisterViewModel();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +192,9 @@ class _RegisterState extends State<Register> {
           totalRating: 0,
           fanRating: [],
           averageRating: 0,
-          userType: userType);
+          userType: userType,
+          favoritePlane: '',
+          currentClube: '');
 
       FirebaseFirestore.instance
           .collection('users')

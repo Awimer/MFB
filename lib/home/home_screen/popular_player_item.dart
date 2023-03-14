@@ -3,11 +3,19 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/player%20details/player_details.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../model/player_model.dart';
 
 class PopularPlayerItem extends StatelessWidget {
-  const PopularPlayerItem({super.key});
+   PopularPlayerItem({super.key});
+
+   final Map<String, List<String>> position = {
+    'goal keepers': ['GK'],
+    'midfielders': ['CDM', 'CM', 'CAM'],
+    'defenders': ['CB', 'RB', 'LB'],
+    'attackers': ['RW', 'LW', 'ST']
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +47,17 @@ class PopularPlayerItem extends StatelessWidget {
                         child: Row(
                           children: [
                             user.imageUrl == ''
-                                ? Image.asset('assets/images/player.png')
+                                ? Image.asset(
+                                    'assets/images/player.png',
+                                    width: 20.w,
+                                    height: 20.h,
+                                    fit: BoxFit.cover,
+                                  )
                                 : Image.network(
                                     user.imageUrl,
-                                    width: 100,
-                                    height: 100,
+                                    width: 20.w,
+                                    height: 20.h,
+                                    fit: BoxFit.cover,
                                   ),
                             const SizedBox(
                               width: 15,
@@ -78,7 +92,20 @@ class PopularPlayerItem extends StatelessWidget {
                                           size: 21,
                                         ),
                                         Text(
-                                          user.location,
+                                          position['goal keepers']!
+                                              .contains(user.playerPosition!)
+                                          ? 'goal keeper'
+                                          : position['midfielders']!.contains(
+                                                  user.playerPosition!)
+                                              ? 'midfielder'
+                                              : position['defenders']!.contains(
+                                                      user.playerPosition!)
+                                                  ? 'defender'
+                                                  : position['attackers']!
+                                                          .contains(user
+                                                              .playerPosition!)
+                                                      ? 'attacker'
+                                                      : 'unknown',
                                           style: const TextStyle(
                                             color: Colors.grey,
                                           ),

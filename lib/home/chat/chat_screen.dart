@@ -82,8 +82,9 @@ class ChatScreen extends StatelessWidget {
                           leading: chatRoom.imageUrl.isEmpty
                               ? const CircleAvatar(
                                   radius: 40,
-                                  foregroundImage:
-                                      AssetImage('assets/images/player.png'),
+                            
+                                  foregroundImage:  AssetImage(
+                                      'assets/images/player.png'),
                                 )
                               : CircleAvatar(
                                   radius: 40,

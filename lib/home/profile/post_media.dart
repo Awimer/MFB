@@ -89,9 +89,9 @@ class _PostMediaState extends State<PostMedia> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: user.imageUrl!.isEmpty
+                          leading: user.imageUrl.isEmpty
                               ? Image.asset('assets/images/player.png')
-                              : Image.network(user.imageUrl!),
+                              : Image.network(user.imageUrl),
                           title: Text(user.userName),
                           subtitle: Row(
                             children: [

@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mfb/category_screen.dart';
 import 'package:mfb/home/chat/chat_room.dart';
 import 'package:mfb/home/home_layout.dart';
 import 'package:mfb/activity/activity_screen.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
           ProfileModify.routeName: (_) => const ProfileModify(),
           ChatRoom.routeName: (_) => const ChatRoom(),
           PostMedia.routeName: (_) => const PostMedia(),
+          CategoryScreen.routeName: (_) => const CategoryScreen(),
           //DecisionsTree.routeName: (_) => const DecisionsTree()
         },
         initialRoute: FirebaseAuth.instance.currentUser != null

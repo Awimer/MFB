@@ -91,7 +91,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                     unselectedLabelStyle: Theme.of(context)
                         .bottomNavigationBarTheme
                         .unselectedLabelStyle,
-                    items: currentUser.userType == 'player'
+                    items: currentUser.userType != 'fan'
                         ? [
                             BottomNavigationBarItem(
                                 backgroundColor: Theme.of(context)

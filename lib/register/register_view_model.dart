@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+/* import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mfb/base.dart';
 import 'package:mfb/data_base/my_database.dart';
 import 'package:mfb/model/player_model.dart';
@@ -67,3 +67,4 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
     }
   }
 }
+ */

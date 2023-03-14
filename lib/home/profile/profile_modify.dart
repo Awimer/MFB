@@ -25,6 +25,8 @@ class _ProfileModifyState extends State<ProfileModify> {
   final weightController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final aboutController = TextEditingController();
+  final favoritePlaneController = TextEditingController();
+  final currentClubeController = TextEditingController();
 
   final List<String> positionList = [
     'Gk',
@@ -56,8 +58,8 @@ class _ProfileModifyState extends State<ProfileModify> {
             .get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final userData =
-                PlayerModel.fromMap(snapshot.data!.data() as Map<String, dynamic>);
+            final userData = PlayerModel.fromMap(
+                snapshot.data!.data() as Map<String, dynamic>);
             downloadUrl = userData.imageUrl;
             return SingleChildScrollView(
               child: Form(
@@ -111,29 +113,77 @@ class _ProfileModifyState extends State<ProfileModify> {
                       const Icon(Icons.person_pin_sharp),
                     ),
                     space,
-                   userData.userType == 'player'? _customTextField(
-                      'Age',
-                      TextInputType.number,
-                      userData.age,
-                      ageController,
-                      const Icon(Icons.person),
-                    ):const SizedBox(),
+                    userData.userType == 'player'
+                        ? _customTextField(
+                            'Player Position',
+                            TextInputType.text,
+                            selectedPlayerPosition,
+                            playerPositionController,
+                            DropdownButton<String>(
+                                hint: const Icon(Icons.location_pin),
+                                items: positionList
+                                    .map<DropdownMenuItem<String>>(
+                                        (playerPosition) {
+                                  return DropdownMenuItem(
+                                    value: playerPosition,
+                                    child: Text(playerPosition),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedPlayerPosition = value!;
+                                  });
+                                }),
+                          )
+                        : const SizedBox(),
                     space,
-                    userData.userType == 'player'?_customTextField(
-                      'Height',
-                      TextInputType.number,
-                      userData.playerHeight,
-                      playerHeightController,
-                      const Icon(Icons.height),
-                    ):const SizedBox(),
+                    userData.userType == 'player'
+                        ? _customTextField(
+                            'Age',
+                            TextInputType.number,
+                            userData.age,
+                            ageController,
+                            const Icon(Icons.person),
+                          )
+                        : const SizedBox(),
                     space,
-                    userData.userType == 'player'?_customTextField(
-                      'Weight',
-                      TextInputType.number,
-                      userData.weight,
-                      weightController,
-                      const Icon(Icons.line_weight),
-                    ):const SizedBox(),
+                    userData.userType == 'player'
+                        ? _customTextField(
+                            'Height',
+                            TextInputType.number,
+                            userData.playerHeight,
+                            playerHeightController,
+                            const Icon(Icons.height),
+                          )
+                        : const SizedBox(),
+                    space,
+                    userData.userType == 'player'
+                        ? _customTextField(
+                            'Weight',
+                            TextInputType.number,
+                            userData.weight,
+                            weightController,
+                            const Icon(Icons.line_weight),
+                          )
+                        : const SizedBox(),
+                    space,
+                    _customTextField(
+                      'Current clube',
+                      TextInputType.text,
+                      userData.currentClube,
+                      currentClubeController,
+                      const Icon(Icons.place),
+                    ),
+                    space,
+                    userData.userType == 'coach'
+                        ? _customTextField(
+                            'Favorite plane',
+                            TextInputType.text,
+                            userData.favoritePlane,
+                            favoritePlaneController,
+                            const Icon(Icons.favorite),
+                          )
+                        : const SizedBox(),
                     space,
                     _customTextField(
                       'About',
@@ -142,27 +192,6 @@ class _ProfileModifyState extends State<ProfileModify> {
                       aboutController,
                       const Icon(Icons.info),
                     ),
-                    space,
-                    userData.userType == 'player'?_customTextField(
-                      'Player Position',
-                      TextInputType.text,
-                      selectedPlayerPosition,
-                      playerPositionController,
-                      DropdownButton<String>(
-                          hint: const Icon(Icons.location_pin),
-                          items: positionList
-                              .map<DropdownMenuItem<String>>((playerPosition) {
-                            return DropdownMenuItem(
-                              value: playerPosition,
-                              child: Text(playerPosition),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedPlayerPosition = value!;
-                            });
-                          }),
-                    ):const SizedBox(),
                     space,
                     _customTextField(
                       'Location',
@@ -175,7 +204,7 @@ class _ProfileModifyState extends State<ProfileModify> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                        onPressed: _updateProfile,
+                        onPressed: () => _updateProfile(userData),
                         child: const Text('Update Profile'))
                   ],
                 ),
@@ -197,7 +226,7 @@ class _ProfileModifyState extends State<ProfileModify> {
     controller,
     widget,
   ]) {
-    //controller.text = '$initValue';
+    controller.text = '$initValue';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -222,7 +251,6 @@ class _ProfileModifyState extends State<ProfileModify> {
             child: widget,
           ),
           hintText: title == 'Player Position' ? selectedPlayerPosition : title,
-          labelText: title,
           border: const OutlineInputBorder(),
         ),
       ),
@@ -247,7 +275,7 @@ class _ProfileModifyState extends State<ProfileModify> {
   }
 
   String downloadUrl = '';
-  void _updateProfile() async {
+  void _updateProfile(userData) async {
     if (!_key.currentState!.validate()) {
       return;
     }
@@ -255,7 +283,7 @@ class _ProfileModifyState extends State<ProfileModify> {
     if (imagePath.isNotEmpty) {
       downloadUrl = await _uploadImage();
     }
-    Map<String, dynamic> userData = {
+    Map<String, dynamic> playerData = {
       'age': ageController.text,
       'playerHeight': playerHeightController.text,
       'playerPosition': selectedPlayerPosition,
@@ -263,12 +291,22 @@ class _ProfileModifyState extends State<ProfileModify> {
       'location': locationController.text,
       'userName': userNameController.text,
       'imageUrl': downloadUrl,
-      'about': aboutController.text
+      'about': aboutController.text,
+      'favoritePlane': favoritePlaneController.text,
+      'currentClube': currentClubeController.text
+    };
+    Map<String, dynamic> coachData = {
+      'location': locationController.text,
+      'userName': userNameController.text,
+      'imageUrl': downloadUrl,
+      'about': aboutController.text,
+      'favoritePlane': favoritePlaneController.text,
+      'currentClube': currentClubeController.text
     };
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update(userData)
+        .update(userData.userType == 'player' ? playerData : coachData)
         .then((value) {});
   }
 

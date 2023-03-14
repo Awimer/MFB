@@ -18,17 +18,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
       var credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      var retrievedUser =
-          await MyDataBase.getUserById(credential.user?.uid ?? '');
-      navigator?.hideLoadingDialog();
-
-      if (retrievedUser == null) {
-        navigator?.showMessageDialog('something went wrong,'
-            'wrong user name or password');
-      } else {
-        SharedData.user = retrievedUser;
-        navigator?.gotoHome();
-      }
+      navigator!.hideLoadingDialog();
     } on FirebaseAuthException catch (e) {
       navigator?.hideLoadingDialog();
       // show message with wrong email or password

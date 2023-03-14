@@ -146,6 +146,14 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                         const SizedBox(
                                           height: 10,
                                         ),
+                                        Text(
+                                          '${userData.currentClube} (Clube)',
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
                                       ],
                                     ),
                                     Image.asset('assets/images/egypt.png')

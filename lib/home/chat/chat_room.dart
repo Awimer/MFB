@@ -142,11 +142,11 @@ class _ChatRoomState extends State<ChatRoom> {
                             radius: 20,
                             backgroundImage: NetworkImage(userData.imageUrl),
                           ),
-                    const SizedBox(
-                      width: 12,
+                    SizedBox(
+                      width: 1.2.w,
                     ),
                     SizedBox(
-                      width: 35.w,
+                      width: 30.w,
                       child: Text(
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,

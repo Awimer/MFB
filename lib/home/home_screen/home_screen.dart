@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:mfb/home/home_screen/popular_player_item.dart';
 import 'package:mfb/model/player_model.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
+import 'package:sizer/sizer.dart';
 
+import '../../category_screen.dart';
 import '../../player details/player_details.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -69,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           'Hi, ${userData.userName}',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
                           height: 5,
@@ -126,6 +128,12 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
+  final Map<String, List<String>> position = {
+    'goal keepers': ['GK'],
+    'midfielders': ['CDM', 'CM', 'CAM'],
+    'defenders': ['CB', 'RB', 'LB'],
+    'attackers': ['RW', 'LW', 'ST']
+  };
   Widget _buildHomeWidget() {
     return Expanded(
       child: Column(
@@ -143,14 +151,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(
             height: 100.0,
-            child: ListView.separated(
+            child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => buildCategoryItem(),
-              separatorBuilder: (context, index) => const SizedBox(
-                width: 20.0,
-              ),
-              itemCount: 4,
+              children: [
+                'goal keepers',
+                'midfielders',
+                'defenders',
+                'attackers'
+              ].map((title) {
+                return buildCategoryItem(title);
+              }).toList(),
             ),
           ),
           const SizedBox(
@@ -171,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ],
           ),
-          const PopularPlayerItem(),
+          PopularPlayerItem(),
         ],
       ),
     );
@@ -205,11 +216,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children: [
                             user.imageUrl == ''
-                                ? Image.asset('assets/images/player.png')
+                                ? Image.asset('assets/images/player.png',
+                                    width: 5.w, height: 5.h, fit: BoxFit.cover)
                                 : Image.network(
-                                    user.imageUrl!,
-                                    width: 100,
-                                    height: 100,
+                                    user.imageUrl,
+                                    width: 5.w,
+                                    height: 5.h,
                                   ),
                             const SizedBox(
                               width: 15,
@@ -226,9 +238,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: const TextStyle(color: Colors.grey),
                                 ),
                                 space,
-                                const Text(
-                                  'Striker',
-                                  style: TextStyle(color: Colors.grey),
+                                Text(
+                                  user.playerPosition!,
+                                  style: const TextStyle(color: Colors.grey),
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -240,7 +252,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       size: 21,
                                     ),
                                     Text(
-                                      user.location!,
+                                      position['goal keepers']!
+                                              .contains(user.playerPosition!)
+                                          ? 'goal keeper'
+                                          : position['midfielders']!.contains(
+                                                  user.playerPosition!)
+                                              ? 'midfielder'
+                                              : position['defenders']!.contains(
+                                                      user.playerPosition!)
+                                                  ? 'defender'
+                                                  : position['attackers']!
+                                                          .contains(user
+                                                              .playerPosition!)
+                                                      ? 'attacker'
+                                                      : 'unknown',
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -309,31 +334,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildCategoryItem() => Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            const Material(elevation: 10.0, color: Colors.grey),
-            Image.asset(
-              'assets/images/striker_category.png',
-              width: 100.0,
-              height: 100.0,
-              fit: BoxFit.cover,
-            ),
-            Container(
-              height: 30,
-              width: 100.0,
-              color: Theme.of(context).buttonColor,
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Center(
-                  child: Text(
-                'Goal Keeper',
-                style: Theme.of(context).textTheme.bodyText2,
-              )),
-            ),
-          ],
+  Widget buildCategoryItem(title) => InkWell(
+        onTap: () => Navigator.pushNamed(context, CategoryScreen.routeName,
+            arguments: title),
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              const Material(elevation: 10.0, color: Colors.grey),
+              Image.asset(
+                title == 'goal keepers'
+                    ? 'assets/images/goal_keeper.png'
+                    : 'assets/images/striker_category.png',
+                width: 100.0,
+                height: 100.0,
+                fit: BoxFit.cover,
+              ),
+              Container(
+                height: 30,
+                width: 100.0,
+                // ignore: deprecated_member_use
+                color: Theme.of(context).buttonColor,
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Center(
+                    child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                )),
+              ),
+            ],
+          ),
         ),
       );
 }
