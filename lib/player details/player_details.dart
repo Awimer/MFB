@@ -289,7 +289,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
               .collection('posts')
               .where('postTyp', isEqualTo: 'image')
               .where('ownerId',
-                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                  isEqualTo: userId)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -331,7 +331,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
               .collection('posts')
               .where('postTyp', isEqualTo: 'video')
               .where('ownerId',
-                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                  isEqualTo: userId)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
