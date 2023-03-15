@@ -282,7 +282,11 @@ class _PostMediaState extends State<PostMedia> {
 
     FirebaseFirestore.instance.collection('posts').doc(id).set(PostModel(
             id: id,
-            postTyp: file.path.isNotEmpty?!isImage(file.path)? 'video':'image':'text',
+            postTyp: file.path.isNotEmpty
+                ? !isImage(file.path)
+                    ? 'video'
+                    : 'image'
+                : 'text',
             ownerId: FirebaseAuth.instance.currentUser!.uid,
             titlePost: titlePost.text,
             imageUrl: file.path.isEmpty ? '' : await uploadMedia(),
@@ -304,7 +308,24 @@ class _PostMediaState extends State<PostMedia> {
           .child('posts data')
           .child(file.path.split('/').last)
           .putFile(file);
-     
+
+      if (snapshot.state == TaskState.running) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return Dialog(
+                child: Column(
+                  children: const [
+                    Center(child: CircularProgressIndicator()),
+                    const SizedBox(height: 10),
+                    Text('Please wait..')
+                  ],
+                ),
+              );
+            });
+      } else if (snapshot.state == TaskState.success) {
+        Navigator.pop(context);
+      }
       return snapshot.ref.getDownloadURL();
     } on FirebaseException {
       return '';
