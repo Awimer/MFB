@@ -45,7 +45,9 @@ class _PostMediaState extends State<PostMedia> {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(Icons.cancel)),
           actions: [
-            IconButton(onPressed: _post, icon: const Icon(Icons.check))
+            IconButton(
+                onPressed: _post
+                , icon: const Icon(Icons.check))
           ],
         ),
         floatingActionButton: AnimatedFloatingActionButton(
@@ -292,6 +294,7 @@ class _PostMediaState extends State<PostMedia> {
             imageUrl: file.path.isEmpty ? '' : await uploadMedia(),
             shareType: shareType)
         .toMap());
+
   }
 
   String shareType = 'public';

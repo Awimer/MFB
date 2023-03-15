@@ -46,19 +46,21 @@ class PopularPlayerItem extends StatelessWidget {
                             color: Theme.of(context).cardColor),
                         child: Row(
                           children: [
-                            user.imageUrl == ''
-                                ? Image.asset(
-                                    'assets/images/player.png',
-                                    width: 20.w,
-                                    height: 20.h,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.network(
-                                    user.imageUrl,
-                                    width: 20.w,
-                                    height: 20.h,
-                                    fit: BoxFit.cover,
-                                  ),
+                            Expanded(
+                              child: user.imageUrl == ''
+                                  ? Image.asset(
+                                      'assets/images/player.png',
+                                      width: 20.w,
+                                      height: 20.h,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      user.imageUrl,
+                                      width: 20.w,
+                                      height: 20.h,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
                             const SizedBox(
                               width: 15,
                             ),
@@ -86,11 +88,6 @@ class PopularPlayerItem extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Icon(
-                                          Icons.location_on_outlined,
-                                          color: Colors.grey,
-                                          size: 21,
-                                        ),
                                         Text(
                                           position['goal keepers']!
                                               .contains(user.playerPosition!)
