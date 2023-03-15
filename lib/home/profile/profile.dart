@@ -2,18 +2,27 @@ import 'package:animated_floating_buttons/widgets/animated_floating_action_butto
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mfb/core/components/action_button.dart';
 import 'package:mfb/home/profile/post_media.dart';
 import 'package:mfb/home/profile/profile_modify.dart';
 import 'package:mfb/model/post_model.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../model/player_model.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
               },
             )
           ],
-          key: key,
+          key: widget.key,
           colorStartAnimation: Colors.blue,
           colorEndAnimation: Colors.red,
           animatedIconData: AnimatedIcons.menu_close),
@@ -87,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                         height: 20,
                       ),
                       _buildCardDetails(userData),
-                      userData.userType == 'player'
+                      userData.userType != 'fan'
                           ? _buildMedia()
                           : const SizedBox(),
                     ],
@@ -242,27 +251,31 @@ class ProfileScreen extends StatelessWidget {
           trailing: const Text('see More'),
           onTap: () {},
         ),
-        FutureBuilder<QuerySnapshot>(
-          future: FirebaseFirestore.instance
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
               .collection('posts')
               .where('postTyp', isEqualTo: 'image')
               .where('ownerId',
                   isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-              .get(),
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return SizedBox(
                 width: double.infinity,
                 height: 25.h,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: snapshot.data!.docs.map((doc) {
                     final post =
                         PostModel.fromMap(doc.data() as Map<String, dynamic>);
                     return InkWell(
                         onTap: () {},
-                        child: Image.network(
-                          post.imageUrl,
-                          fit: BoxFit.fill,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            post.imageUrl,
+                            fit: BoxFit.fill,
+                          ),
                         ));
                   }).toList(),
                 ),
@@ -270,7 +283,9 @@ class ProfileScreen extends StatelessWidget {
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
-            return const SizedBox();
+            return const SizedBox(
+              child: Text('this test'),
+            );
           },
         ),
         ListTile(
@@ -278,30 +293,45 @@ class ProfileScreen extends StatelessWidget {
           trailing: const Text('see More'),
           onTap: () {},
         ),
-        FutureBuilder<QuerySnapshot>(
-          future: FirebaseFirestore.instance
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
               .collection('posts')
-              .where('postType', isEqualTo: 'video')
+              .where('postTyp', isEqualTo: 'video')
               .where('ownerId',
                   isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-              .get(),
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return SizedBox(
                 width: double.infinity,
-                height: 25.h,
+                height: 55.h,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: snapshot.data!.docs.map((doc) {
                     final post =
                         PostModel.fromMap(doc.data() as Map<String, dynamic>);
-                    return Image.network(post.imageUrl);
+                    final flickManager = FlickManager(
+                      videoPlayerController:
+                          VideoPlayerController.network(post.imageUrl),
+                    );
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlickVideoPlayer(
+                        flickManager: flickManager,
+                      ),
+                    );
                   }).toList(),
                 ),
               );
+            } else if (snapshot.hasError) {
+              return const SizedBox(child: Text('unable to load video'));
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
-            return const SizedBox();
+            return const SizedBox(
+              child: Text('this test'),
+            );
           },
         )
       ],

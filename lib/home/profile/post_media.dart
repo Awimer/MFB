@@ -45,9 +45,7 @@ class _PostMediaState extends State<PostMedia> {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(Icons.cancel)),
           actions: [
-            IconButton(
-                onPressed: _post
-                , icon: const Icon(Icons.check))
+            IconButton(onPressed: _post, icon: const Icon(Icons.check))
           ],
         ),
         floatingActionButton: AnimatedFloatingActionButton(
@@ -196,7 +194,7 @@ class _PostMediaState extends State<PostMedia> {
         _controller.initialize().then((_) => setState(() {}));
       }
     } else {
-      // User canceled the picker
+      
     }
   }
 
@@ -294,7 +292,6 @@ class _PostMediaState extends State<PostMedia> {
             imageUrl: file.path.isEmpty ? '' : await uploadMedia(),
             shareType: shareType)
         .toMap());
-
   }
 
   String shareType = 'public';
@@ -304,7 +301,29 @@ class _PostMediaState extends State<PostMedia> {
     });
   }
 
+ 
+
+
   Future<String> uploadMedia() async {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Center(child: CircularProgressIndicator()),
+                  SizedBox(height: 10),
+                  Text('Please wait..')
+                ],
+              ),
+            ),
+          );
+        });
+
     try {
       final snapshot = await FirebaseStorage.instance
           .ref(FirebaseAuth.instance.currentUser!.uid)
@@ -312,21 +331,8 @@ class _PostMediaState extends State<PostMedia> {
           .child(file.path.split('/').last)
           .putFile(file);
 
-      if (snapshot.state == TaskState.running) {
-        showDialog(
-            context: context,
-            builder: (_) {
-              return Dialog(
-                child: Column(
-                  children: const [
-                    Center(child: CircularProgressIndicator()),
-                    const SizedBox(height: 10),
-                    Text('Please wait..')
-                  ],
-                ),
-              );
-            });
-      } else if (snapshot.state == TaskState.success) {
+      if (snapshot.state == TaskState.success) {
+        Navigator.pop(context);
         Navigator.pop(context);
       }
       return snapshot.ref.getDownloadURL();
