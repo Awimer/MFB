@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mfb/home/chat/chat_room.dart';
 import 'package:mfb/model/player_model.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_player/video_player.dart';
 
 import '../model/post_model.dart';
 
@@ -258,74 +260,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                         : const Text('You Rated this Player'),
                                   ],
                                 ),
-                                ListTile(
-                                  leading: const Text('Photos'),
-                                  trailing: const Text('see More'),
-                                  onTap: () {},
-                                ),
-                                StreamBuilder<QuerySnapshot>(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('posts')
-                                      .where('postType', isEqualTo: 'image')
-                                      .where('ownerId', isEqualTo: userId)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return SizedBox(
-                                        width: 60.w,
-                                        height: 20.h,
-                                        child: ListView(
-                                          children:
-                                              snapshot.data!.docs.map((doc) {
-                                            final post = PostModel.fromMap(
-                                                doc.data()
-                                                    as Map<String, dynamic>);
-                                            return Image.network(post.imageUrl);
-                                          }).toList(),
-                                        ),
-                                      );
-                                    } else if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    return const SizedBox();
-                                  },
-                                ),
-                                ListTile(
-                                  leading: const Text('Videos'),
-                                  trailing: const Text('see More'),
-                                  onTap: () {},
-                                ),
-                                FutureBuilder<QuerySnapshot>(
-                                  future: FirebaseFirestore.instance
-                                      .collection('posts')
-                                      .where('postType', isEqualTo: 'video')
-                                      .where('ownerId', isEqualTo: userId)
-                                      .get(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return SizedBox(
-                                        width: 60.w,
-                                        height: 20.h,
-                                        child: ListView(
-                                          children:
-                                              snapshot.data!.docs.map((doc) {
-                                            final post = PostModel.fromMap(
-                                                doc.data()
-                                                    as Map<String, dynamic>);
-                                            return Image.network(post.imageUrl);
-                                          }).toList(),
-                                        ),
-                                      );
-                                    } else if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    return const SizedBox();
-                                  },
-                                )
+                                _buildMedia()
                               ],
                             ),
                           ),
@@ -339,5 +274,100 @@ class _PlayerDetailsState extends State<PlayerDetails> {
           }
           return Container();
         });
+  }
+
+  _buildMedia() {
+    return Column(
+      children: [
+        ListTile(
+          leading: const Text('Photos'),
+          trailing: const Text('see More'),
+          onTap: () {},
+        ),
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('posts')
+              .where('postTyp', isEqualTo: 'image')
+              .where('ownerId',
+                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return SizedBox(
+                width: double.infinity,
+                height: 25.h,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: snapshot.data!.docs.map((doc) {
+                    final post =
+                        PostModel.fromMap(doc.data() as Map<String, dynamic>);
+                    return InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            post.imageUrl,
+                            fit: BoxFit.fill,
+                          ),
+                        ));
+                  }).toList(),
+                ),
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return const SizedBox(
+              child: Text('this test'),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Text('Videos'),
+          trailing: const Text('see More'),
+          onTap: () {},
+        ),
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('posts')
+              .where('postTyp', isEqualTo: 'video')
+              .where('ownerId',
+                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return SizedBox(
+                width: double.infinity,
+                height: 55.h,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: snapshot.data!.docs.map((doc) {
+                    final post =
+                        PostModel.fromMap(doc.data() as Map<String, dynamic>);
+                    final flickManager = FlickManager(
+                      videoPlayerController:
+                          VideoPlayerController.network(post.imageUrl),
+                    );
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlickVideoPlayer(
+                        flickManager: flickManager,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return const SizedBox(child: Text('unable to load video'));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return const SizedBox(
+              child: Text('this test'),
+            );
+          },
+        )
+      ],
+    );
   }
 }
