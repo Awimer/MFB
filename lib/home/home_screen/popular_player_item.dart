@@ -8,9 +8,9 @@ import 'package:sizer/sizer.dart';
 import '../../model/player_model.dart';
 
 class PopularPlayerItem extends StatelessWidget {
-   PopularPlayerItem({super.key});
+  PopularPlayerItem({super.key});
 
-   final Map<String, List<String>> position = {
+  final Map<String, List<String>> position = {
     'goal keepers': ['GK'],
     'midfielders': ['CDM', 'CM', 'CAM'],
     'defenders': ['CB', 'RB', 'LB'],
@@ -89,20 +89,7 @@ class PopularPlayerItem extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          position['goal keepers']!
-                                              .contains(user.playerPosition!)
-                                          ? 'goal keeper'
-                                          : position['midfielders']!.contains(
-                                                  user.playerPosition!)
-                                              ? 'midfielder'
-                                              : position['defenders']!.contains(
-                                                      user.playerPosition!)
-                                                  ? 'defender'
-                                                  : position['attackers']!
-                                                          .contains(user
-                                                              .playerPosition!)
-                                                      ? 'attacker'
-                                                      : 'unknown',
+                                          '${user.currentClube} (current clube)',
                                           style: const TextStyle(
                                             color: Colors.grey,
                                           ),

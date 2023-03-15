@@ -150,12 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              children: [
-                'GoalKeepers',
-                'MidFielders',
-                'Defenders',
-                'Attackers'
-              ].map((title) {
+              children: ['GoalKeepers', 'MidFielders', 'Defenders', 'Attackers']
+                  .map((title) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: buildCategoryItem(title),
@@ -251,20 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       size: 21,
                                     ),
                                     Text(
-                                      position['goal keepers']!
-                                              .contains(user.playerPosition!)
-                                          ? 'goal keeper'
-                                          : position['midfielders']!.contains(
-                                                  user.playerPosition!)
-                                              ? 'midfielder'
-                                              : position['defenders']!.contains(
-                                                      user.playerPosition!)
-                                                  ? 'defender'
-                                                  : position['attackers']!
-                                                          .contains(user
-                                                              .playerPosition!)
-                                                      ? 'attacker'
-                                                      : 'unknown',
+                                      '${user.currentClube} (current clube)',
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -362,7 +345,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   title,
                   style: Theme.of(context).textTheme.bodyMedium,
                 )),
-
               ),
             ],
           ),

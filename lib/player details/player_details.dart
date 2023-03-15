@@ -288,8 +288,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
           stream: FirebaseFirestore.instance
               .collection('posts')
               .where('postTyp', isEqualTo: 'image')
-              .where('ownerId',
-                  isEqualTo: userId)
+              .where('ownerId', isEqualTo: userId)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -330,8 +329,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
           stream: FirebaseFirestore.instance
               .collection('posts')
               .where('postTyp', isEqualTo: 'video')
-              .where('ownerId',
-                  isEqualTo: userId)
+              .where('ownerId', isEqualTo: userId)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
