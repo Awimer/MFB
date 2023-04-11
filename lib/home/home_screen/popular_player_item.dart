@@ -20,11 +20,11 @@ class PopularPlayerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 7);
+
+    
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('users')
-            .where('userType', isEqualTo: 'player')
-            .snapshots(),
+            .collection('users').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const SizedBox(child: Text('There is an error'));

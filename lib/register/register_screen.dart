@@ -146,7 +146,7 @@ class _RegisterState extends State<Register> {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      createAccountClicked();
+                      
                     },
                     minWidth: double.infinity,
                     color: Colors.red,

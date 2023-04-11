@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserModel {
   String imageUrl;
@@ -19,6 +21,7 @@ class UserModel {
     required this.userType
   });
 
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'imageUrl': imageUrl,
@@ -28,7 +31,7 @@ class UserModel {
       'email': email,
       'location': location,
       'age': age,
-      'userType': userType
+      'userType': userType,
     };
   }
 
@@ -41,7 +44,8 @@ class UserModel {
       email: map['email'] as String,
       location: map['location'] as String,
       age: map['age'] as int,
-      userType: map['userType'] as String 
+      userType: map['userType'] as String,
     );
   }
-}
+
+ }

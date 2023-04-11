@@ -3,7 +3,7 @@ import 'package:mfb/model/parent_model.dart';
 
 class PlayerModel extends UserModel {
   static const String collectionName = 'users';
-  int? playerHeight = 0;
+  int playerHeight = 0;
   int? weight = 0;
   String? playerPosition = '';
   String? about = '';
@@ -17,7 +17,7 @@ class PlayerModel extends UserModel {
 
   PlayerModel(
       {this.playerPosition,
-      this.playerHeight,
+      required this.playerHeight,
       this.weight,
       this.about,
       this.isLiked,
@@ -74,7 +74,7 @@ class PlayerModel extends UserModel {
         location: map['location'].toString(),
         weight: int.parse(map['weight'].toString()),
         about: map['about'].toString(),
-        isLiked: map['liked'] as bool ?? false,
+        isLiked: map['liked'] as bool,
         likeCounter: int.parse(map['likeCounter'].toString()),
         totalRating: double.parse(map['totalRating'].toString()),
         fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
