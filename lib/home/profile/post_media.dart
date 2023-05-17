@@ -193,9 +193,7 @@ class _PostMediaState extends State<PostMedia> {
       if (!isImage(file.path)) {
         _controller.initialize().then((_) => setState(() {}));
       }
-    } else {
-      
-    }
+    } else {}
   }
 
   final ImagePicker _imagePicker = ImagePicker();
@@ -289,7 +287,7 @@ class _PostMediaState extends State<PostMedia> {
                 : 'text',
             ownerId: FirebaseAuth.instance.currentUser!.uid,
             titlePost: titlePost.text,
-            imageUrl: file.path.isEmpty ? '' : await uploadMedia(),
+            mediaUrl: file.path.isEmpty ? '' : await uploadMedia(),
             shareType: shareType)
         .toMap());
   }
@@ -300,9 +298,6 @@ class _PostMediaState extends State<PostMedia> {
       shareType = value!;
     });
   }
-
- 
-
 
   Future<String> uploadMedia() async {
     showDialog(

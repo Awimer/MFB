@@ -305,7 +305,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.network(
-                            post.imageUrl,
+                            post.mediaUrl,
                             fit: BoxFit.fill,
                           ),
                         ));
@@ -343,7 +343,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                         PostModel.fromMap(doc.data() as Map<String, dynamic>);
                     final flickManager = FlickManager(
                       videoPlayerController:
-                          VideoPlayerController.network(post.imageUrl),
+                          VideoPlayerController.network(post.mediaUrl),
                     );
 
                     return Padding(

@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../category_screen.dart';
 import '../../player details/player_details.dart';
+import '../real_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,94 +35,104 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<DocumentSnapshot>(
-        future: usersCollection.doc(userId).get(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const SizedBox(child: Text('There is an error'));
-          }
-          if (snapshot.hasData) {
-            final userData = PlayerModel.fromMap(
-                snapshot.data!.data() as Map<String, dynamic>);
-            return Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'home',
+        onPressed: () {
+          Navigator.pushNamed(context, RealPage.routeName);
+        },
+        backgroundColor: Colors.redAccent,
+        child: const Icon(Icons.video_collection),
+      ),
+      body: FutureBuilder<DocumentSnapshot>(
+          future: usersCollection.doc(userId).get(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const SizedBox(child: Text('There is an error'));
+            }
+            if (snapshot.hasData) {
+              final userData = PlayerModel.fromMap(
+                  snapshot.data!.data() as Map<String, dynamic>);
+              return Scaffold(
                 backgroundColor: Colors.transparent,
-                elevation: 0,
-                titleSpacing: 20,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    userData.imageUrl == ''
-                        ? const CircleAvatar(
-                            radius: 23,
-                            foregroundImage:
-                                AssetImage('assets/images/player.png'),
-                          )
-                        : CircleAvatar(
-                            radius: 23,
-                            foregroundImage: NetworkImage(userData.imageUrl),
-                          ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hi, ${userData.userName}',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const Text(
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          'Explore The Best Player in the world',
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: [
-                    SearchBarAnimation(
-                      textEditingController: searchBar,
-                      isOriginalAnimation: false,
-                      onFieldSubmitted: (String value) {
-                        debugPrint('onFieldSubmitted value $value');
-                      },
-                      onPressButton: (value) {
-                        setState(() {
-                          isSearch = value;
-                          // searchValue = '';
-                        });
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          searchValue = value;
-                        });
-                      },
-                      buttonWidget: const Icon(Icons.search),
-                      secondaryButtonWidget: const Icon(Icons.cancel),
-                      trailingWidget: const Icon(
-                        Icons.search,
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  titleSpacing: 20,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      userData.imageUrl == ''
+                          ? const CircleAvatar(
+                              radius: 23,
+                              foregroundImage:
+                                  AssetImage('assets/images/player.png'),
+                            )
+                          : CircleAvatar(
+                              radius: 23,
+                              foregroundImage: NetworkImage(userData.imageUrl),
+                            ),
+                      const SizedBox(
+                        width: 10,
                       ),
-                    ),
-                    isSearch ? _buildSearchResult() : _buildHomeWidget(),
-                  ],
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hi, ${userData.userName}',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text(
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            'Explore The Best Player in the world',
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        });
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      SearchBarAnimation(
+                        textEditingController: searchBar,
+                        isOriginalAnimation: false,
+                        onFieldSubmitted: (String value) {
+                          debugPrint('onFieldSubmitted value $value');
+                        },
+                        onPressButton: (value) {
+                          setState(() {
+                            isSearch = value;
+                            // searchValue = '';
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            searchValue = value;
+                          });
+                        },
+                        buttonWidget: const Icon(Icons.search),
+                        secondaryButtonWidget: const Icon(Icons.cancel),
+                        trailingWidget: const Icon(
+                          Icons.search,
+                        ),
+                      ),
+                      isSearch ? _buildSearchResult() : _buildHomeWidget(),
+                    ],
+                  ),
+                ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
+    );
   }
 
   final Map<String, List<String>> position = {

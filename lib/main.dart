@@ -21,6 +21,7 @@ import 'package:sizer/sizer.dart';
 import 'forget_password/create_new_password.dart';
 import 'forget_password/forget_password.dart';
 import 'forget_password/verification_code.dart';
+import 'home/real_page.dart';
 import 'my_theme/my_theme.dart';
 import 'on_boarding/on_boarding_screen.dart';
 
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
           ChatRoom.routeName: (_) => const ChatRoom(),
           PostMedia.routeName: (_) => const PostMedia(),
           CategoryScreen.routeName: (_) => const CategoryScreen(),
+          RealPage.routeName: (_) => const RealPage(),
           //DecisionsTree.routeName: (_) => const DecisionsTree()
         },
         initialRoute: FirebaseAuth.instance.currentUser != null

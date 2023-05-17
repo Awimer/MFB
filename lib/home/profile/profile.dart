@@ -71,24 +71,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Stack(
                         alignment: Alignment.center,
                         children: [
-                          Divider(
-                            thickness: 1.5,
-                            color: const Color.fromRGBO(253, 76, 114, 1)
-                                .withOpacity(.3),
-                          ),
-                          Image.asset(
-                            'assets/images/circle_avater.png',
-                          ),
                           userData.imageUrl == ''
-                              ? const CircleAvatar(
-                                  radius: 40,
-                                  foregroundImage:
-                                      AssetImage('assets/images/player.png'),
+                              ? Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/circle_avater.png'),
+                                    ),
+                                  ),
+                                  child: const CircleAvatar(
+                                    radius: 40,
+                                    foregroundImage:
+                                        AssetImage('assets/images/player.png'),
+                                  ),
                                 )
-                              : CircleAvatar(
-                                  radius: 40,
-                                  foregroundImage:
-                                      NetworkImage(userData.imageUrl),
+                              : Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/circle_avater.png'),
+                                    ),
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 40,
+                                    foregroundImage:
+                                        NetworkImage(userData.imageUrl),
+                                  ),
                                 ),
                         ],
                       ),
@@ -274,7 +284,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.network(
-                            post.imageUrl,
+                            post.mediaUrl,
                             fit: BoxFit.fill,
                           ),
                         ));
@@ -313,7 +323,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         PostModel.fromMap(doc.data() as Map<String, dynamic>);
                     final flickManager = FlickManager(
                       videoPlayerController:
-                          VideoPlayerController.network(post.imageUrl),
+                          VideoPlayerController.network(post.mediaUrl),
                     );
 
                     return Padding(
