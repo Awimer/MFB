@@ -111,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _buildCardDetails(userData) {
+  _buildCardDetails(PlayerModel userData) {
     return Container(
       decoration: const BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
@@ -227,7 +227,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Icons.star,
                         color: Colors.yellow,
                       ),
-                      Text('Rate: ${userData.averageRating}'),
+                      Text(
+                          'Rate: ${userData.averageRating.toString().substring(0, 3)}'),
                       const SizedBox(width: 100),
                       const Icon(
                         Icons.favorite,
