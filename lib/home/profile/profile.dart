@@ -68,40 +68,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          userData.imageUrl == ''
-                              ? Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/circle_avater.png'),
-                                    ),
-                                  ),
-                                  child: const CircleAvatar(
-                                    radius: 40,
-                                    foregroundImage:
-                                        AssetImage('assets/images/player.png'),
-                                  ),
-                                )
-                              : Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/circle_avater.png'),
-                                    ),
-                                  ),
-                                  child: CircleAvatar(
-                                    radius: 40,
-                                    foregroundImage:
-                                        NetworkImage(userData.imageUrl),
-                                  ),
+                      userData.imageUrl == ''
+                          ? Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/circle_avater.png'),
                                 ),
-                        ],
-                      ),
+                              ),
+                              child: const CircleAvatar(
+                                radius: 40,
+                                foregroundImage:
+                                    AssetImage('assets/images/player.png'),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/circle_avater.png'),
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                radius: 40,
+                                foregroundImage:
+                                    NetworkImage(userData.imageUrl),
+                              ),
+                            ),
                       const SizedBox(
                         height: 20,
                       ),
