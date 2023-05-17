@@ -21,10 +21,8 @@ class PopularPlayerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     const space = SizedBox(height: 7);
 
-    
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('users').snapshots(),
+        stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const SizedBox(child: Text('There is an error'));
@@ -46,24 +44,18 @@ class PopularPlayerItem extends StatelessWidget {
                             color: Theme.of(context).cardColor),
                         child: Row(
                           children: [
-                            Expanded(
-                              child: user.imageUrl == ''
-                                  ? Image.asset(
-                                      'assets/images/player.png',
-                                      width: 20.w,
-                                      height: 20.h,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.network(
-                                      user.imageUrl,
-                                      width: 20.w,
-                                      height: 20.h,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            user.imageUrl == ''
+                                ? const CircleAvatar(
+                                    radius: 40,
+                                    foregroundImage:
+                                        AssetImage('assets/images/player.png'),
+                                  )
+                                : CircleAvatar(
+                                    radius: 40,
+                                    foregroundImage:
+                                        NetworkImage(user.imageUrl),
+                                  ),
+                            const SizedBox(width: 20),
                             Expanded(
                               child: Column(
                                 mainAxisAlignment:

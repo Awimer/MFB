@@ -192,7 +192,8 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                           Icons.star,
                                           color: Colors.yellow,
                                         ),
-                                        Text('Rate: ${userData.averageRating}'),
+                                        Text(
+                                            'Rate: ${userData.averageRating.toString().substring(0, 3)}'),
                                       ],
                                     ),
                                     !userData.fanRating!.contains(FirebaseAuth
@@ -342,6 +343,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                     final post =
                         PostModel.fromMap(doc.data() as Map<String, dynamic>);
                     final flickManager = FlickManager(
+                      autoPlay: false,
                       videoPlayerController:
                           VideoPlayerController.network(post.mediaUrl),
                     );

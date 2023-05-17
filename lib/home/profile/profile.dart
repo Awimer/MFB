@@ -317,6 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final post =
                         PostModel.fromMap(doc.data() as Map<String, dynamic>);
                     final flickManager = FlickManager(
+                      autoPlay: false,
                       videoPlayerController:
                           VideoPlayerController.network(post.mediaUrl),
                     );

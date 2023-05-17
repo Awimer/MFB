@@ -55,6 +55,7 @@ class _ContentPageState extends State<ContentPage> {
     controller = VideoPlayerController.network(widget.post.mediaUrl)
       ..initialize().then((value) {
         flick = FlickManager(
+          autoPlay: false,
           videoPlayerController: VideoPlayerController.network(
             widget.post.mediaUrl,
           ),
@@ -65,8 +66,15 @@ class _ContentPageState extends State<ContentPage> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    flick.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    controller.play();
+  
     return StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
