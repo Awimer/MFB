@@ -207,13 +207,13 @@ class _HomeScreenState extends State<HomeScreen> {
             return Expanded(
               child: ListView(
                 children: snapshot.data!.docs.map((doc) {
-                  final user =
+                  final userData =
                       PlayerModel.fromMap(doc.data() as Map<String, dynamic>);
-                  if (user.id != FirebaseAuth.instance.currentUser!.uid) {
+                  if (userData.id != FirebaseAuth.instance.currentUser!.uid) {
                     return InkWell(
                       onTap: () => Navigator.pushNamed(
                           context, PlayerDetails.routeName,
-                          arguments: user.id),
+                          arguments: userData.id),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 7),
                         decoration: BoxDecoration(
@@ -221,11 +221,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Theme.of(context).cardColor),
                         child: Row(
                           children: [
-                            user.imageUrl == ''
+                            userData.imageUrl == ''
                                 ? Image.asset('assets/images/player.png',
                                     width: 5.w, height: 5.h, fit: BoxFit.cover)
                                 : Image.network(
-                                    user.imageUrl,
+                                    userData.imageUrl,
                                     width: 5.w,
                                     height: 5.h,
                                   ),
@@ -237,15 +237,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 space,
-                                Text(user.userName),
+                                Text(userData.userName),
                                 space,
                                 Text(
-                                  user.age.toString(),
+                                  userData.age.toString(),
                                   style: const TextStyle(color: Colors.grey),
                                 ),
                                 space,
                                 Text(
-                                  user.playerPosition!,
+                                  userData.playerPosition!,
                                   style: const TextStyle(color: Colors.grey),
                                 ),
                                 Row(
@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       size: 21,
                                     ),
                                     Text(
-                                      '${user.currentClube} (current clube)',
+                                      '${userData.currentClube} (current clube)',
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
-                                      child: likeButton(user),
+                                      child: likeButton(userData),
                                     ),
                                   ],
                                 ),
@@ -349,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 30,
                 width: 100.0,
                 // ignore: deprecated_member_use
-                color: Theme.of(context).buttonColor,
+
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Center(
                     child: Text(

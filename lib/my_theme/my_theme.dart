@@ -9,12 +9,9 @@ class MyTheme {
   static final Color colorOpacityBlack = Colors.black.withOpacity(.7);
 
   static final ThemeData lightTheme = ThemeData(
-    backgroundColor: Colors.white,
     primaryColor: colorRed,
     canvasColor: Colors.white,
     cardColor: colorGrey,
-    buttonColor: colorOpacity,
-    errorColor: Colors.black,
 
     inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
@@ -63,12 +60,9 @@ class MyTheme {
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.black,
     ),
-    backgroundColor: Colors.black,
     primaryColor: colorRed,
    cardColor: colorBlack,
     canvasColor: Colors.black,
-    buttonColor: colorOpacityBlack,
-    errorColor: Colors.white,
    scaffoldBackgroundColor: Colors.transparent,
 inputDecorationTheme: const InputDecorationTheme(
   focusedBorder: OutlineInputBorder(
@@ -113,6 +107,6 @@ inputDecorationTheme: const InputDecorationTheme(
       ),
       selectedItemColor: colorRed,
       unselectedItemColor: Colors.white,
-    ),
+    ), 
   );
 }

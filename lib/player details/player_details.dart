@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mfb/home/chat/chat_room.dart';
 import 'package:mfb/model/player_model.dart';
+import 'package:mfb/player%20details/rate_player.dart';
 import 'package:sizer/sizer.dart';
 import 'package:video_player/video_player.dart';
 
@@ -193,7 +194,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                           color: Colors.yellow,
                                         ),
                                         Text(
-                                            'Rate: ${userData.averageRating.toString().substring(0, 3)}'),
+                                            'Rate: {userData.averageRating.toString().substring(0, 3)}'),
                                       ],
                                     ),
                                     !userData.fanRating!.contains(FirebaseAuth
@@ -241,20 +242,8 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                               }
                                             },
                                             onRatingUpdate: (rating) {
-                                              userData.fanRating!.add(
-                                                  FirebaseAuth.instance
-                                                      .currentUser!.uid);
-                                              userData.totalRating =
-                                                  userData.totalRating! +
-                                                      rating;
-
-                                              userData.averageRating = userData
-                                                      .totalRating! /
-                                                  userData.fanRating!.length;
-                                              FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(userId)
-                                                  .update(userData.toMap());
+                                              Navigator.pushNamed(context,
+                                                  RatePlayer.routeName,arguments: userData);
                                             },
                                             updateOnDrag: true,
                                           )

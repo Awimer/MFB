@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "125850964209",
-    "project_id": "m-f-b-af36d",
-    "storage_bucket": "m-f-b-af36d.appspot.com"
+    "project_number": "915819881308",
+    "project_id": "new-m-f-b",
+    "storage_bucket": "new-m-f-b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:125850964209:android:dc88b5244d0f6b6c341950",
+        "mobilesdk_app_id": "1:915819881308:android:40052a35b70a8721b8d799",
         "android_client_info": {
           "package_name": "com.example.mfb"
         }
       },
       "oauth_client": [
         {
-          "client_id": "125850964209-fjqd42qk23ssdeuni9neirckfi53nceu.apps.googleusercontent.com",
+          "client_id": "915819881308-lim9bbd9to12spe08g0ndjgnf9unold4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBT_edZW3VZi1PU9jD0uKuwBrtCpGxZYpw"
+          "current_key": "AIzaSyBVJNXtxJtUvV7ND8MJ1DFB2b9vFFBENpg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "125850964209-fjqd42qk23ssdeuni9neirckfi53nceu.apps.googleusercontent.com",
+              "client_id": "915819881308-lim9bbd9to12spe08g0ndjgnf9unold4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "915819881308-n5aj7roju8egekj2ourctd1esqh1h6ja.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mfb"
+              }
             }
           ]
         }

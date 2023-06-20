@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:mfb/model/parent_model.dart';
+import 'package:mfb/model/rate_skil_model.dart';
 
 class PlayerModel extends UserModel {
   static const String collectionName = 'users';
@@ -9,8 +10,8 @@ class PlayerModel extends UserModel {
   String? about = '';
   bool? isLiked = false;
   int? likeCounter = 0;
-  double? totalRating = 0;
-  double? averageRating = 0;
+  RateSkilModel totalRateSkil;
+  RateSkilModel averageRateSkil;
   List<String>? fanRating = [];
   String currentClube;
   String favoritePlane;
@@ -22,12 +23,12 @@ class PlayerModel extends UserModel {
       this.about,
       this.isLiked,
       this.likeCounter,
-      this.totalRating,
       this.fanRating,
-      this.averageRating,
       required super.imageUrl,
       required super.id,
       required super.userName,
+      required this.totalRateSkil,
+      required this.averageRateSkil,
       required super.phone,
       required super.email,
       required super.location,
@@ -51,10 +52,10 @@ class PlayerModel extends UserModel {
       'weight': weight,
       'about': about,
       'liked': isLiked,
+      'totalRateSkil': totalRateSkil,
+      'averageRateSkil': averageRateSkil,
       'likeCounter': likeCounter,
-      'totalRating': totalRating,
       'fanRating': fanRating,
-      'averageRating': averageRating,
       'userType': userType,
       'currentClube': currentClube,
       'favoritePlane': favoritePlane
@@ -75,10 +76,10 @@ class PlayerModel extends UserModel {
         weight: int.parse(map['weight'].toString()),
         about: map['about'].toString(),
         isLiked: map['liked'] as bool,
+        totalRateSkil: map['totalRateSkil'],
+        averageRateSkil: map['averageRateSkil'],
         likeCounter: int.parse(map['likeCounter'].toString()),
-        totalRating: double.parse(map['totalRating'].toString()),
         fanRating: List<String>.from(map['fanRating'].map((e) => e.toString())),
-        averageRating: double.parse(map['averageRating'].toString()),
         userType: map['userType'] as String,
         favoritePlane: map['favoritePlane'] as String,
         currentClube: map['currentClube'] as String);

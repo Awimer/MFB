@@ -233,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: Colors.yellow,
                       ),
                       Text(
-                          'Rate: ${userData.averageRating.toString().substring(0, 3)}'),
+                          'Rate: {userData.averageRating.toString().substring(0, 3)}'),
                       const SizedBox(width: 100),
                       const Icon(
                         Icons.favorite,
@@ -319,7 +319,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final flickManager = FlickManager(
                       autoPlay: false,
                       videoPlayerController:
-                          VideoPlayerController.network(post.mediaUrl),
+                          VideoPlayerController.network(post.mediaUrl,videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: false)),
                     );
 
                     return Padding(

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mfb/dialoge_utils.dart';
 
 import '../../model/player_model.dart';
 
@@ -279,7 +280,7 @@ class _ProfileModifyState extends State<ProfileModify> {
     if (!_key.currentState!.validate()) {
       return;
     }
-
+    showLoading(context, 'loading');
     if (imagePath.isNotEmpty) {
       downloadUrl = await _uploadImage();
     }
@@ -307,7 +308,10 @@ class _ProfileModifyState extends State<ProfileModify> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update(userData.userType == 'player' ? playerData : coachData)
-        .then((value) {});
+        .then((value) {
+      Navigator.pop(context);
+      Navigator.pop(context);
+    });
   }
 
   Future<String> _uploadImage() async {

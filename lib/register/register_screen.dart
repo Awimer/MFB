@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mfb/dialoge_utils.dart';
 import 'package:mfb/home/home_layout.dart';
+import 'package:mfb/model/rate_skil_model.dart';
 import 'package:mfb/register/validation_utils.dart';
 
 import '../login/login_screen.dart';
@@ -145,8 +146,8 @@ class _RegisterState extends State<Register> {
                     height: 20.0,
                   ),
                   MaterialButton(
-                    onPressed: () {
-                      
+                    onPressed: () async {
+                      await createAccountClicked();
                     },
                     minWidth: double.infinity,
                     color: Colors.red,
@@ -168,35 +169,16 @@ class _RegisterState extends State<Register> {
   }
 
   var authService = FirebaseAuth.instance;
-  void createAccountClicked() async {
+  Future<void> createAccountClicked() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     try {
-
-      var credential = await FirebaseAuth.instance
+      final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text);
-      PlayerModel newUser = PlayerModel(
-          id: credential.user!.uid,
-          phone: phoneController.text,
-          userName: userNameController.text,
-          email: emailController.text,
-          imageUrl: '',
-          about: '',
-          age: 0,
-          playerHeight: 0,
-          playerPosition: '',
-          weight: 0,
-          likeCounter: 0,
-          isLiked: false,
-          location: '',
-          totalRating: 0,
-          fanRating: [],
-          averageRating: 0,
-          userType: userType,
-          favoritePlane: '',
-          currentClube: '');
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+      PlayerModel newUser = initUserData(credential);
 
       FirebaseFirestore.instance
           .collection('users')
@@ -211,12 +193,48 @@ class _RegisterState extends State<Register> {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-
       } else if (e.code == 'email-already-in-use') {
-        showMessage(context, 'email already exists',posActionName: 'ok');
+        showMessage(context, 'email already exists', posActionName: 'ok');
       }
     } catch (e) {
-      print(e);
+      print('err: $e');
     }
+  }
+
+  PlayerModel initUserData(UserCredential credential) {
+    return PlayerModel(
+        id: credential.user!.uid,
+        phone: phoneController.text,
+        userName: userNameController.text,
+        email: emailController.text,
+        imageUrl: '',
+        about: '',
+        age: 0,
+        playerHeight: 0,
+        playerPosition: '',
+        weight: 0,
+        likeCounter: 0,
+        isLiked: false,
+        location: '',
+        totalRateSkil: RateSkilModel(
+          pace: 0,
+          defending: 0,
+          dribbling: 0,
+          passing: 0,
+          physical: 0,
+          shooting: 0,
+        ),
+        averageRateSkil: RateSkilModel(
+          pace: 0,
+          defending: 0,
+          dribbling: 0,
+          passing: 0,
+          physical: 0,
+          shooting: 0,
+        ),
+        fanRating: [],
+        userType: userType,
+        favoritePlane: '',
+        currentClube: '');
   }
 }
